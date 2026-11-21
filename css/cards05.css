@@ -13,7 +13,7 @@
   .cstep.side .cs-pics:is(.duo, .sq):not(:has(.cs-m)):not(:has(figure[data-lb])) > .cs-pic.b { width: 100%; max-width: none; }
   .cstep.side .cs-pics:is(.duo, .sq):not(:has(.cs-m)):not(:has(figure[data-lb])) > .cs-pic.a { position: absolute; left: -12px; bottom: -12px; z-index: 2; width: 38%; max-width: none;
     border-radius: 14px; box-shadow: 0 0 0 4px var(--inset-ring, #fff), 0 10px 24px rgba(10, 12, 30, .22); }
-  .cstep.side .cs-pics:is(.duo, .sq):not(:has(.cs-m)):not(:has(figure[data-lb])) > .cs-pic.a::after { content: ""; position: absolute; right: -16px; top: -18px; z-index: 3; width: 50px; height: 50px; pointer-events: none;
+  .cstep.side .cs-pics:is(.duo, .sq):not(:has(.cs-m)):not(:has(figure[data-lb])) > .cs-pic.a::after { content: ""; position: absolute; right: 8px; bottom: 8px; z-index: 3; width: 38px; height: 38px; pointer-events: none;
     background: #e0544f; filter: url(#crayon-i);
     -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Cpath d='M7 6 C 13 12, 21 21, 30 31 M30 5 C 23 12, 14 22, 6 31' fill='none' stroke='white' stroke-width='6.5' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
             mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Cpath d='M7 6 C 13 12, 21 21, 30 31 M30 5 C 23 12, 14 22, 6 31' fill='none' stroke='white' stroke-width='6.5' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat; }

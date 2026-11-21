@@ -8,7 +8,7 @@
 (function () {
   var P = [];   // { more, st, pill, inner, bar, ph(제자리 자리표), btn, busy, pad, sh }
   var EZ = "cubic-bezier(.65, 0, .35, 1)", T1 = 260, T2 = 300;   // ① 가로 ② 세로(ms)
-  var BW = 10, BH = 84, BAR = "#0b0c12", BAR_SH = "0 0 0 2px rgba(255, 255, 255, .9), 0 8px 22px rgba(10, 12, 20, .22)";
+  var BW = 10, BH = 84, BAR = "#1c1f2a", BAR_SH = "0 0 0 2px rgba(255, 255, 255, .9), 0 8px 22px rgba(10, 12, 20, .22)";
   function barGap() { return window.innerWidth <= 900 ? 72 : 76; }
   function calm() { return !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches); }
   function notify() { document.dispatchEvent(new CustomEvent("tracks-reordered")); window.dispatchEvent(new Event("resize")); }
@@ -52,7 +52,7 @@
     p.busy = true;
     pill.classList.add("morph");
     setBox(pill, { left: "0px", top: y1 + "px", width: BW + "px", height: BH + "px" });
-    fade = p.inner.animate([{ opacity: 1 }, { opacity: 0, offset: .4 }, { opacity: 0 }], { duration: T1, fill: "forwards" });
+    fade = p.inner.animate([{ opacity: 1 }, { opacity: 0, offset: .12 }, { opacity: 0 }], { duration: T1, fill: "forwards" });   // 알약이 줄기 전에 글자를 감춤(줄면서 두 줄로 찌그러져 보였음, 11-22)
     pill.animate([pillLook(p, r), barLook(y1)], { duration: T1, easing: EZ }).onfinish = function () {   // ① 가로
       docked();
       var y2 = dockTop(p);
@@ -81,7 +81,7 @@
       p.btn.textContent = "자세히 보기";
       pill.classList.remove("docked", "leaving"); pill.classList.add("morph");
       setBox(pill, { left: t.left + "px", top: t.top + "px", width: t.width + "px", height: t.height + "px" });
-      p.inner.animate([{ opacity: 0 }, { opacity: 0, offset: .55 }, { opacity: 1 }], { duration: T1 });
+      p.inner.animate([{ opacity: 0 }, { opacity: 0, offset: .85 }, { opacity: 1 }], { duration: T1 });
       pill.animate([barLook(t.top + t.height / 2 - BH / 2), pillLook(p, t)], { duration: T1, easing: EZ }).onfinish = home;
     }
     if (instant) { p.btn.textContent = "자세히 보기"; home(); return; }
@@ -127,7 +127,11 @@
     var p = { more: more, st: st, pill: pill, inner: inner, bar: bar, ph: ph, btn: btn, busy: false };
     P.push(p);
     btn.addEventListener("click", function () { toggle(more, more.hidden, false); });
-    bar.addEventListener("click", function () { var on = pill.classList.toggle("pop"); bar.setAttribute("aria-expanded", on ? "true" : "false"); p.popY = window.scrollY; });
+    // 막대: 한 번 누르면 [접기]가 튀어나오고, 한 번 더 누르면 바로 접힘(11-22 사용자 "바 두 번 누르면 접기")
+    bar.addEventListener("click", function () {
+      if (pill.classList.contains("pop")) { pill.classList.remove("pop"); bar.setAttribute("aria-expanded", "false"); toggle(more, false, false); return; }
+      pill.classList.add("pop"); bar.setAttribute("aria-expanded", "true"); p.popY = window.scrollY;
+    });
   });
   document.addEventListener("click", function (e) {   // 막대 밖을 누르면 튀어나온 [접기]를 다시 숨김
     P.forEach(function (p) {

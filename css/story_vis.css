@@ -10,11 +10,38 @@
 .ic-look { --ic: var(--ic-look); } .ic-rule { --ic: var(--ic-rule); } .ic-done { --ic: var(--ic-done); }
 .ic-wave { --ic: var(--ic-wave); } .ic-breath { --ic: var(--ic-breath); } .ic-shape { --ic: var(--ic-shape); }
 
-/* ① 01 순서도: 번호 대신 선 아이콘, 칸 사이에 작은 크레파스 화살표 */
+/* ① 00 지도 → 연표: 왼쪽 바처럼 가로 크레파스 선 위에 단계 점, 번호 · 이름은 위 · 아래로 번갈아(11-22 사용자 "설명 설명 / 0--0--0--0 / 설명 설명" — 00 같은 나열을) */
+.st-intro .st-map { position: relative; display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 0; height: 230px; margin: 30px 0 0; padding: 0 3%; }
+.st-map::before { content: ""; position: absolute; left: 3%; right: 3%; top: 50%; height: 9px; margin-top: -4px; background: var(--ink, #1c1f2a); opacity: .22;
+  -webkit-mask: url("../img/crayon/line_h.png") center / 100% 100% no-repeat; mask: url("../img/crayon/line_h.png") center / 100% 100% no-repeat; }
+.st-map li { position: relative; height: 100%; }
+.st-map li:nth-child(1) { --c: #2a76d6; } .st-map li:nth-child(2) { --c: #6b4de0; } .st-map li:nth-child(3) { --c: #0f9467; } .st-map li:nth-child(4) { --c: #e65f26; }
+.st-map li:nth-child(5) { --c: #e0407a; } .st-map li:nth-child(6) { --c: #b26a00; } .st-map li:nth-child(7) { --c: #ff4d5a; } .st-map li:nth-child(8) { --c: #24212f; }
+html[data-theme="dark"] .st-map li { --c: var(--mk); }
+.st-map li::after { content: ""; position: absolute; left: 50%; top: 50%; width: 16px; height: 16px; border-radius: 50%; transform: translate(-50%, -50%);
+  background: var(--c); box-shadow: 0 0 0 5px color-mix(in srgb, var(--c) 18%, transparent); transition: transform .2s; }
+.st-map li:hover::after { transform: translate(-50%, -50%) scale(1.25); }
+.st-map a { position: absolute; left: -45%; right: -45%; bottom: calc(50% + 20px); display: flex; flex-direction: column; align-items: center; gap: 2px; height: auto;
+  padding: 0; border-radius: 0; background: none !important; text-align: center; transform: none !important; }
+.st-map li:nth-child(even) a { top: calc(50% + 20px); bottom: auto; }
+.st-map li + li a::before { content: none !important; }
+.st-map em { color: var(--c) !important; font-size: 15px; }
+.st-map b { font-size: 15.5px; line-height: 1.35; text-wrap: balance; }
+.st-map a:hover b { color: var(--c); }
+@media (max-width: 900px) {   /* 좁은 화면: 왼쪽 세로 선 위에 점, 번호 · 이름은 오른쪽 */
+  .st-intro .st-map { grid-template-columns: minmax(0, 1fr); gap: 16px; height: auto; padding: 0; }
+  .st-intro .st-map li:last-child { grid-column: auto; }
+  .st-map::before { left: 6px; right: auto; top: 8px; bottom: 8px; width: 9px; height: auto; margin: 0; -webkit-mask-image: url("../img/crayon/line_v.png"); mask-image: url("../img/crayon/line_v.png"); }
+  .st-map li { height: auto; }
+  .st-map li::after { left: 10px; top: 13px; }
+  .st-map a, .st-map li:nth-child(even) a { position: static; flex-direction: row; justify-content: flex-start; gap: 10px; padding-left: 36px; text-align: left; }
+}
+
+/* ① 01 순서도: 번호 대신 선 아이콘, 카드 사이 가운데에 작은 크레파스 화살표(11-22 사용자: "이 디자인 마음에 들어, 화살표만 중앙으로") */
 .st-steps.flow { gap: 30px; }
 .st-steps.flow li { padding-left: 66px; }
 .st-steps.flow li::before { content: ""; left: 16px; top: 14px; width: 36px; height: 36px; background: var(--accent) var(--ic) center / 21px no-repeat; }
-.st-steps.flow li:not(:last-child)::after { content: ""; position: absolute; left: 27px; bottom: -26px; width: 14px; height: 22px; background: var(--accent); opacity: .85;
+.st-steps.flow li:not(:last-child)::after { content: ""; position: absolute; left: 50%; bottom: -26px; width: 14px; height: 22px; margin-left: -7px; background: var(--accent); opacity: .85;
   -webkit-mask: var(--cr-d) center / contain no-repeat; mask: var(--cr-d) center / contain no-repeat; }
 
 /* ② 성과 숫자: 다리 문장 위에 크게 — 화면에 들어오면 숫자가 차오르고 '탁' 소리(impact.js) */

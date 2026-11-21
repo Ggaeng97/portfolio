@@ -3,7 +3,7 @@
 //    소리 상자(AudioContext)는 열자마자 만들어 본다(허락되면 바로, 막히면 첫 클릭 때). 파일(4 MB)은 페이지가 다 뜬 뒤나 소리가 허락되는 즉시 받아 풀어 둔다.
 //  · 파일 주소(index.html 더블클릭)에선 브라우저가 웹 오디오의 파일 불러오기를 막아서, 일반 오디오 요소 넷으로 같은 일을 한다.
 window.SiteAudio = (function () {
-  var LAYERS = ["keys", "warm", "bell", "beat", "lead", "outro"], FX = ["type", "chalk", "impact"];   // impact = 성과 숫자가 다 찼을 때(impact.js, 11-22)
+  var LAYERS = ["keys", "warm", "bell", "beat", "lead", "outro"], FX = ["type", "chalk"];
   var want = LAYERS.map(function () { return 0; }), master = 0, stopped = false;
   var AC = window.AudioContext || window.webkitAudioContext, OAC = window.OfflineAudioContext || window.webkitOfflineAudioContext;
   var impl = location.protocol !== "file:" && AC && OAC && window.fetch ? webAudio() : mediaEls();

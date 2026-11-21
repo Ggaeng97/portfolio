@@ -49,7 +49,7 @@
     }
     onFirstView(f, function () { svg.classList.add("drawn"); f.classList.add("ringed"); if (window.chalkSound) chalkSound("ring"); });
   });
-  document.querySelectorAll(".cs-pics.duo > figure.b").forEach(function (f) {
+  document.querySelectorAll(".cs-pics:is(.duo, .sq, .tallpair) > figure.b").forEach(function (f) {   // 겹친 짝(sq)에도 ✓ — 빠져 있었음(11-22)
     var svg = svgPath("pen-mark", "0 0 46 40", "M5 22 C 9 25, 13 29, 17 34 C 23 22, 31 12, 42 5", true); f.appendChild(svg);
     onFirstView(f, function () { svg.classList.add("drawn"); if (window.chalkSound) setTimeout(function () { chalkSound("tick"); }, 200); });
   });
