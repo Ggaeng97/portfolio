@@ -37,6 +37,28 @@ html[data-theme="dark"] .st-map li { --c: var(--mk); }
   .st-map a, .st-map li:nth-child(even) a { position: static; flex-direction: row; justify-content: flex-start; gap: 10px; padding-left: 36px; text-align: left; }
 }
 
+/* 06 지나온 길 연표(.tl, company_visuals_tl.py): 00 과 같은 크레파스 가로선 + 단계색 점, 글은 위 · 아래로 번갈아. 좁은 화면은 왼쪽 세로선 */
+.tl { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); height: 210px; margin: 28px 0 8px; padding: 0 4%; list-style: none; }
+.tl::before { content: ""; position: absolute; left: 4%; right: 4%; top: 50%; height: 9px; margin-top: -4px; background: var(--ink, #1c1f2a); opacity: .22;
+  -webkit-mask: url("../img/crayon/line_h.png") center / 100% 100% no-repeat; mask: url("../img/crayon/line_h.png") center / 100% 100% no-repeat; }
+.tl li { position: relative; height: 100%; margin: 0; padding: 0; }
+.tl li::before { content: none; }
+.tl li::after { content: ""; position: absolute; left: 50%; top: 50%; width: 16px; height: 16px; border-radius: 50%; transform: translate(-50%, -50%);
+  background: var(--accent); box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 18%, transparent); }
+.tl li:last-child::after { width: 20px; height: 20px; }
+.tl em, .tl b { position: absolute; left: -30%; right: -30%; text-align: center; font-style: normal; }
+.tl em { bottom: calc(50% + 46px); color: var(--accent); font-size: 14px; font-weight: 800; }
+.tl b { bottom: calc(50% + 20px); font-size: 15.5px; line-height: 1.35; text-wrap: balance; }
+.tl li:nth-child(even) em { bottom: auto; top: calc(50% + 20px); }
+.tl li:nth-child(even) b { bottom: auto; top: calc(50% + 42px); }
+@media (max-width: 900px) {
+  .tl { grid-template-columns: minmax(0, 1fr); gap: 14px; height: auto; padding: 0; }
+  .tl::before { left: 6px; right: auto; top: 8px; bottom: 8px; width: 9px; height: auto; margin: 0; -webkit-mask-image: url("../img/crayon/line_v.png"); mask-image: url("../img/crayon/line_v.png"); }
+  .tl li { height: auto; display: flex; gap: 10px; align-items: baseline; padding-left: 36px; }
+  .tl li::after { left: 10px; top: 11px; }
+  .tl em, .tl b, .tl li:nth-child(even) em, .tl li:nth-child(even) b { position: static; text-align: left; }
+}
+
 /* ① 01 순서도: 번호 대신 선 아이콘, 카드 사이 가운데에 작은 크레파스 화살표(11-22 사용자: "이 디자인 마음에 들어, 화살표만 중앙으로") */
 .st-steps.flow { gap: 30px; }
 .st-steps.flow li { padding-left: 66px; }
