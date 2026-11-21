@@ -1,0 +1,75 @@
+/* 펼친 구역 전체를 앱 장(04)처럼(사용자 11-15 밤 "약 알림 앱처럼 모든 구간을 가독성 좋게 · 지적한 것 전부 모든 페이지에 · 스타일 최대한 비슷하게"):
+   카드 = 그림 옆에 글(좌우 번갈아), 문제 · 원인 · 고친 것 · 결과 칸 대신 의도 이야기 한 문단, 가운데로 모은 1040px, 앱과 같은 글씨 크기(w-app.css .cstep.side) */
+.st-more .wrap:has(> .cflow) { max-width: 1040px; }
+.cstep .cs-story { color: var(--ct); }
+.crit-dark .cs-story b { color: var(--ck); }
+/* 넓게 움직이는 설명 그림 · 전후 그림 두 장은 그림 칸 440px */
+.cstep.side.wide { grid-template-columns: 440px minmax(0, 1fr); }
+.cstep.side.wide.flip { grid-template-columns: minmax(0, 1fr) 440px; }
+.cstep.side .cs-pics.has-tg > .tg { max-width: none; }
+/* 그림 한 장(세로로 긴 화면)은 글 높이쯤으로 */
+.cstep.side .cs-pics.one > figure { max-width: none; }
+.cstep.side .cs-pics.one .cs-pic.tall img { height: 330px; }
+/* 가로로 긴 전후 그림은 위아래로(원래 → 고친 뒤) */
+.cstep.side .cs-pics.stack { flex-direction: column; align-items: stretch; gap: 6px; }
+.cstep.side .cs-pics.stack > figure, .cstep.side .cs-pics.stack > .cs-m { flex: none; width: 100%; max-width: none; }
+.cstep.side .cs-pics.stack > figure img { aspect-ratio: 2.4 / 1; }   /* 두 장 합이 글 높이에서 너무 벗어나지 않게 */
+.cstep.side .cs-pics.stack > .cs-arr { align-self: center; transform: rotate(90deg); font-size: 18px; line-height: 1; }
+.cstep.side .cs-pics.stack > .cs-m { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.cstep.side .cs-pics.stack > .cs-m figure { margin: 0; }
+.cstep.side .cs-pics.stack > .cs-m img { aspect-ratio: 4 / 3; }
+/* 세로로 긴 전후 그림(기둥)은 나란히, 잘리지 않게 */
+.cstep.side .cs-pics.tallpair > figure img { aspect-ratio: 320 / 550; }
+/* 정사각에 가까운 전후 그림(머리 · 마스코트) */
+.cstep.side .cs-pics.sq > figure img { aspect-ratio: 1; }
+@media (max-width: 900px) {
+  .cstep.side.wide, .cstep.side.wide.flip { grid-template-columns: minmax(0, 1fr); }
+}
+/* 카드 밖 구역도 같은 폭 · 큰 글씨(화면을 붙잡는 장면 .pin · .theatre · .hgal 은 제외) */
+.st-more .sec:not(.pin):not(.theatre):not(.hgal) > .wrap { max-width: 1040px; }
+.st-more .sec-lede { font-size: 19px; }
+/* 그림을 숫자로 읽는 방법 여섯 칸 = 그림 칸 안 3 × 2 */
+.cstep.side .cs-pics.ways6 > .way-pics { width: 100%; gap: 8px; }
+/* 학습 구역 · 클리커 옆 넘기기의 작은 글씨 키움 */
+.eb-pair > b { font-size: 18px; }
+.way-nums span { font-size: 15.5px; }
+.hg-text p { font-size: 19px; }
+.hg-text dd { font-size: 17.5px; }
+/* 측정 방법 여섯 칸은 그림 줄 안에 한 겹 더 들어 있어, '빈 그림 줄 숨기기'(w-cflow.css hide-todo)에 걸리지 않게 */
+body.hide-todo .cstep.side .cs-pics.ways6 { display: flex; }
+/* 처음과 지금 설명 · 고른 쪽 표의 작은 글씨 키움 */
+.gp-cap b { font-size: 18px; }
+.gp-cap span { font-size: 15.5px; }
+.way-picks li { font-size: 15.5px; }
+.way-picks li > b { font-size: 16.5px; }
+.way-picks .ai::before, .way-picks .me::before { font-size: 12.5px; }
+/* 단계 요약(01~05 머리)도 우파 1 · 2 · 3 처럼(사용자 11-15 밤 "글이 너무 많아, 우파 123 처럼 깔끔하게 · 핵심만 · 의도가 뭔지"):
+   짧은 들머리(상황 · 의도) + 1 · 2 · 3(굵은 한 줄 + 왜 · 어떻게 한 줄), 결과 상자는 3번에 합침. 흰 단계라 상자는 옅은 파랑 */
+.st-story p.st-lede { margin: 0 0 18px; font-size: 18.5px; line-height: 1.75; color: var(--ink); }
+.st-steps { display: grid; gap: 10px; margin: 0 0 24px; padding: 0; list-style: none; counter-reset: s; }
+.st-steps li { position: relative; padding: 15px 18px 15px 60px; border-radius: 16px; background: #f1f3fb; counter-increment: s; }
+.st-steps li::before { content: counter(s); position: absolute; left: 18px; top: 15px; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%;
+  background: var(--accent); color: #fff; font-size: 14px; font-weight: 800; }
+.st-steps li:nth-child(2)::before { background: color-mix(in srgb, var(--accent) 82%, #000); }
+.st-steps li:nth-child(3)::before { background: color-mix(in srgb, var(--accent) 64%, #000); }
+.st-steps b { display: block; font-size: 18px; line-height: 1.45; letter-spacing: -.02em; color: var(--ink); }
+.st-steps span { display: block; margin-top: 4px; font-size: 16px; line-height: 1.6; color: var(--ink-2); }
+@media (max-width: 900px) {
+  .st-story p.st-lede { font-size: 16.5px; }
+  .st-steps li { padding: 13px 14px 13px 52px; }
+  .st-steps li::before { left: 14px; top: 13px; width: 26px; height: 26px; font-size: 13px; }
+  .st-steps b { font-size: 16.5px; }
+  .st-steps span { font-size: 15px; }
+}
+/* 05 단계 그림 = 실제 출력물(사용자 11-15 밤 "실제 출력물이야"): 조립한 클리커를 꽉 차게, 머리를 뺀 몸통의 스위치는 왼쪽 아래 작게 */
+.st-vis .real-print { position: relative; margin: 0; }
+.st-sum:not(.wide) > .st-vis .real-print { height: 100%; }
+.st-vis .real-print .rp-main { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 18px; background: #e9e5df; }
+.st-vis .real-print .rp-inset { position: absolute; left: 14px; bottom: 14px; width: 42%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 12px;
+  border: 3px solid #fff; box-shadow: 0 8px 24px rgba(17, 18, 23, .18); }
+.st-vis .real-print::before { content: "실제 출력물"; position: absolute; left: 16px; top: 14px; z-index: 1; color: #fff; font-size: 15px; font-weight: 800;   /* 알약 없이 글자만(11-21) */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .55), 0 0 14px rgba(0, 0, 0, .35); }
+@media (max-width: 900px) { .st-vis .real-print .rp-main { height: auto; aspect-ratio: 4 / 3; } }
+/* 처음 → 학습 후 설탕이 모델은 05 펼친 구역 머리(어두운 장)로 옮김 */
+.gp-pair.head-learn { max-width: 640px; margin-top: 8px; }
+.gp-pair.head-learn img { aspect-ratio: 9 / 10; }

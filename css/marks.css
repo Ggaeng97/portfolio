@@ -1,0 +1,217 @@
+/* 테마와 상관없이 같은 것: 들머리 줄 배치 · 짚기(밑줄 · 동그라미 · ✓ · 메모) · 글 써지기 · 소리 단추 · 테마 단추 · 왼쪽 줄 배치.
+   색은 테마 파일(theme_pastel.css · theme_dark.css)의 변수로 받는다. 시작 틀 CSS 다음, 맨 끝 묶음에서 앞 파일을 덮는다(앞 파일은 고치지 않음). */
+:root { --hand: "Nanum Pen Script", "Apple SD Gothic Neo", cursive; --mk: #ff5a5f; }
+
+/* 제목 글꼴: 동글동글한 나눔스퀘어라운드(11-21 사용자: "타이틀 제목도 동글동글한 폰트였으면 — 손글씨와 갭 차이가 너무 커"). 본문은 그대로 Pretendard */
+@font-face { font-family: "Round"; font-weight: 400; font-display: swap; src: url("https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareRound/NanumSquareRoundR.woff2") format("woff2"), url("https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareRound/NanumSquareRoundR.woff") format("woff"); }
+@font-face { font-family: "Round"; font-weight: 700; font-display: swap; src: url("https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareRound/NanumSquareRoundB.woff2") format("woff2"), url("https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareRound/NanumSquareRoundB.woff") format("woff"); }
+@font-face { font-family: "Round"; font-weight: 800; font-display: swap; src: url("https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareRound/NanumSquareRoundEB.woff2") format("woff2"), url("https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareRound/NanumSquareRoundEB.woff") format("woff"); }
+.hc-text b, .fh-line, .st-map-k, .st-title h2, .st-bridge p, .sec-title h2, .cs-head h3, .next-card h2, .app-title { font-family: "Round", var(--sans); letter-spacing: -.015em; }
+.hc-text b, .fh-line, .st-map-k, .st-title h2, .st-bridge p, .sec-title h2, .next-card h2 { font-weight: 800; }   /* 이 글꼴의 700 은 원래 글꼴보다 획이 얇아 큰 제목은 800 */
+
+/* 마무리 카드: 위에 우파가 빼꼼(색은 테마 파일) */
+.next-card { position: relative; }
+.next-card .peek { position: absolute; right: clamp(16px, 4vw, 52px); top: clamp(-70px, -5vw, -48px); width: clamp(96px, 11vw, 150px); height: auto; pointer-events: none; filter: drop-shadow(0 8px 14px rgba(0, 0, 0, .18)); }
+.next-card h2 em { font-style: normal; }
+
+/* 첫 화면 다음: 흐르는 들머리(화면에 들어온 줄만 떠오름) */
+.fhook { padding: 12vh 0 14vh; }
+.fhook .wrap { max-width: 980px; }
+.fh-group { margin: 0 0 11vh; }
+.fh-group:last-child { margin-bottom: 0; }
+.fh-line { margin: 0 0 .7em; font-size: clamp(21px, 2.5vw, 34px); font-weight: 800; line-height: 1.45; letter-spacing: -.03em;
+  opacity: 0; transform: translateY(16px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+.fh-line.in { opacity: 1; transform: none; }
+.fh-line em { font-style: normal; }
+.fh-group.last .fh-line { font-size: clamp(24px, 3vw, 42px); }
+@media (prefers-reduced-motion: reduce) { .fh-line { opacity: 1; transform: none; transition: none; } }
+
+/* 밑줄: 글이 다 써진 뒤 그어진다(sound.js 가 .drawn) — 줄이 나뉘어도 글자 전체를 따라. 선 그림은 색이 테마마다 달라 테마 파일에 */
+.ul { background-repeat: no-repeat; background-position: 0 100%; background-size: 0% .34em; padding-bottom: .06em; transition: background-size .55s ease-out; }
+.ul.drawn { background-size: 100% .34em; }
+@media (prefers-reduced-motion: reduce) { .ul { transition: none; background-size: 100% .34em; } }
+
+/* 글 써지기: 앞 글자부터 한 글자씩 스르륵(sound.js 가 글자마다 .ch 와 순번 --i, 간격 --st 를 달고 화면에 들어오면 .go). 번호(.st-no)는 처음부터 보임.
+   줄 전체가 떠오르던 들머리 줄은 글자만 움직이게 끈다. 글자를 inline-block 으로 바꾸지 않는다(한글 낱말 중간에서 줄이 끊김). */
+.fh-line.wr { opacity: 1; transform: none; }
+.wr .ch { opacity: 0; transition: opacity .24s ease-out; }
+.wr.go .ch { opacity: 1; transition-delay: calc(var(--i) * var(--st, 34ms)); }
+
+/* 첫 화면 첨삭 묶음: 넷이 한꺼번에, 커서를 얹은 묶음만 또렷 · 나머지는 옅게(pen.js), 내리면 사라짐 · 휴대폰 세로 화면에선 숨김 */
+.hc-back .hb-pen { filter: none; opacity: 0; transition: opacity .35s ease; }
+.hc-back.pens-on .hb-pen { opacity: 1; }
+.hc-back.pens-on .hb-pen.dim { opacity: .14; }
+.hc-back.pens-on.pens-off .hb-pen { opacity: 0; }
+.hc-back.pens-reveal .hb-pen:nth-of-type(3) { transition-delay: .18s; } .hc-back.pens-reveal .hb-pen:nth-of-type(4) { transition-delay: .36s; } .hc-back.pens-reveal .hb-pen:nth-of-type(5) { transition-delay: .54s; }
+@media (max-aspect-ratio: 1/1) { .hc-back .hb-pen { display: none; } }
+
+/* 대표 영상 위 손글씨 메모 */
+.st-vis { position: relative; }
+.st-sum:not(.wide) > .st-vis > .pn, .st-vis > .pn { position: absolute; inset: auto; margin: 0; left: var(--x, auto); top: var(--y, auto); right: var(--r, auto); bottom: var(--b, auto); }
+/* 손글씨 메모: 가는 펜 글씨가 파스텔 바탕에서 묻히지 않게 크게 · 획을 굵게 · 테마마다 색(--note)과 뒤 빛(--note-glow)을 따로(11-21 사용자: "분홍 글씨가 잘 보이고 테마에 어울리게") */
+.pn { z-index: 3; pointer-events: none; font: 400 clamp(25px, 2.2vw, 33px)/1.08 var(--hand); color: var(--note, var(--mk)); white-space: nowrap; transform: rotate(var(--rot, -3deg));
+  -webkit-text-stroke: .5px currentColor; text-shadow: var(--note-glow, none); opacity: 0; transition: opacity .5s ease; }
+.st-vis.in .pn { opacity: 1; }
+.st-vis.in .pn:nth-of-type(2) { transition-delay: .45s; }
+.pn.dk { color: #ff7379; text-shadow: 0 0 5px rgba(0, 0, 0, .75), 0 0 12px rgba(0, 0, 0, .5); }   /* 어두운 대표 그림(파형 · 막대) 위 — 두 테마 모두 밝은 분홍 */
+/* 사진 · 렌더(성당 · 출력물)의 메모: 그림 위에선 분홍 손글씨가 안 읽힌다 → 그림의 위 · 아래만 배경색으로 부드럽게 녹이고(좌우는 그대로),
+   메모는 그 바깥의 깨끗한 바탕(--strip)에 쓴다. 11-21 사용자: 검은 띠 → "배경색에 부드럽게 마감하고 거기 써 줘" → 네 방향을 다 흐리고 글씨가 흐린 그림에 걸치자
+   "4방향 전부도 아니었고 지금도 이상해 — 분홍 글씨가 잘 보이고 테마에 어울리게". */
+.st-vis.lb { --strip: 46px; --fade: 52px; }
+.st-vis.lb video, .st-vis.lb .rp-main, .st-vis.lb .st-pic img { border-radius: 0;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, .05) calc(var(--fade) * .18), rgba(0, 0, 0, .2) calc(var(--fade) * .4), rgba(0, 0, 0, .5) calc(var(--fade) * .62), rgba(0, 0, 0, .82) calc(var(--fade) * .82), #000 var(--fade), #000 calc(100% - var(--fade)), rgba(0, 0, 0, .82) calc(100% - var(--fade) * .82), rgba(0, 0, 0, .5) calc(100% - var(--fade) * .62), rgba(0, 0, 0, .2) calc(100% - var(--fade) * .4), rgba(0, 0, 0, .05) calc(100% - var(--fade) * .18), transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, rgba(0, 0, 0, .05) calc(var(--fade) * .18), rgba(0, 0, 0, .2) calc(var(--fade) * .4), rgba(0, 0, 0, .5) calc(var(--fade) * .62), rgba(0, 0, 0, .82) calc(var(--fade) * .82), #000 var(--fade), #000 calc(100% - var(--fade)), rgba(0, 0, 0, .82) calc(100% - var(--fade) * .82), rgba(0, 0, 0, .5) calc(100% - var(--fade) * .62), rgba(0, 0, 0, .2) calc(100% - var(--fade) * .4), rgba(0, 0, 0, .05) calc(100% - var(--fade) * .18), transparent 100%); }
+.st-vis.lb > .pn { display: flex; align-items: center; height: var(--strip); }
+/* 어두운 화면 칸(01 파형 · 02 막대): 칸 안에 손글씨를 얹으면 안 어울려서(11-21) 칸 위아래에 바탕 띠를 두고 메모는 띠 위에 — 바탕 위 글씨색 그대로 */
+.st-vis.out { --strip: 46px; }
+.st-vis.out > .pn { display: flex; align-items: center; height: var(--strip); }
+@media (min-width: 901px) { .st-sum:not(.wide) > .st-vis.out > .cs-pics { inset: var(--strip) 0; height: auto; } }
+@media (max-width: 900px) { .st-vis.out { padding: var(--strip) 0; } }
+@media (max-width: 600px) { .st-vis.out { --strip: 40px; } }
+.st-vis.lb .real-print::before { top: calc(var(--fade) + 6px); }                         /* '실제 출력물' 칩 · 작은 사진은 녹는 자리 안쪽으로 */
+.st-vis.lb .real-print .rp-inset { bottom: calc(var(--fade) + 2px); }
+@media (min-width: 901px) { .st-sum:not(.wide) > .st-vis.lb > figure { inset: var(--strip) 0; height: auto; } }   /* 넓은 화면: 그림이 칸을 꽉 채우는 배치라 위아래를 메모 자리만큼 비움 */
+@media (max-width: 900px) { .st-vis.lb { padding: var(--strip) 0; } }
+@media (max-width: 600px) { .st-vis.lb { --strip: 40px; --fade: 40px; } .st-vis.lb .real-print .rp-inset { width: 32%; } }
+
+/* 캐릭터만 보이게 — 상자 · 레터박스 없이 흰 카드에 그대로 녹아듦(영상은 흰 바탕으로 합성, 11-21 사용자: "블랙 상자 레터박스, 녹색 배경보단 캐릭터만") */
+.cs-pic.bare video { width: 100%; height: auto; background: transparent; border-radius: 0; }
+/* 영상 카드(성당 변화 · 마스코트 돌려 보기 · 조립): 영상 비율 그대로 — 높이를 고정하면 위아래에 검은 띠가 생긴다 */
+.cs-pic.nat video { width: 100%; height: auto; background: none; }
+
+/* 테마 바꿀 때: 화면 가운데에서 새 테마가 물결처럼 둥글게 퍼짐(themes.js switchTo · 브라우저 화면 전환). 가장자리 120px 는 부드럽게 번짐 */
+@property --rip { syntax: "<length>"; inherits: false; initial-value: 0px; }
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-new(root) {
+  -webkit-mask: radial-gradient(circle at 50% 50%, #000 var(--rip), transparent calc(var(--rip) + 120px)) no-repeat;
+  mask: radial-gradient(circle at 50% 50%, #000 var(--rip), transparent calc(var(--rip) + 120px)) no-repeat;
+  animation: theme-rip 1s cubic-bezier(.35, .1, .25, 1) both; }
+@keyframes theme-rip { from { --rip: -120px; } to { --rip: var(--ripple-r, 1400px); } }
+
+/* 첫 카드: 테마 고르기 — 고르는 클릭으로 음악이 함께 시작(entry.js). 색은 테마 변수(--en-*) */
+.entry { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; padding: 20px; background: var(--en-veil);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); opacity: 0; transition: opacity .45s ease; }
+.entry.show { opacity: 1; }
+.entry:not(.show) { pointer-events: none; }   /* 닫히는 중엔 눌리지 않게 */
+.en-card { position: relative; width: min(520px, 100%); padding: 74px 30px 30px; border-radius: 30px; background: var(--en-card); box-shadow: 0 24px 60px rgba(0, 0, 0, .22);
+  text-align: center; transform: translateY(14px); transition: transform .45s var(--ease); }
+.entry.show .en-card { transform: none; }
+.en-uppa { position: absolute; left: 50%; top: -66px; width: 132px; transform: translateX(-50%); filter: drop-shadow(0 8px 14px rgba(0, 0, 0, .18)); }
+.en-k { margin: 0 0 6px; font-size: 14px; font-weight: 700; color: var(--en-sub); }
+.en-card h2 { margin: 0 0 22px; font-family: "Round", var(--sans); font-weight: 800; font-size: clamp(24px, 3vw, 32px); letter-spacing: -.015em; color: var(--en-ink); }
+.en-pick { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.en-pick button { display: flex; flex-direction: column; align-items: stretch; gap: 10px; padding: 12px; border: 2px solid transparent; border-radius: 20px;
+  background: var(--en-tile); cursor: pointer; font: inherit; transition: transform .2s, border-color .2s; }
+.en-pick button:hover, .en-pick button:focus-visible { transform: translateY(-2px); border-color: var(--en-ring); outline: none; }
+.en-pick button[aria-pressed="true"] { border-color: var(--en-ring); }
+.en-pick .sw { display: block; height: 84px; border-radius: 14px; }
+.en-pick .sw.pastel { background: linear-gradient(90deg, #d4ebff 0 16.6%, #e4dcff 0 33.3%, #cdf3df 0 50%, #ffe0cb 0 66.6%, #ffd9e7 0 83.3%, #fff0ae 0); }
+.en-pick .sw.dark { background: #0b0c0f url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 40'><path d='M16 25 C 42 17, 72 31, 104 19' fill='none' stroke='%23ff5a5f' stroke-width='4' stroke-linecap='round'/></svg>") center / 72% no-repeat; }
+.en-pick b { font-family: "Round", var(--sans); font-weight: 800; font-size: 17px; color: var(--en-ink); }
+@media (max-width: 480px) { .en-card { padding: 64px 18px 20px; } .en-pick .sw { height: 64px; } }
+
+/* 장면 그림(techart.js): 아래 점에 마우스를 올리거나 누르면 그 장면, 양옆 ‹ › 로 앞뒤 장면(11-21 사용자, 같은 유형 전부) */
+.tg-step i { gap: 0; }
+.tg-step i b { box-sizing: content-box; padding: 6px 2.5px; background-clip: content-box; cursor: pointer; }   /* 점은 그대로, 누르는 자리만 넓게 */
+.tg-step i b:hover { background-color: rgba(255, 255, 255, .55); } .tg-step i b.on:hover { background-color: #9fb0ff; }
+.tg-step i b.on { background-clip: content-box; }   /* 원래 스타일의 background 한 줄이 칠 범위를 되돌려 지금 점만 타원으로 커지던 것 */
+/* 원 없이 화살표만(11-21 사용자), 칸 가장자리에 붙여 그림 속 글자를 덮지 않게 */
+.tg-nav { position: absolute; top: calc(50% - 40px); z-index: 4; width: 28px; height: 48px; padding: 0; border: 0; border-radius: 0; cursor: pointer; outline: none;
+  background: none; color: rgba(255, 255, 255, .62); font: 300 34px/48px system-ui, sans-serif; text-shadow: 0 1px 6px rgba(0, 0, 0, .6); opacity: 0; transition: opacity .25s, color .2s; }
+.tg-nav.prev { left: 4px; } .tg-nav.next { right: 4px; }
+.tg:hover .tg-nav, .tg-nav:focus-visible { opacity: 1; } .tg-nav:hover, .tg-nav:focus-visible { color: #fff; }
+@media (hover: none) { .tg-nav { opacity: .75; } }
+
+/* NG 그림(11-21 사용자 바로잡음): 장면마다 하나씩(① 신호어 → ② 되풀이 → ③ 더듬음), 이름표는 알약 대신 글자만,
+   나타난 뒤 그 글자를 빨간 줄로 가로로 찍 — 지울 것. 막대는 찾은 구간만 빨갛게, ④ 에서 잘라 내고 당김. 옛 p 규칙(w-tech.css)은 여기서 덮는다 */
+.tg[data-tg=ng] .tg-tag { background: none; padding: 2px 4px; font-size: 15px; font-weight: 800; letter-spacing: -.01em; color: #eef0ff; }
+.tg[data-tg=ng] .tg-tag::after { content: ""; position: absolute; left: -5px; right: -5px; top: 50%; height: 3px; margin-top: -1px; border-radius: 3px; background: #ff3d5f;
+  box-shadow: 0 0 6px rgba(255, 61, 95, .7); transform: rotate(-7deg) scaleX(0); transform-origin: left center; transition: transform .35s cubic-bezier(.3, .7, .2, 1) .5s; }
+.tg[data-tg=ng] .ta, .tg[data-tg=ng] .tb, .tg[data-tg=ng] .tc { opacity: 0; }
+.tg[data-tg=ng].u1 .ta, .tg[data-tg=ng].u2 .tb, .tg[data-tg=ng].u3 .tc { opacity: 1; }
+.tg[data-tg=ng].u1 .ta::after, .tg[data-tg=ng].u2 .tb::after, .tg[data-tg=ng].u3 .tc::after { transform: rotate(-7deg) scaleX(1); }
+.tg[data-tg=ng].p4 .tg-tag { opacity: 0; }
+.tg[data-tg=ng] .ng { background: linear-gradient(#eef1ff, #8f9ff0); opacity: .9; flex-grow: 1; margin-right: 0; }
+.tg[data-tg=ng].u1 .ng.a, .tg[data-tg=ng].u2 .ng.b, .tg[data-tg=ng].u3 .ng.c { background: linear-gradient(#ffc2cc, #ff5c7a); opacity: 1; }
+.tg[data-tg=ng].p4 .ng.a, .tg[data-tg=ng].p4 .ng.b, .tg[data-tg=ng].p4 .ng.c { flex-grow: 0; opacity: 0; margin-right: -3px; }
+.tg[data-tg=ng].loop .tg-tag, .tg[data-tg=ng].loop .tg-tag::after { transition-duration: 0s; transition-delay: 0s; }
+
+/* 카드: 원래 ✗ · 고친 뒤 ✓, 원래 그림 동그라미 */
+.cs-pics.duo > figure.a[data-lb]::before { content: "✗  " attr(data-lb); color: #e0544f; }
+.cs-pics.duo > figure.b[data-lb]::before { content: "✓  " attr(data-lb); }
+.cs-pic { position: relative; }
+.pen-mark, .pen-ring { position: absolute; z-index: 2; pointer-events: none; overflow: visible; }
+.pen-mark { right: 8px; bottom: 8px; width: 46px; height: 40px; }
+.pen-ring { inset: 0; width: 100%; height: 100%; }
+.pen-mark path, .pen-ring path { fill: none; stroke: #ff5a5f; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; filter: url(#chalk-rough); }
+.pen-mark path { stroke-width: 5; }
+.pen-ring path { stroke-width: 3.4; vector-effect: non-scaling-stroke; }
+.drawn path { animation: pen-draw .6s .2s ease-out forwards; }
+.ring-note { position: absolute; z-index: 3; font: 400 22px/1 var(--hand); color: #ff5a5f; white-space: nowrap; pointer-events: none; text-shadow: 0 0 3px rgba(0, 0, 0, .6); opacity: 0; transition: opacity .4s .6s; }
+.cs-pic.ringed .ring-note { opacity: 1; }
+/* 그림 사이 화살표: 색연필 손그림(pen.js 가 글자 → 를 바꿔 넣음) */
+.cs-pics .cs-arr.hand { font-size: 0; line-height: 0; }
+.pen-arrow { display: block; width: 48px; height: 30px; overflow: visible; }
+.pen-arrow path { fill: none; stroke: var(--mk); stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; filter: url(#chalk-rough); }
+@media (max-width: 720px) { .pen-arrow { width: 34px; height: 22px; } }
+/* 앞뒤 그림의 '처음 · 지금' 칩(스타일로 그려 넣던 것)도 뺀다 — 없어도 아는 칩 */
+.gp-pair > div::after { content: none !important; }
+@keyframes pen-draw { to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) { .pen-mark path, .pen-ring path, .pen-arrow path { stroke-dashoffset: 0; animation: none; } .ring-note { opacity: 1; } }
+
+/* 클리커 갤러리는 칠하지 않는다 — 바탕은 body 색 하나로만 바뀌어야 다음 구역(마무리)으로 넘어갈 때 검은 띠가 잘린 채 남지 않는다(themes.js 참고) */
+.hgal, .hg-stage { background: transparent !important; }
+
+/* 소리 단추(오른쪽 아래, 브라우저는 누르기 전엔 소리를 못 냄) */
+.snd-btn { position: fixed; right: 18px; bottom: 18px; z-index: 60; width: 44px; height: 44px; border: 0; border-radius: 50%; cursor: pointer;
+  background: var(--sb-bg); box-shadow: var(--sb-sh); color: var(--sb-ink); font-size: 18px; line-height: 44px; }
+.snd-btn::before { content: "♪"; }
+.snd-btn:not(.on)::after { content: ""; position: absolute; left: 11px; right: 11px; top: 21px; height: 2px; background: var(--mk); transform: rotate(-38deg); }
+.snd-btn.on { background: var(--sb-on); color: #fff; }
+
+/* 소리 크기: ♪ 를 한 번 누르면 옆에 크기 조절 막대가 나오고, 두 번 누르면 끈다(sound.js) */
+.snd-btn { touch-action: manipulation; }
+.snd-pop { position: fixed; right: 70px; bottom: 18px; z-index: 60; display: flex; align-items: center; height: 44px; padding: 0 16px; border-radius: 999px;
+  background: var(--sb-bg); box-shadow: var(--sb-sh); opacity: 0; transform: translateX(12px); pointer-events: none; transition: opacity .2s ease, transform .2s ease; }
+.snd-pop.open { opacity: 1; transform: none; pointer-events: auto; }
+.snd-pop input { width: 132px; margin: 0; accent-color: var(--mk); cursor: pointer; }
+@media (max-width: 480px) { .snd-pop input { width: 104px; } }
+
+/* 테마 단추(위쪽 오른편 — 첫 화면에서 위쪽 줄이 숨어 있어도 보임) */
+.theme-sw { position: fixed; top: 13px; right: 18px; z-index: 70; display: flex; gap: 2px; padding: 3px; border-radius: 999px; background: var(--ts-bg); box-shadow: var(--ts-sh);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+.theme-sw button { height: 32px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: var(--ts-ink); cursor: pointer;
+  font-family: inherit; font-size: 13px; font-weight: 700; line-height: 32px; letter-spacing: -.01em; transition: background .2s, color .2s; }
+.theme-sw button[aria-pressed="true"] { background: var(--ts-on); color: var(--ts-on-ink); }
+@media (max-width: 1279px) { .bar nav { margin-right: 150px; } }   /* 위쪽 줄의 목차가 단추 밑으로 들어가지 않게 */
+@media (max-width: 720px) { .theme-sw { top: 10px; right: 10px; } .theme-sw button { height: 30px; padding: 0 11px; font-size: 12.5px; line-height: 30px; } .bar nav { margin-right: 128px; } }
+
+/* 왼쪽 줄(넓은 화면): 단계 번호 + 지나간 단계 ✓ — 색은 테마 변수 */
+@media (min-width: 1280px) {
+  .bar nav { display: none; }
+  /* 11-21 사용자: "마우스를 대면 튀고 어색해 · 참고 사이트는 길게 이어지는 줄인데 내 건 너무 압축된 일자 · 크레파스처럼 흰 틈이 보이게"
+     → 줄을 화면 높이의 3분의 2로 길게 펴고 항목을 고르게(toc.js 가 점 자리를 재서 줄 · 채움을 맞춤), 마우스를 올려도 자리는 그대로 두고 이름 · 뒤판만 서서히,
+       줄은 굵게 + 크레파스 질감(#crayon — 가장자리가 거칠고 흰 틈이 군데군데) */
+  .rail { display: block !important; position: fixed; left: 28px; top: 50%; transform: translateY(-50%); z-index: 40; opacity: 0; transition: opacity .4s; pointer-events: none; }
+  body.rail-on .rail { opacity: 1; pointer-events: auto; }
+  .rail::before { content: ""; position: absolute; inset: -18px -22px -18px -14px; border-radius: 16px; background: var(--rl-pop); box-shadow: var(--rl-pop-sh);
+    opacity: 0; transform: scale(.98); transform-origin: left center; transition: opacity .28s ease, transform .28s ease; pointer-events: none; }
+  .rail:hover::before { opacity: 1; transform: none; }
+  .rail .rail-name { display: none; }
+  .rail ol { position: relative; display: flex; flex-direction: column; justify-content: space-between; height: min(66vh, 640px); margin: 0; padding: 0 0 0 24px; list-style: none; counter-reset: q; }
+  .rail ol::before { content: ""; position: absolute; left: 3px; top: var(--rl-a, 9px); height: calc(var(--rl-b, 100%) - var(--rl-a, 9px)); width: 4px; border-radius: 3px;
+    background: var(--rl-line); filter: url(#crayon); }
+  .rail .rail-fill { position: absolute; left: 3px; top: var(--rl-a, 9px); width: 4px; height: 0; border-radius: 3px; background: var(--mk); filter: url(#crayon); transition: height .25s ease-out; }
+  .rail li { position: relative; margin: 0; }
+  .rail li a { display: block; font-size: 12.5px; line-height: 18px; font-weight: 600; color: var(--rl-ink); text-decoration: none; white-space: nowrap; }
+  .rail li a .rl-t { display: inline-block; opacity: 0; transform: translateX(-6px); transition: opacity .24s ease, transform .24s ease; pointer-events: none; }
+  .rail:hover li a .rl-t { opacity: 1; transform: none; pointer-events: auto; }
+  .rail:hover li:nth-child(3) .rl-t { transition-delay: .02s; } .rail:hover li:nth-child(4) .rl-t { transition-delay: .04s; } .rail:hover li:nth-child(5) .rl-t { transition-delay: .06s; }
+  .rail:hover li:nth-child(6) .rl-t { transition-delay: .08s; } .rail:hover li:nth-child(7) .rl-t { transition-delay: .1s; } .rail:hover li:nth-child(8) .rl-t { transition-delay: .12s; }
+  .rail li a::before { counter-increment: q; content: counter(q, decimal-leading-zero); display: inline-block; width: 22px; margin-right: 6px; font: 700 11.5px/1 ui-monospace, Menlo, monospace; color: var(--rl-num); }
+  .rail li a:hover, .rail li a.on { color: var(--rl-ink-on); }
+  .rail li a.on::before { color: var(--mk); }
+  .rail li::after { content: ""; position: absolute; left: -24px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--rl-dot); box-shadow: 0 0 0 2px var(--rl-line); }
+  .rail li:has(a.on)::after { background: var(--mk); box-shadow: 0 0 0 4px var(--rl-line); }
+  .rail li.done::after { content: "✓"; width: auto; height: auto; left: -27px; top: -3px; border-radius: 0; background: none; box-shadow: none; font: 800 16px/1 "Apple SD Gothic Neo", sans-serif; color: var(--mk); }
+}

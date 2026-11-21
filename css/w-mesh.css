@@ -1,0 +1,25 @@
+/* 카드 바탕: 두 색 그라데이션 대신 여러 색이 번진 블러 그라데이션(바르코 카드처럼). 아주 천천히 흐른다.
+   카드마다 --cb(바탕) + --c1~c4(번지는 색 넷). --g1 은 카드 속 그래픽(체크·버튼)의 진한 색. 맨 마지막에 불러 앞의 단색 그라데이션을 덮는다. */
+.sc, .feat, .parts .part { position: relative; isolation: isolate; overflow: hidden; background: var(--cb); }
+.sc::before, .feat::before, .parts .part::before {
+  content: ""; position: absolute; inset: -30%; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(38% 48% at 18% 22%, var(--c1), transparent 70%),
+    radial-gradient(42% 52% at 84% 16%, var(--c2), transparent 70%),
+    radial-gradient(48% 58% at 74% 86%, var(--c3), transparent 70%),
+    radial-gradient(42% 52% at 10% 92%, var(--c4), transparent 70%);
+  filter: blur(48px); animation: meshdrift 24s ease-in-out infinite alternate;
+}
+@keyframes meshdrift { from { transform: translate(0, 0) scale(1) rotate(0); } to { transform: translate(-4%, 3%) scale(1.08) rotate(5deg); } }
+@media (prefers-reduced-motion: reduce) { .sc::before, .feat::before, .parts .part::before { animation: none; } }
+
+.f-edit, #t-edit .parts .part { --cb: #c2482c; --c1: #e2563c; --c2: #d9437a; --c3: #f39a4a; --c4: #8f2f6e; --g1: #a83a26; }
+.f-editra, #editra .parts .part { --cb: #0d5f5a; --c1: #13867a; --c2: #1f5fae; --c3: #3cc29a; --c4: #0b3f5c; --g1: #0b5550; }
+.f-3d { --cb: #2f3ab0; --c1: #3c4fd6; --c2: #7a4fd8; --c3: #4aa3f0; --c4: #1d2378; --g1: #2a339e; }
+.f-game, #game .parts .part { --cb: #4a2a9a; --c1: #5b3fc4; --c2: #c04f9e; --c3: #7a7cf0; --c4: #2a165e; --g1: #43258c; }
+.g-nave { --cb: #27339c; --c1: #3346c8; --c2: #6c46cf; --c3: #3d8ff0; --c4: #151d66; --g1: #222d8c; }
+.g-altar { --cb: #3a2380; --c1: #4c34b0; --c2: #b0478f; --c3: #6c6ff0; --c4: #200f52; --g1: #331e72; }
+.g-sky { --cb: #0c4a80; --c1: #1663aa; --c2: #2a9fd0; --c3: #6fc3ee; --c4: #14305e; --g1: #0b4373; }
+.g-chars { --cb: #8a2a52; --c1: #a83466; --c2: #d9607a; --c3: #e89a7a; --c4: #5b1d6e; --g1: #7a2449; }
+.g-clicker { --cb: #1d2534; --c1: #2c3a55; --c2: #4b4590; --c3: #2a7c8c; --c4: #10141d; --g1: #1d2534; }
+.g-blind { --cb: #0c5241; --c1: #137a5c; --c2: #2a7fbf; --c3: #5fc38f; --c4: #0a3a33; --g1: #0b4a39; }

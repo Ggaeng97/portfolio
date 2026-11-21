@@ -1,0 +1,95 @@
+/* 칩 팝업(chipmodal.js): 성당 위 칩을 누르면 그 장의 카드가 떠오른다 — 페이지 이동 없음.
+   카드 = 왼쪽 큰 그림 + 오른쪽 글, 아래 작은 그림(누르면 위가 그 항목으로). 오프닝(z 100)보다 위. */
+.cm { position: fixed; inset: 0; z-index: 130; display: flex; align-items: center; justify-content: center; padding: 24px;
+  background: rgba(8, 9, 12, .5); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); opacity: 0; transition: opacity .35s ease; }
+.cm.show { opacity: 1; }
+.cm[hidden] { display: none; }
+.cm-box { position: relative; width: min(1060px, 100%); max-height: calc(100vh - 48px); overflow-y: auto; padding: 32px 34px 30px; border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, .14); background: rgba(18, 20, 26, .86); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+  color: #fff; box-shadow: 0 40px 120px rgba(0, 0, 0, .55); transform: translateY(18px) scale(.985); transition: transform .45s var(--ease); }
+.cm.show .cm-box { transform: none; }
+.cm-x { position: absolute; right: 18px; top: 16px; z-index: 2; width: 38px; height: 38px; border: 0; border-radius: 50%; background: rgba(255, 255, 255, .08);
+  color: #fff; font-size: 20px; line-height: 38px; cursor: pointer; transition: background .2s; }
+.cm-x:hover { background: rgba(255, 255, 255, .18); }
+.cm .cm-box h3 { margin: 0; padding-right: 48px; color: #fff; font-size: clamp(22px, 2.4vw, 30px); letter-spacing: -.04em; }
+
+/* 위: 큰 그림 + 글 */
+.cm-card { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 30px; align-items: center; margin-top: 20px; }
+.cm-stage { position: relative; overflow: hidden; aspect-ratio: 4 / 3; border: 1px solid rgba(255, 255, 255, .08); border-radius: 18px; background: rgba(0, 0, 0, .28); }
+/* 그림 장식도 성당 테마 색(옛 주황 카드 색 대신) */
+.cm .art-wave i, .pk .art-wave i { background: linear-gradient(#eef1ff, #8f9ff0); opacity: .85; }
+.cm-stage .cm-one { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }   /* 잘리지 않게 통째로 */
+.cm-stage .cm-cap { position: absolute; left: 12px; bottom: 12px; padding: 5px 11px; border-radius: 999px; background: rgba(10, 12, 20, .62); font-size: 12.5px; }
+.cm-flow, .cm-dur, .cm-big { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 0 11%; }
+.cm-flow { gap: 10px; }
+.cm-flow span { display: flex; align-items: center; gap: 12px; padding: 11px 14px; border-radius: 12px; background: rgba(255, 255, 255, .07); font-size: 15px; font-weight: 700; }
+.cm-flow i { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: #9fb0ff; color: #11131a; font-size: 12px; font-style: normal; font-weight: 800; }
+.cm-dur { gap: 26px; }
+.cm-dur b { font-size: 13px; font-weight: 700; color: rgba(255, 255, 255, .6); }
+.cm-dur p { height: 12px; margin: 8px 0 6px; border-radius: 6px; background: rgba(255, 255, 255, .12); }
+.cm-dur p i { display: block; height: 100%; border-radius: 6px; background: rgba(255, 255, 255, .5); }
+.cm-dur p i.hot { background: #9fb0ff; }
+.cm-dur em { font-size: 20px; font-style: normal; font-weight: 800; letter-spacing: -.02em; }
+.cm-big { background: linear-gradient(150deg, rgba(159, 176, 255, .26), rgba(255, 255, 255, .03)); }
+.cm-big b { font-size: clamp(22px, 2.4vw, 32px); line-height: 1.35; letter-spacing: -.035em; }
+.cm-text h4 { margin: 0 0 14px; color: #fff; font-size: 21px; line-height: 1.35; letter-spacing: -.035em; }
+.cm-text p { margin: 0 0 10px; font-size: 14.5px; line-height: 1.7; color: rgba(255, 255, 255, .88); }
+.cm-text p:last-child { margin-bottom: 0; }
+.cm-text p b { display: block; margin-bottom: 2px; font-size: 12px; font-weight: 700; color: rgba(255, 255, 255, .55); }
+.cm-text p.k { padding: 10px 12px; border-radius: 12px; background: rgba(159, 176, 255, .13); }
+.cm-text p.k b { color: #b9c3ff; }
+
+/* 아래 칸: 첫 화면 칩과 같은 박스 — 어두운 반투명 + 얇은 흰 테 + 굵은 이름 + 흐린 한 줄(사용자 11-13). 그림이 있으면 박스 안 위쪽 */
+.cm-ths { display: grid; grid-template-columns: repeat(var(--n, 5), minmax(0, 1fr)); gap: 10px; margin-top: 22px; align-items: stretch; }
+.cm-th { display: flex; min-width: 0; padding: 0; border: 0; background: none; color: #fff; font: inherit; text-align: left; cursor: pointer; }
+.cm-tile { display: flex; flex-direction: column; gap: 3px; width: 100%; min-width: 0; padding: 12px 16px 13px; border: 1px solid rgba(255, 255, 255, .22); border-radius: 16px;
+  background: rgba(11, 12, 15, .45); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); opacity: .72;
+  transition: opacity .2s, border-color .2s, background .2s, transform .2s var(--ease); }
+.cm-tile b { font-size: 15px; font-weight: 700; letter-spacing: -.02em; }
+.cm-tile small { overflow: hidden; font-size: 12.5px; color: rgba(255, 255, 255, .72); white-space: nowrap; text-overflow: ellipsis; }
+.cm-ti { display: block; overflow: hidden; aspect-ratio: 16 / 9; margin: -4px -8px 9px; border-radius: 10px; background: rgba(0, 0, 0, .3); }
+.cm-ti img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.cm-th:hover .cm-tile { opacity: 1; transform: translateY(-2px); }
+.cm-th.on .cm-tile { opacity: 1; border-color: #9fb0ff; background: rgba(159, 176, 255, .2); }
+
+/* 무엇부터 볼지(pickpop.js): 오프닝이 끝날 때 성당 위에 뜨는 같은 유리판 — 장 네 칸, 누르면 그 장의 카드 */
+.pk { position: fixed; inset: 0; z-index: 120; display: flex; align-items: center; justify-content: center; padding: 24px;
+  background: rgba(8, 9, 12, .4); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); opacity: 0; transition: opacity .45s ease; }
+.pk.show { opacity: 1; }
+.pk[hidden] { display: none; }
+.pk-box { width: min(880px, 100%); max-height: calc(100vh - 48px); overflow-y: auto; padding: 40px 40px 28px; border: 1px solid rgba(255, 255, 255, .14); border-radius: 28px;
+  background: rgba(18, 20, 26, .78); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); color: #fff; text-align: center;
+  box-shadow: 0 40px 120px rgba(0, 0, 0, .5); transform: translateY(16px); transition: transform .5s var(--ease); }
+.pk.show .pk-box { transform: none; }
+.pk .pk-box h2 { margin: 0; color: #fff; font-size: clamp(26px, 3vw, 38px); letter-spacing: -.045em; }
+.pk-tiles { display: grid; grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); gap: 14px; margin-top: 28px; text-align: left; }
+.pk-tiles a { display: block; min-width: 0; padding: 10px 10px 4px; border: 1px solid rgba(255, 255, 255, .22); border-radius: 16px; background: rgba(11, 12, 15, .45); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  color: #fff; text-decoration: none; cursor: pointer; transition: border-color .2s, background .2s, transform .25s var(--ease); }
+.pk-tiles a:hover, .pk-tiles a:focus-visible { border-color: #9fb0ff; background: rgba(159, 176, 255, .2); transform: translateY(-3px); outline: none; }
+.pk-media { display: block; position: relative; overflow: hidden; aspect-ratio: 4 / 3; border-radius: 10px; background: rgba(0, 0, 0, .3); }
+.pk-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.pk .art-wave { gap: 2px; padding: 0 9%; } .pk .art-wave i:nth-child(odd) { display: none; }   /* 좁은 칸: 막대 절반만(안 그러면 폭이 0) */
+.pk-media .pk-big { position: absolute; inset: 0; display: flex; align-items: center; padding: 0 12%; font-size: 19px; font-weight: 800; line-height: 1.35; letter-spacing: -.03em;
+  background: linear-gradient(150deg, rgba(159, 176, 255, .22), rgba(255, 255, 255, .03)); }
+.pk-tiles b { display: block; margin: 12px 6px 3px; font-size: 15px; font-weight: 700; letter-spacing: -.02em; }
+.pk-tiles small { display: block; margin: 0 6px 9px; font-size: 12.5px; color: rgba(255, 255, 255, .72); }
+.pk-skip { margin-top: 22px; padding: 6px 10px; border: 0; background: none; color: rgba(255, 255, 255, .66); font: inherit; font-size: 14px; cursor: pointer; transition: color .2s; }
+.pk-skip:hover { color: #fff; }
+
+@media (max-width: 900px) {
+  .cm { padding: 10px; align-items: flex-end; }
+  .cm-box { padding: 24px 18px 20px; border-radius: 22px; max-height: calc(100vh - 20px); }
+  .cm-card { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .cm-ths { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 38%; overflow-x: auto; padding-bottom: 4px; }
+  .pk { padding: 10px; align-items: flex-end; }
+  .pk-box { padding: 26px 16px 18px; border-radius: 22px; }
+  .pk-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+}
+
+/* 닫기 × 가 글꼴 탓에 아래로 쏠림(사용자 11-15) → 글자 대신 두 막대로 정확히 가운데 */
+.cm-x { font-size: 0; }
+.cm-x::before, .cm-x::after { content: ""; position: absolute; left: 50%; top: 50%; width: 16px; height: 2px; border-radius: 2px; background: #fff; transform: translate(-50%, -50%) rotate(45deg); }
+.cm-x::after { transform: translate(-50%, -50%) rotate(-45deg); }
+.cm-story { margin: 0; font-size: 15.5px; line-height: 1.7; color: rgba(255, 255, 255, .86); }
+/* 이야기 속 굵은 글은 줄 안에 그대로(위 .cm-text p b 칸 이름 꼴이 덮던 것 바로잡음) */
+.cm-text p.cm-story b { display: inline; margin: 0; font-size: inherit; color: #b9c3ff; font-weight: 800; }

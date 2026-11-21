@@ -1,0 +1,147 @@
+/* 4장 잔소리 약 알림 앱(밝은 분홍 장, 사용자 11-14): 실제 사용 녹화(폰 모양) 옆에 잔소리 사다리 · 처음 짜 본 수익 구조, 아래 짚은 장면 카드 */
+#t-app { --pk: #f0608c; --pk2: #ffe3ec; }
+#t-app .cstep { --cb: #fff; }
+.app-use { display: grid; grid-template-columns: minmax(0, 330px) minmax(0, 1fr); gap: 64px; align-items: center; }
+/* 폰: 위에 [인트로 화면] 단추, 화면은 단계마다 갈아 끼움(appstage.js) — 0 인트로 녹화 · 1 잔소리 녹화 · 2 강제 소리 설정 · 3 지인 알림 설계안 */
+.app-phone { justify-self: center; width: 100%; max-width: 330px; text-align: center; }
+.ph-intro { margin: 0 auto 16px; padding: 9px 20px; border: 0; border-radius: 999px; background: var(--pk2); color: #b8325f;
+  font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; transition: background .2s, color .2s; }
+.ph-intro:hover { background: #ffd2e0; }
+.ph-intro.on { background: var(--pk); color: #fff; }
+.phone { width: 100%; margin: 0; }
+.ph-screen { position: relative; width: 100%; aspect-ratio: 822 / 1580; border-radius: 34px; overflow: hidden; background: #ffe9f0;
+  box-shadow: 0 0 0 8px #fff, 0 30px 80px rgba(240, 96, 140, .25); }
+.ph-s { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; visibility: hidden; transition: opacity .3s ease, visibility 0s linear .3s; }
+.ph-s.on { opacity: 1; visibility: visible; transition: opacity .3s ease; }
+.phone figcaption { margin-top: 20px; font-size: 13px; line-height: 1.6; color: var(--mute); text-align: center; }
+/* 3 지인 알림 설계안(앱 화면 없음 — 알림 글은 GUARDIAN_DESIGN.md 그대로) */
+.ph-design { display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: 0 16px; text-align: left;
+  background: linear-gradient(180deg, #efe9ff 0%, #ffe9f0 100%); }
+.pd-tag { position: absolute; top: 18px; left: 50%; transform: translateX(-50%); padding: 4px 12px; border-radius: 999px; white-space: nowrap;
+  background: rgba(10, 12, 20, .62); color: #fff; font-size: 11.5px; font-weight: 700; }
+.pd-who { margin: 4px 0 -4px 4px; font-size: 12px; font-weight: 700; color: #7a6f99; }
+.pd-noti { padding: 12px 14px; border-radius: 18px; background: rgba(255, 255, 255, .92); box-shadow: 0 6px 18px rgba(90, 63, 208, .08); }
+.pd-noti b { display: block; font-size: 11px; color: var(--pk); }
+.pd-noti p { margin: 3px 0 2px; font-size: 14.5px; font-weight: 800; line-height: 1.4; color: var(--ink); letter-spacing: -.02em; }
+.pd-noti small { font-size: 11.5px; color: var(--ink-2); }
+.pd-arr { align-self: center; font-style: normal; font-size: 18px; color: var(--pk); }
+.app-ladder h3 { margin: 0 0 18px; font-size: clamp(24px, 2.4vw, 32px); line-height: 1.3; letter-spacing: -.04em; }
+.app-ladder h3 + .ladder, .app-ladder h3 + .money { margin-top: 0; }
+.ladder { display: grid; gap: 10px; margin: 0 0 44px; padding: 0; list-style: none; counter-reset: s; }
+.ladder li { position: relative; padding: 15px 18px 15px 58px; border-radius: 18px; background: #fff; counter-increment: s; }
+/* 누르면 폰이 그 단계 화면으로 — 고른 칸은 색칠(테두리 X), 오른쪽 › 로 누를 수 있음을 */
+.ladder li[data-s] { padding-right: 40px; cursor: pointer; transition: background .2s; }
+.ladder li[data-s]::after { content: "›"; position: absolute; right: 18px; top: 50%; transform: translateY(-50%); font-size: 22px; color: #e7a3b9; }
+.ladder li[data-s]:hover { background: #fff0f5; }
+.ladder li[data-s].on { background: var(--pk2); }
+.ladder li[data-s].on::after { color: var(--pk); }
+.ladder li[data-s]:focus-visible { outline: none; background: #ffe9f0; }
+.ladder li::before { content: counter(s); position: absolute; left: 18px; top: 15px; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%;
+  background: var(--pk); color: #fff; font-size: 13px; font-weight: 800; }
+.ladder li:nth-child(2)::before { background: #e0417a; }
+.ladder li:nth-child(3)::before { background: #b9285a; }
+.ladder b, .money b { display: block; font-size: 16px; letter-spacing: -.02em; }
+.ladder span { display: block; margin-top: 4px; font-size: 14.5px; line-height: 1.6; color: var(--ink-2); }
+.ladder em { display: inline-block; white-space: nowrap; margin-left: 8px; color: #c63066; font-size: 13px; font-style: normal; font-weight: 800; }   /* 알약 없이 글자만(11-21) */
+.money { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; }
+.money li { padding: 14px 16px; border-radius: 16px; background: #fff; font-size: 14.5px; line-height: 1.6; color: var(--ink-2); }
+.money li b { margin-bottom: 3px; color: var(--ink); }
+/* 카드 그림: 폰 화면 전체(세로) · 통째로 보이게 · 움직이는 캐릭터 */
+.cs-pic.fitw img { object-fit: contain; background: #fff; }
+.cs-pic.tall img { width: auto; max-width: 100%; height: 420px; aspect-ratio: auto; margin: 0 auto; object-fit: contain; background: none; }
+.cs-pic.clip img { object-fit: contain; background: #fff; }   /* 겹 방식 동작 그림은 흰 바탕 */
+.cs-pic.night img { object-fit: contain; background: #323a56; }
+@media (max-width: 900px) {
+  .app-use { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .app-phone { max-width: 280px; }
+  .money { grid-template-columns: minmax(0, 1fr); }
+  .cs-pic.tall img { height: 360px; }
+}
+
+/* 단계 아래 '왜 이렇게 설계했나'(사용자 11-15 "왜 그렇게 설계했는지 목적이 없다") */
+.ladder-why { margin: 14px 0 30px; padding: 18px 22px; border-radius: 18px; background: var(--pk2); }
+.ladder-why b { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 800; color: #b8325f; }
+.ladder-why p { margin: 0; font-size: 16px; line-height: 1.65; color: var(--ink); }
+
+/* 사용자 11-15: 시연 폰과 오른쪽 제목의 윗줄을 맞춤([인트로 화면] 단추는 뺌 — 켜진 단계를 다시 누르면 처음 녹화로), 작은 글씨는 키워 여백이 비어 보이지 않게 */
+.app-use { align-items: start; }
+.ladder b, .money b { font-size: 17.5px; }
+.ladder span { margin-top: 5px; font-size: 16px; }
+.money li { padding: 18px 20px; font-size: 16px; line-height: 1.65; }
+.money li b { margin-bottom: 6px; }
+
+/* 앱 카드: 글은 그림 아래가 아니라 옆 여백에, 그림은 카드마다 왼쪽 · 오른쪽을 번갈아(사용자 11-15) */
+.cstep.side { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; column-gap: 56px; }
+.cstep.side > .cs-pics { margin: 0; }
+.cstep.side.flip > .cs-pics { order: 2; }
+.cstep.side .cs-aside > .cs-head { margin-bottom: 16px; }
+.cstep.side .cs-story { max-width: none; margin: 0; font-size: 19px; line-height: 1.75; }
+/* 캐릭터 동작 카드: 오려 쓰던 그림은 한 칸만, 고친 우파는 둘레 여백을 잘라 크게 */
+.cs-pics.motion { gap: 12px; }
+.cs-pics.motion > .cs-pic.cell { flex: 0 0 40%; max-width: none; }
+.cs-pics.motion > .cs-pic.cell img { aspect-ratio: 320 / 290; height: auto; object-fit: cover; }
+.cs-pics.motion > .cs-pic.tight { position: relative; flex: 0 0 50%; max-width: none; aspect-ratio: 322 / 336; overflow: hidden; border-radius: 14px; background: #fff; }
+.cs-pics.motion > .cs-pic.tight img { position: absolute; left: -28%; top: -39.75%; width: 159%; max-width: none; height: auto; aspect-ratio: auto; border-radius: 0; background: none; }
+@media (max-width: 900px) {
+  .cstep.side { grid-template-columns: minmax(0, 1fr); row-gap: 20px; }
+  .cstep.side.flip > .cs-pics { order: 0; }
+  .cstep.side .cs-story { font-size: 16.5px; }
+}
+
+/* 4장은 세로로 긴 폰 화면이 많아, 가운데로 모으고 좌우 여백을 넓혀 시선이 가운데 모이게 · 글씨는 크게(사용자 11-15)
+   폰 옆에는 잔소리 1 · 2 · 3만, 수익 구조는 그 아래 따로 */
+.wrap.app-use, .wrap.app-money, #app > .wrap { max-width: 1000px; }
+.app-use { grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 56px; align-items: center; }
+.app-ladder h3, .app-money h3 { margin: 0 0 22px; font-size: clamp(28px, 2.8vw, 38px); line-height: 1.3; letter-spacing: -.04em; }
+.ladder { gap: 12px; margin: 0; }
+.ladder li { padding: 20px 46px 20px 68px; }
+.ladder li::before { left: 22px; top: 21px; width: 30px; height: 30px; font-size: 15px; }
+.ladder b { font-size: 20px; line-height: 1.45; }
+.ladder span { margin-top: 6px; font-size: 17.5px; line-height: 1.6; }
+.app-money { margin-top: 84px; }
+.money { gap: 12px; }
+.money li { padding: 22px 22px 24px; font-size: 17px; line-height: 1.7; }
+.money b { font-size: 19px; }
+.cstep.side { grid-template-columns: 380px minmax(0, 1fr); column-gap: 52px; }
+.cstep.side.flip { grid-template-columns: minmax(0, 1fr) 380px; }
+.cstep.side .cs-aside > .cs-head h3 { font-size: clamp(22px, 2.1vw, 28px); line-height: 1.35; }
+.cstep.side .cs-story { font-size: 20px; line-height: 1.75; }
+@media (max-width: 900px) {
+  .app-use { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .ladder b { font-size: 18px; }
+  .ladder span { font-size: 16px; }
+  .app-money { margin-top: 56px; }
+  .money li { font-size: 16px; }
+  .cstep.side, .cstep.side.flip { grid-template-columns: minmax(0, 1fr); }
+  .cstep.side .cs-story { font-size: 17px; }
+}
+
+/* 사용자 11-15 저녁: 제목과 머리 설명은 폰 오른쪽 맨 위로(왼쪽으로 삐져나와 있던 장 제목도 "폰 오른쪽이 더 깔끔"),
+   설명과 1 · 2 · 3 을 폰 키에 맞춰 고른 간격으로(맨 위 = 폰 위, 맨 아래 = 폰 아래) */
+/* 폰을 340 으로 키우고 칸을 1040 으로: 오른쪽 글 칸 너비(580)는 그대로, 블록 사이가 고르게 40 정도 */
+.wrap.app-use, .wrap.app-money, #app > .wrap { max-width: 1040px; }
+.app-use { grid-template-columns: minmax(0, 340px) minmax(0, 1fr); align-items: stretch; }
+.app-phone { align-self: start; max-width: 340px; }
+.app-use { counter-reset: s; }
+.app-ladder { display: flex; flex-direction: column; justify-content: space-between; gap: 16px; counter-reset: s; }
+.app-ladder > .ladder { display: contents; }
+.app-title { margin: 0 0 14px; font-size: clamp(32px, 3.4vw, 46px); line-height: 1.2; letter-spacing: -.045em; }
+.app-lede { margin: 0; font-size: 19px; line-height: 1.75; color: var(--ink); }
+/* 휴대폰 폭: 제목 · 설명 → 폰 → 1 · 2 · 3 차례로 */
+@media (max-width: 900px) {
+  .app-use { grid-template-columns: minmax(0, 1fr); row-gap: 12px; }
+  .app-phone { max-width: 280px; }
+  .app-ladder { display: contents; }
+  .app-intro { order: -1; margin-bottom: 14px; }
+  .app-phone { margin: 0 auto 18px; }
+  .app-lede { font-size: 17px; }
+}
+
+/* 앱 카드의 긴 폰 녹화는 꼭 필요한 띠만, 글 덩어리만 한 크기로(사용자 11-15 저녁 "폰 위아래를 줄여 필요한 부분만 · 흰 상자도").
+   위아래 끝은 부드럽게 지워 잘린 티가 나지 않게. 01 지인 알림 = 화면 10 %~72 %, 해지 = 18 %~68 % */
+.cstep.side .cs-pic.crop video { width: min(250px, 100%); height: auto; max-width: 100%; aspect-ratio: var(--ar); object-fit: cover; object-position: 50% var(--oy);
+  -webkit-mask-image: linear-gradient(transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(transparent, #000 8%, #000 92%, transparent); }
+.cs-pic.crop-care { --ar: 412 / 492; --oy: 26%; }
+.cs-pic.crop-cancel { --ar: 412 / 397; --oy: 36%; }
+/* 매달리기 + 던지기 한 카드(app2_play.mp4): 던지기는 위끝에서 아래끝까지 날아가 자르지 않고 폰 크기만 글 높이에 맞춤 */
+.cstep.side .cs-pic.fit-text video { height: 330px; }

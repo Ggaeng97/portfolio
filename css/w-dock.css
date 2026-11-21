@@ -1,0 +1,25 @@
+/* 펼치면 알약 → 화면 왼쪽 끝의 가는 세로 막대(사용자 11-15 저녁 "알약이 글을 가린다, 왼쪽에 세로로 붙게 · 최대한 압축 · [접기]는 숨어 있다 튀어나오게").
+   story.js 가 ① 가로(같은 높이에서 왼쪽 끝으로, 막대로 줄며) ② 세로(본문 첫 제목 높이로) 두 단계로 옮긴다 */
+.st-open-pill .sp-in { display: inline-flex; align-items: center; gap: 10px; }
+.st-open-pill .sp-bar { display: none; }
+.st-open-pill.morph { position: fixed; z-index: 49; margin: 0; overflow: hidden; box-sizing: border-box; }
+.st-open-pill.docked { position: fixed; z-index: 49; left: 0; width: 10px; height: 84px; margin: 0; padding: 0; border-radius: 0 10px 10px 0;
+  background: #0b0c12; box-shadow: 0 0 0 2px rgba(255, 255, 255, .9), 0 8px 22px rgba(10, 12, 20, .22); transition: opacity .2s, background .2s; }
+.st-open-pill.docked.pop { background: var(--accent); }
+@media (hover: hover) { .st-open-pill.docked:hover { background: var(--accent); } }   /* 터치 화면은 눌렀던 자리의 hover 가 남아서 — 누름(.pop)으로만 */
+.st-open-pill.docked.away { opacity: 0; pointer-events: none; }
+/* 누르는 자리는 막대보다 넓게(막대 + 오른쪽 여유), 손잡이 점 세 개로 '누르면 펼쳐질 것' 같게 */
+.st-open-pill.docked .sp-bar { display: block; position: absolute; left: 0; top: -14px; bottom: -14px; width: 30px; padding: 0; border: 0; background: none; cursor: pointer; }
+.st-open-pill.docked .sp-bar::before { content: ""; position: absolute; left: 3px; top: 50%; width: 4px; height: 4px; margin-top: -2px; border-radius: 50%;
+  background: rgba(255, 255, 255, .8); box-shadow: 0 -9px 0 rgba(255, 255, 255, .8), 0 9px 0 rgba(255, 255, 255, .8); }
+.st-open-pill.docked .sp-bar:focus-visible { outline: none; }
+.st-open-pill.docked .sp-bar:focus-visible::after { content: ""; position: absolute; left: -2px; top: 12px; bottom: 12px; width: 14px; border-radius: 0 12px 12px 0; box-shadow: 0 0 0 2px var(--accent); }
+/* 숨은 [접기]: 막대 뒤에서 오른쪽으로 튀어나옴 */
+.st-open-pill.docked .sp-in { position: absolute; left: 22px; top: 50%; padding: 5px 16px 5px 5px; border-radius: 999px; background: rgba(255, 255, 255, .97);
+  box-shadow: 0 8px 26px rgba(10, 12, 20, .18); white-space: nowrap; opacity: 0; visibility: hidden; transform: translate(-16px, -50%); pointer-events: none;
+  transition: opacity .16s ease, transform .22s cubic-bezier(.2, .7, .2, 1), visibility 0s linear .22s; }
+/* 펼침 = 막대를 누를 때만(.pop), 한 번 더 누르면 접힘 · 160px 넘게 스크롤해도 접힘(story.js). 마우스를 올리면 막대 색만 바뀜(사용자 11-15 저녁)
+   키보드: 막대에서 Enter 로 펼치고, 튀어나온 [접기]에 초점이 있는 동안은 펼친 채로 */
+.st-open-pill.docked.pop .sp-in, .st-open-pill.docked:has(.sp-in :focus-visible) .sp-in {
+  opacity: 1; visibility: visible; transform: translate(0, -50%); pointer-events: auto; transition: opacity .16s ease, transform .22s cubic-bezier(.2, .7, .2, 1); }
+.st-open-pill.docked.leaving .sp-in { display: none; }

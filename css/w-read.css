@@ -1,0 +1,7 @@
+/* 읽기 쉽게(사용자 11-15 "가장 얇은 글씨는 살짝 두껍게, 가독성이 너무 떨어져") — 글꼴은 그대로 Pretendard,
+   가장 얇던 본문 400 을 500 으로, 옅은 회색 글씨는 한 단계 진하게. 맨 마지막에 불러 다른 스타일 위에 덮음. */
+:root { --ink-2: #2b3039; --mute: #5f6672; --faint: #8d939d; }
+body { font-weight: 500; }
+.crit-dark .cstep { --cm: rgba(255, 255, 255, .8); }
+.hg-text dd { color: #fff; }
+.st-nums span { color: #e2e5f6; }

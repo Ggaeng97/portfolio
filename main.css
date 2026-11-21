@@ -1,0 +1,139 @@
+/* 인트로 · 프로젝트 카드 · 접촉 시트 · 세부 비교 · 캐릭터 전후 모양 */
+
+/* ---- 인트로 ---- */
+.intro { position: fixed; inset: 0; z-index: 100; background: #0e0f11; cursor: pointer; transition: opacity .7s ease; }
+.intro.out { opacity: 0; pointer-events: none; }
+.intro > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.intro-tiles { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(12, 1fr); grid-template-rows: repeat(7, 1fr); }
+.intro-tiles i { background: #0e0f11; transition: background .22s; }
+.intro-tiles i.on { background: rgba(14,15,17,.35); box-shadow: inset 0 0 0 1px #ff9f1a; }
+.intro-tiles i.done { background: transparent; }
+.intro-text { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 6vw 9vh; color: #fff; background: linear-gradient(transparent, rgba(0,0,0,.75)); padding-top: 30vh; opacity: 0; transform: translateY(14px); transition: opacity .8s, transform .8s; }
+.intro.titled .intro-text { opacity: 1; transform: none; }
+.intro-text b { display: block; font-size: clamp(26px, 4.6vw, 54px); line-height: 1.25; letter-spacing: -1px; }
+.intro-text span { display: block; margin-top: 10px; font-size: 15px; opacity: .85; }
+.intro-skip { position: absolute; right: 18px; top: 16px; font: inherit; font-size: 13px; color: #fff; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.35); border-radius: 999px; padding: 5px 14px; cursor: pointer; }
+.again-btn { font: inherit; font-size: 13px; padding: 3px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); cursor: pointer; margin-top: 14px; }
+
+/* ---- 프로젝트 카드 (올리면 처음 → 최후반) ---- */
+.pcards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 26px 0 8px; }
+.pcards a { text-decoration: none; color: inherit; }
+
+/* ---- 접촉 시트 ---- */
+.sheet { display: grid; grid-template-columns: 1fr 1.1fr; gap: 16px; margin: 18px 0 8px; align-items: start; }
+.sheet-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 3px; background: var(--panel); padding: 6px; border-radius: 8px; }
+.sheet-grid button { padding: 0; border: 0; background: #000; cursor: pointer; border-radius: 2px; overflow: hidden; outline: 2px solid transparent; transition: outline-color .1s, opacity .2s; opacity: .45; }
+.sheet-grid button.seen { opacity: 1; }
+.sheet-grid button.on { outline-color: #ff9f1a; opacity: 1; z-index: 2; }
+.sheet-grid img { display: block; width: 100%; aspect-ratio: 1683 / 934; object-fit: cover; }
+.sheet-big { position: relative; border-radius: 8px; overflow: hidden; background: #000; aspect-ratio: 1683 / 934; }
+.sheet-big img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.sheet-label { position: absolute; left: 10px; top: 8px; font-family: var(--mono); font-size: 13px; color: #fff; background: rgba(0,0,0,.6); padding: 2px 8px; border-radius: 4px; }
+.sheet-again { margin-top: 8px; font: inherit; font-size: 13px; padding: 3px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); cursor: pointer; }
+
+/* ---- 세부 비교 (커서 따라 닦기) ---- */
+.details { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 12px; }
+.details h4 { margin: 8px 0 2px; font-size: 15px; }
+.details p { margin: 0; font-size: 13.5px; color: #3a3a3f; }
+.details .stage { aspect-ratio: var(--ar, 16 / 9); }
+
+/* ---- 캐릭터 전후 ---- */
+.before-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 12px 0; }
+.before-row figure { margin: 0; }
+.before-row img { width: 100%; border-radius: 6px; display: block; aspect-ratio: 4 / 3; object-fit: cover; background: #ddd; }
+.before-row figcaption { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+.quote { border-left: 3px solid var(--red); padding: 6px 12px; margin: 10px 0; background: var(--paper); font-size: 15px; }
+.quote em { display: block; font-style: normal; font-size: 12px; color: var(--muted); }
+.arrow-down { text-align: center; color: var(--red); font-size: 22px; margin: 10px 0; }
+
+@media (max-width: 760px) {
+  .pcards { grid-template-columns: 1fr 1fr; }
+  .sheet { grid-template-columns: 1fr; }
+  .sheet-grid { grid-template-columns: repeat(7, 1fr); }
+  .details, .before-row { grid-template-columns: 1fr; }
+}
+@media print { .intro { display: none; } }
+
+/* ---- 제가 짚는 방식 (첫 화면 아래 5가지) ---- */
+.ways { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 30px 0 6px; }
+.ways div { background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 12px 12px 10px; }
+.ways b { display: block; font-size: 14.5px; margin-bottom: 4px; }
+.ways span { display: block; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+.ways i { font-style: normal; font-family: var(--mono); color: var(--red); font-size: 12px; }
+
+/* ---- 지적 카드: 보인 것 → 짚은 원인 → 시킨 방법 → 그래서 ---- */
+.crits { display: grid; gap: 14px; margin-top: 14px; }
+.crit { display: grid; grid-template-columns: 1fr 300px; gap: 18px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+.crit.nopic { grid-template-columns: 1fr; }
+.crit h4 { margin: 0 0 8px; font-size: 17px; }
+.crit h4 i { font-style: normal; font-family: var(--mono); color: var(--red); font-size: 13px; margin-right: 6px; }
+.crit dl { display: grid; grid-template-columns: 78px 1fr; gap: 4px 10px; margin: 0; font-size: 14.5px; }
+.crit dt { color: var(--muted); font-size: 13px; padding-top: 1px; }
+.crit dd { margin: 0; }
+.crit dd.how { font-weight: 600; }
+.crit .said { margin: 10px 0 0; font-size: 13.5px; color: #3a3a3f; border-left: 3px solid var(--red); padding-left: 10px; }
+.crit .said em { font-style: normal; color: var(--muted); font-size: 12px; margin-left: 6px; }
+.crit .pics2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; align-content: start; }
+.crit .pics2 img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 6px; border: 1px solid var(--line); background: #ddd; }
+.crit .pics2 span { font-size: 11.5px; color: var(--muted); }
+.mini-details { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
+.mini-details .stage { aspect-ratio: 4 / 3; }
+.mini-details p { margin: 4px 0 0; font-size: 13px; color: #3a3a3f; }
+
+/* ---- 채울 것(노란 상자) 켜고 끄기 ---- */
+body.hide-todo .todo { display: none; }
+.todo-toggle { position: fixed; right: 16px; bottom: 16px; z-index: 40; font: inherit; font-size: 13px; padding: 7px 14px; border-radius: 999px; border: 1px solid var(--todo); background: #fff7e6; color: var(--todo); cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,.12); }
+
+@media (max-width: 760px) {
+  .ways { grid-template-columns: 1fr 1fr; }
+  .crit { grid-template-columns: 1fr; }
+  .mini-details { grid-template-columns: 1fr 1fr; }
+}
+@media print { .todo-toggle { display: none; } }
+
+/* ---- 목차: 늘 펼쳐 둔다. 넓은 화면은 왼쪽 패널, 좁은 화면은 머리줄 아래 목차 줄 ---- */
+.bar { position: sticky; top: 0; z-index: 20; }
+.bar .wrap { flex-wrap: wrap; height: auto; min-height: 52px; gap: 0 12px; }
+.bar .todo-toggle { position: static; margin-left: auto; font: inherit; font-size: 12.5px; padding: 3px 10px; border-radius: 6px; border: 1px dashed var(--todo); background: #fff7e6; color: var(--todo); cursor: pointer; box-shadow: none; }
+.bar nav { display: flex; width: 100%; gap: 2px; overflow-x: auto; scrollbar-width: none; padding: 0 0 6px; margin: 0 -4px; }
+.bar nav::-webkit-scrollbar { display: none; }
+.bar nav a { flex: 0 0 auto; margin: 0; padding: 5px 10px; border-radius: 6px; font-size: 13.5px; color: var(--muted); text-decoration: none; white-space: nowrap; }
+.bar nav a i { font-style: normal; font-family: var(--mono); font-size: 11px; margin-right: 5px; color: #a8a39a; }
+.bar nav a.on { color: var(--ink); font-weight: 700; background: #f1eee7; }
+.bar nav a.on i { color: var(--red); }
+.bar-prog { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; }
+.bar-prog i { display: block; height: 100%; width: 0; background: var(--red); }
+.rail { display: none; position: fixed; left: 0; top: 0; bottom: 0; width: 200px; background: var(--paper); border-right: 1px solid var(--line); padding: 20px 14px; z-index: 30; overflow-y: auto; }
+.rail-head { font-weight: 700; font-size: 14px; margin-bottom: 12px; }
+.rail-head span { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-left: 6px; font-weight: 400; }
+.rail-prog { position: absolute; left: 14px; top: 58px; bottom: 24px; width: 2px; background: var(--line); }
+.rail-prog i { display: block; width: 100%; height: 0; background: var(--red); }
+.rail ol { list-style: none; padding: 0 0 0 10px; margin: 0; }
+.rail a { display: block; text-decoration: none; color: var(--muted); font-size: 14px; padding: 7px 8px; border-radius: 6px; }
+.rail a i { font-style: normal; font-family: var(--mono); font-size: 11px; margin-right: 8px; color: #a8a39a; }
+.rail a:hover { color: var(--ink); background: #f1eee7; }
+.rail a.on { color: var(--ink); font-weight: 700; background: #f1eee7; }
+.rail a.on i { color: var(--red); }
+@media (min-width: 1000px) {
+  .content { padding-left: 210px; }
+  .rail { display: block; }
+  .bar nav, .bar-prog { display: none; }
+  .bar .wrap { height: 52px; flex-wrap: nowrap; }
+}
+@media print { .rail { display: none !important; } .content { padding-left: 0; } .bar nav { display: none; } }
+
+/* ---- 나란히 비교: 같은 크기로 단계 그림을 한 줄에 ---- */
+.cmp-row { display: grid; grid-template-columns: repeat(var(--n, 3), 1fr); gap: 14px; margin: 18px 0 8px; }
+.cmp-row figure { margin: 0; position: relative; opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+.cmp-row.in figure { opacity: 1; transform: none; }
+.cmp-row.in figure:nth-child(2) { transition-delay: .15s; }
+.cmp-row.in figure:nth-child(3) { transition-delay: .3s; }
+.cmp-row.in figure:nth-child(4) { transition-delay: .45s; }
+.cmp-row img { width: 100%; aspect-ratio: var(--ar, 4 / 3); object-fit: cover; border-radius: 8px; border: 1px solid var(--line); background: #e9e5dc; display: block; }
+.cmp-row.contain img { object-fit: contain; background: #fff; }
+.cmp-row .chip { position: absolute; left: 8px; top: 8px; background: rgba(0,0,0,.66); color: #fff; font-size: 12.5px; padding: 2px 10px; border-radius: 999px; }
+.cmp-row figure:last-child .chip { background: var(--red); }
+.cmp-row figcaption { margin-top: 8px; font-size: 13.5px; color: #3a3a3f; line-height: 1.5; }
+@media (max-width: 760px) { .cmp-row { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px) { .cmp-row { grid-template-columns: 1fr; } }
+@media print { .cmp-row figure { opacity: 1; transform: none; } }

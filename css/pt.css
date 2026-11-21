@@ -1,0 +1,31 @@
+/* 들머리의 입자 장면(pt/scene.js 가 #why 에 .pt-on 을 달았을 때만 — WebGL 이 되고 '움직임 줄이기'가 아닐 때).
+   문장마다 한 장면: 글과 입자 그림 자리(.fh-fig)가 좌우로 번갈아 놓이고(마지막은 글 위 · 그림 아래), 지금 장면의 글만 또렷하다.
+   입자는 화면에 고정된 그림판(.pt-cv, 글 뒤)에 그리지만 자리는 .fh-fig 를 따라가므로 글과 함께 흘러간다. 꺼져 있으면 예전의 촘촘한 들머리 그대로. */
+.pt-cv { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+.fhook.pt-on { padding: 4vh 0 10vh; }
+.fhook.pt-on .wrap { max-width: var(--wrap); }
+.fhook.pt-on .fh-group, .fhook.pt-on .fh-group.last { margin: 0; }
+.fhook.pt-on .fh-beat { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(24px, 5vw, 84px); align-items: center; min-height: 64vh; }
+.fhook.pt-on .fh-beat.flip .fh-line { order: 2; }
+.fhook.pt-on .fh-fig { position: relative; height: min(50vh, 480px); }
+/* 실물 층(pt/scene_real.js): 입자와 같은 자리에 놓인 실제 렌더 그림 — 그림이 멈춰 선 동안만 흐림이 걷히며 나타난다 */
+.pt-real { position: absolute; left: 0; top: 0; pointer-events: none; opacity: 0; will-change: opacity, filter; }
+.pt-real img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; user-select: none; -webkit-user-drag: none; }
+.fhook.pt-on .fh-beat[data-pt=skypost], .fhook.pt-on .fh-beat[data-pt=face], .fhook.pt-on .fh-beat[data-pt=clicker] { min-height: 80vh; }   /* 모델로 머물며 돌려 볼 스크롤 틈 */
+.fhook.pt-on .fh-beat[data-pt=skypost] { grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); }   /* 하늘섬 홀은 크게(고리 · 안내대 · 계단이 다 들어오는 정사각 구도) */
+.fhook.pt-on .fh-beat[data-pt=skypost] .fh-fig { height: min(64vh, 620px); }
+.fhook.pt-on .fh-beat[data-pt=clicker] .fh-fig { height: min(62vh, 600px); }   /* 클리커는 부품이 벌어진 모습까지 들어가야 해서 자리를 크게 */
+.fhook.pt-on .fh-beat[data-pt=uppa] { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; row-gap: 3vh; min-height: 86vh; }   /* 마지막: 글 위 · 우파 아래 가운데 */
+.fhook.pt-on .fh-beat[data-pt=uppa] .fh-fig { width: 100%; height: min(58vh, 560px); }
+.fhook.pt-on .fh-beat[data-pt=uppa] .fh-line { order: 2; }   /* 마지막 다짐은 우파 아래(사용자 11-21) */
+.fhook.pt-on .fh-line { margin: 0; font-size: clamp(23px, 2.7vw, 38px); transition: opacity .5s ease; }
+.fhook.pt-on .fh-group.last .fh-line { font-size: clamp(27px, 3.2vw, 46px); }
+.fhook.pt-on .fh-beat:not(.on) .fh-line { opacity: .24; }
+@media (max-width: 899px) {   /* 좁은 화면: 글 아래에 그림 자리 */
+  .fhook.pt-on .fh-beat, .fhook.pt-on .fh-beat[data-pt=skypost] { grid-template-columns: minmax(0, 1fr); row-gap: 2vh; min-height: 0; padding: 6vh 0; }
+  .fhook.pt-on .fh-beat.flip .fh-line { order: 0; }
+  .fhook.pt-on .fh-beat[data-pt=uppa] .fh-line { order: 2; }
+  .fhook.pt-on .fh-beat[data-pt=skypost], .fhook.pt-on .fh-beat[data-pt=face], .fhook.pt-on .fh-beat[data-pt=clicker] { min-height: 76vh; }
+  .fhook.pt-on .fh-fig, .fhook.pt-on .fh-beat[data-pt=uppa] .fh-fig, .fhook.pt-on .fh-beat[data-pt=skypost] .fh-fig { height: 38vh; }
+  .fhook.pt-on .fh-beat[data-pt=clicker] .fh-fig { height: 44vh; }
+}

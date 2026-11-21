@@ -1,0 +1,71 @@
+/* 파스텔 테마(기본) — 11-21 사용자: "옛날 테마 우파의 파스텔 톤이 좋았다 · 단계별로 다른 색상 · 하늘색은 너무 연했다 ·
+   쨍한 파스텔이 흰색과 대비돼 색 변화가 잘 들어온다 · 칠판은 지저분하다".
+   구역 바탕색은 themes.js(STAGE 표)가 정하고 bgtween.js 가 섞는다. 여기선 단계마다의 강조색 · 첫 화면 · 들머리 · 짚기 색 · 단추 색만.
+   시작 틀(AIGEN)의 밝은 디자인이 바탕이라 덮는 것이 적다. */
+html[data-theme="pastel"] { --mk: #ff4d5a; --note: #ee2f55; --note-glow: 0 0 5px rgba(255, 255, 255, .85), 0 0 12px rgba(255, 255, 255, .6);
+  --en-veil: rgba(255, 255, 255, .32); --en-card: linear-gradient(135deg, #ffe4ef 0%, #ece5ff 50%, #dbeeff 100%); --en-ink: #24212f; --en-sub: #6b6683; --en-tile: rgba(255, 255, 255, .78); --en-ring: #ff6b95;
+  --sb-bg: rgba(255, 255, 255, .92); --sb-sh: 0 4px 14px rgba(43, 36, 74, .18); --sb-ink: #3d3856; --sb-on: #ff6b95;
+  --ts-bg: rgba(255, 255, 255, .86); --ts-sh: 0 3px 12px rgba(43, 36, 74, .14); --ts-ink: #5b5672; --ts-on: #2b2742; --ts-on-ink: #fff;
+  --rl-line: rgba(255, 77, 90, .25); --rl-ink: #8d89a3; --rl-ink-on: #24212f; --rl-num: #aaa6bd; --rl-dot: #fff; --rl-pop: rgba(255, 255, 255, .97); --rl-pop-sh: 0 6px 24px rgba(43, 36, 74, .18); }
+
+/* 단계마다 다른 강조색: 번호 · 특징 알약 · 1·2·3 · 링크가 모두 var(--accent) 라서 단계 안에서만 바뀐다(바탕 파스텔과 같은 색 계열) */
+html[data-theme="pastel"] #st1 { --accent: #2a76d6; --accent-2: #1e62bb; }
+html[data-theme="pastel"] #st2 { --accent: #6b4de0; --accent-2: #5839c8; }
+html[data-theme="pastel"] #st3 { --accent: #0f9467; --accent-2: #0a7b55; }
+html[data-theme="pastel"] #stR { --accent: #e65f26; --accent-2: #cc4e17; }
+html[data-theme="pastel"] #st4 { --accent: #e0407a; --accent-2: #c63066; }
+html[data-theme="pastel"] #st5 { --accent: #b26a00; --accent-2: #965800; }
+html[data-theme="pastel"] .st .st-steps li { background: rgba(255, 255, 255, .7); }
+html[data-theme="pastel"] .st .st-trait { background: rgba(255, 255, 255, .74); }
+/* 지도 카드 번호도 그 단계의 색(01 하늘 · 02 보라 · 03 민트 · 04 살구 · 05 분홍 · 06 레몬) */
+html[data-theme="pastel"] .st-map li:nth-child(1) em { color: #2a76d6; }
+html[data-theme="pastel"] .st-map li:nth-child(2) em { color: #6b4de0; }
+html[data-theme="pastel"] .st-map li:nth-child(3) em { color: #0f9467; }
+html[data-theme="pastel"] .st-map li:nth-child(4) em { color: #e65f26; }
+html[data-theme="pastel"] .st-map li:nth-child(5) em { color: #e0407a; }
+html[data-theme="pastel"] .st-map li:nth-child(6) em { color: #b26a00; }
+
+/* 첫 화면: 밝은 하늘 바탕 위 분홍 우파 + 빨간 첨삭, 글은 짙게 */
+html[data-theme="pastel"] .hc-back { background: #e3f1ff; }                         /* = themes.js HERO */
+html[data-theme="pastel"] .hc-back .hb-zoom { filter: brightness(1.1); }            /* heroback.js 가 그림을 0.76 으로 어둡게 함(어두운 바탕용) — 되돌림 */
+html[data-theme="pastel"] .hc-back .hb-pen { filter: brightness(.91); }
+html[data-theme="pastel"] .hc-back i { background: linear-gradient(rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, .72)); }
+html[data-theme="pastel"] .hcath { color: #24212f; }
+html[data-theme="pastel"] .hc-text { text-shadow: 0 1px 20px rgba(255, 255, 255, .9); }
+html[data-theme="pastel"] .hc-text span { color: #4d4864; }
+html[data-theme="pastel"] .hc-chips a { background: rgba(255, 255, 255, .72); border-color: rgba(36, 33, 47, .12); color: #24212f; }
+html[data-theme="pastel"] .hc-chips a:hover, html[data-theme="pastel"] .hc-chips a:focus-visible { background: #fff; border-color: #ff8fb0; }
+
+/* 마무리 카드: 다른 포트폴리오 같던 남색 카드 → 우파 분홍 · 보라 · 하늘 파스텔, 칩은 단계 색(11-21 사용자: "우리 테마에 어울리게, 다른 포폴 같아") */
+html[data-theme="pastel"] .next-card { background: linear-gradient(135deg, #ffe4ef 0%, #ece5ff 50%, #dbeeff 100%); color: #24212f; box-shadow: 0 18px 48px rgba(120, 90, 170, .16); }
+html[data-theme="pastel"] .next-card h2 { color: #24212f; }
+html[data-theme="pastel"] .next-card p { color: #4d4864; }
+html[data-theme="pastel"] .next-card .flow span { color: #24212f; box-shadow: 0 4px 14px rgba(43, 36, 74, .08); }
+html[data-theme="pastel"] .next-card .flow span small { color: #5b5672; opacity: 1; }
+html[data-theme="pastel"] .next-card .flow .c1 { background: #ffd8c2; }
+html[data-theme="pastel"] .next-card .flow .c3 { background: #ddd4ff; }
+html[data-theme="pastel"] .next-card .flow .c2 { background: #c6efda; }
+
+/* 원래 검정이던 구역(crit-dark · 클리커 갤러리)도 파스텔에선 단계 색 위 밝은 글 · 흰 카드 — 검정이 섞이지 않게(11-21 사용자).
+   색이 박힌 흰 글씨는 darkfix.js 가 찾아 .lt-ink · .lt-ink2 로 표시한다(어두운 칩 · 그림 · 장면 위젯 안의 흰 글씨는 그대로). */
+html[data-theme="pastel"] .crit-dark, html[data-theme="pastel"] .hgal { color: #3f4550; }
+html[data-theme="pastel"] .crit-dark .sec-title h2 { color: #111318; }
+html[data-theme="pastel"] .crit-dark .sec-title h2 span { color: #7c828d; }
+html[data-theme="pastel"] section.crit-dark .cstep { --cb: rgba(255, 255, 255, .7) !important; --ct: #111318 !important; --cm: #7c828d !important; --ck: var(--accent) !important; --cl: rgba(0, 0, 0, .08) !important; }
+html[data-theme="pastel"] .lt-ink { color: #1c1a26 !important; }
+html[data-theme="pastel"] .lt-ink2 { color: #5b5672 !important; }
+html[data-theme="pastel"] .lt-line { border-color: rgba(36, 33, 47, .14) !important; }
+
+/* 펼친 구역('자세히 보기') 카드 · 상자도 본문 1·2·3 카드처럼 단계 색이 비치는 반투명 흰색 — 순수 흰 카드 · 검은 칩이 섞이지 않게(11-21 사용자).
+   .dk-box = darkfix.js 가 펼친 구역 · 앱 구역에서 찾아 둔 흰 상자(다크에선 어둡게, 파스텔에선 비치게) */
+html[data-theme="pastel"] .st-more .cstep, html[data-theme="pastel"] #t-app .cstep, html[data-theme="pastel"] #edit-blind .cstep { --cb: rgba(255, 255, 255, .7) !important; }
+html[data-theme="pastel"] .dk-box { background-color: rgba(255, 255, 255, .62) !important; }
+html[data-theme="pastel"] .way-nums p, html[data-theme="pastel"] .way-picks li, html[data-theme="pastel"] .gp { background: rgba(255, 255, 255, .7); color: #24212f; }
+html[data-theme="pastel"] .way-nums b { color: var(--accent); }
+html[data-theme="pastel"] .way-nums span { color: #4d4864; }
+
+/* 들머리 · 밑줄 */
+html[data-theme="pastel"] .fh-line { color: #3b3752; }
+html[data-theme="pastel"] .fh-line em { color: #15131d; }
+html[data-theme="pastel"] .ul { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 8' preserveAspectRatio='none'><path d='M1 5.2 C 30 3, 70 7, 119 4.2' fill='none' stroke='%23ff4d5a' stroke-width='2.4' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>"); }
+

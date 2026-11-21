@@ -1,0 +1,47 @@
+/* 훅(오프닝 다음): 화면 가득, 위에 붙어 있는 무대 + 스크롤로 넘어가는 렌더 + 설명 */
+#hook { position: relative; height: 640vh; background: #0e0f11; }
+.op-stage { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+.op-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.op-shade { position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,.05) 40%, rgba(0,0,0,.65)); pointer-events: none; }
+.op-tiles { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(12, 1fr); grid-template-rows: repeat(7, 1fr); pointer-events: none; }
+.op-tiles i { background: #0e0f11; transition: background .2s; }
+.op-tiles i.on { background: rgba(14,15,17,.35); box-shadow: inset 0 0 0 1px #ff9f1a; }
+.op-tiles i.done { background: transparent; }
+
+.op-head { position: absolute; left: 6vw; bottom: 17vh; color: #fff; max-width: 760px; opacity: 0; transform: translateY(14px); transition: opacity .7s, transform .7s; }
+#hook.ready .op-head { opacity: 1; transform: none; }
+#hook .op-head.gone { opacity: 0; transform: translateY(-10px); }
+.op-head small { display: block; font-size: 14px; opacity: .8; margin-bottom: 8px; }
+.op-head b { display: block; font-size: clamp(28px, 4.4vw, 54px); line-height: 1.22; letter-spacing: -1px; }
+
+.op-hint { position: absolute; left: 50%; bottom: 7vh; transform: translateX(-50%); color: #fff; font-size: 13px; opacity: 0; transition: opacity .6s; text-align: center; }
+#hook.ready .op-hint { opacity: .9; animation: hint 1.6s ease-in-out infinite; }
+#hook .op-hint.gone { opacity: 0; animation: none; }
+@keyframes hint { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 8px); } }
+
+.op-cap { position: absolute; left: 6vw; bottom: 16vh; max-width: 560px; color: #fff; background: rgba(14,15,17,.62); backdrop-filter: blur(6px); border-left: 3px solid var(--red); border-radius: 0 10px 10px 0; padding: 14px 18px; opacity: 0; transform: translateY(16px); transition: opacity .5s, transform .5s; }
+.op-cap.in { opacity: 1; transform: none; }
+.op-cap em { display: block; font-style: normal; font-size: 12px; color: #ffb4a8; margin-bottom: 4px; letter-spacing: .3px; }
+.op-cap b { display: block; font-size: clamp(17px, 2vw, 22px); line-height: 1.45; }
+.op-cap span { display: block; font-size: 14px; color: #d9dade; margin-top: 4px; }
+
+.op-end { position: absolute; left: 6vw; bottom: 17vh; color: #fff; max-width: 780px; opacity: 0; transform: translateY(16px); transition: opacity .7s, transform .7s; }
+.op-end.in { opacity: 1; transform: none; }
+.op-end small { display: block; font-size: 14px; opacity: .85; margin-bottom: 8px; }
+.op-end b { display: block; font-size: clamp(28px, 4.4vw, 54px); line-height: 1.22; letter-spacing: -1px; }
+.op-end span { display: block; margin-top: 12px; font-size: 14px; opacity: .85; }
+
+/* 아래 편집기 같은 줄: 렌더 번호 + 재생 헤드 */
+.op-bar { position: absolute; left: 6vw; right: 6vw; bottom: 4vh; color: #cfd0d5; font-family: var(--mono); font-size: 12px; }
+.op-scrub { position: relative; height: 18px; margin-top: 6px; border-radius: 3px; background: repeating-linear-gradient(90deg, rgba(255,255,255,.28) 0 1px, transparent 1px calc(100% / 55)); }
+.op-scrub i { position: absolute; top: -4px; bottom: -4px; width: 2px; background: var(--red); left: 0; box-shadow: 0 0 0 1px rgba(0,0,0,.4); }
+.op-skip { position: absolute; right: 18px; top: 16px; font: inherit; font-size: 13px; color: #fff; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.35); border-radius: 999px; padding: 5px 14px; cursor: pointer; }
+
+/* 훅 동안 위쪽 줄·목차는 숨김 */
+body.in-opening .bar, body.in-opening .rail, body.in-opening .toc-btn, body.in-opening .todo-toggle { opacity: 0; pointer-events: none; }
+.bar, .rail, .toc-btn, .todo-toggle { transition: opacity .4s; }
+
+@media (max-width: 640px) {
+  .op-cap, .op-head, .op-end { left: 5vw; right: 5vw; bottom: 14vh; }
+}
+@media print { #hook { display: none; } }

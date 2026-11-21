@@ -1,0 +1,73 @@
+/* 카드 군살 빼기(사용자 11-15 밤 "글이 너무 많아 보이고 · 줄바꿈이 애매하고 · 우파처럼 그림 위아래를 안 줄여 여백이 많아").
+   - 글: 줄 끝에 낱말 하나만 매달리지 않게(지원하는 브라우저에서), 문장 사이 줄바꿈은 글에 <br> 로 넣음.
+   - 제목: 쉼표 뒤를 한 덩어리로(title_wrap.js 가 .t2 로 감쌈) — 한 줄에 다 안 들어가면 덩어리째 다음 줄로.
+   - 그림: 움직이는 도식 칸 높이를 안의 내용에 맞게(넓은 화면만, 줄여도 겹치지 않는 값을 같은 순간끼리 찍어 비교해 고름),
+           위아래로 쌓은 전후 사진 두 장은 조금 더 납작하게. */
+.cs-story, .st-lede, .sec-lede, .app-lede, .hg-text p { text-wrap: pretty; }
+.cs-head h3 .t2, .st-title .st-h .t2 { display: inline-block; }
+.cs-head h3:not(:has(.t2)) { text-wrap: balance; }   /* 쉼표 없는 제목만 고르게(쉼표 묶음과 같이 쓰면 묶음 앞이 엉뚱하게 끊김 — 휴대폰 11-15) */
+@media (min-width: 901px) {
+  .cstep.side .tg[data-tg=asr9], .cstep.side .tg[data-tg=order], .cstep.side .tg[data-tg=breath], .cstep.side .tg[data-tg=cases] { height: 250px; }
+  .cstep.side .tg[data-tg=qs] { height: 260px; }
+  .cstep.side .tg[data-tg=ad] { height: 240px; }
+  .cstep.side .tg[data-tg=frame] { height: 330px; }
+  .cstep.side .cs-pics.one .cs-pic.tall img { height: 270px; }   /* NG 화면 한 장: 비율 그대로 줄임 */
+  .cstep.side .cs-pics.ways6 .way-pics img { aspect-ratio: 1; }   /* 여섯 칸: 세로로 긴 칸 → 정사각 */
+}
+
+/* 사례 카드 밑에 상자 없이 떨어져 있던 원본 · 우리 판 영상 네 개를 카드 상자 안 아래 줄로(사용자 11-15 밤 "박스 없이 영상만 있어
+   위 묶음과 다른 건지 쓰다 만 건지 모르겠다") — 카드의 두 칸 전체 폭을 씀 */
+.cstep.side > .eb-grid { grid-column: 1 / -1; margin-top: 30px; }
+/* '제가 고른 쪽' 표: 줄마다 오른쪽 결과 칸 너비가 달라 가운데 칸 시작이 줄마다 어긋나던 것(사용자 "세로 정렬이 안 돼 있어")
+   → 세 줄이 같은 칸을 나눠 씀(subgrid). 끝 글자 하나만 넘어가지 않게 pretty. */
+.way-picks .ai, .way-picks .me { text-wrap: balance; }   /* 두 줄이면 길이를 고르게(“직접 / 재 봄” 막음) */
+@media (min-width: 901px) {
+  .way-picks { grid-template-columns: 92px minmax(0, 1fr) 22px minmax(0, 1.25fr) max-content; column-gap: 12px; }
+  .way-picks li { grid-column: 1 / -1; grid-template-columns: subgrid; }
+  .way-picks em { text-align: right; }
+}
+
+/* 단계 머리의 '자세히 보기'를 요약(글 · 그림) 아래 따로 한 줄로(사용자 11-15 밤 "1번 내용에 자세히 보기가 포함된 것 같다 ·
+   아랫줄에 분리 · 좌측으로 빼든 잘 보이게 · 본문과 분리가 안 돼 눈에 안 띈다"). 왼쪽 끝은 번호(01)에 맞추고(more_row.js),
+   오른쪽으로 얇은 선을 이어 본문과 갈라지는 '펼치는 줄'로 보이게 */
+.st-sum > .st-more-row { grid-column: 1 / -1; display: flex; align-items: center; gap: 22px; margin-top: 8px; }
+.st-sum > .st-more-row::after { content: ""; flex: 1; height: 1px; background: rgba(17, 18, 23, .13); }
+
+/* 위아래로 쌓던 전후 사진(프리미어 → EDITRA · 의자 · 천장 · 제단 · 1차 → 12차)을 우파 카드처럼 가로로(사용자 11-15 밤 "세로 정렬
+   말고 가로 정렬 · 2 · 3번처럼 이미지와 박스 위아래를 좁힌 방법으로 통일") — 쌓기 규칙(.stack)을 빼면 기본이 '원래 → 고친 뒤' 가로,
+   사진은 4:3 으로 잘라 높이를 줄임. 제단은 측정 그림 셋(왼쪽) → 결과(오른쪽) */
+.cstep.side .cs-pics.duo { gap: 10px; }
+.cstep.side .cs-pics.duo .cs-pic img { aspect-ratio: 4 / 3; }
+.cstep.side .cs-pics.duo > .cs-m { flex: 1.3 1 0; margin: 0; gap: 6px; }
+/* 펼쳐서 단추가 왼쪽 막대로 떠난 동안엔 빈 자리표(접을 때 돌아올 자리)까지 선을 이어 끊기지 않게(사용자 11-15 밤 "자세히 보기가
+   빠진 빈자리에는 구분선이 끊겨 어색함") — 자리표 크기는 그대로 둠(접을 때 단추가 돌아갈 자리라서) */
+.st-sum > .st-more-row { position: relative; }
+.st-sum > .st-more-row:not(:has(> .st-open-pill))::after { position: absolute; left: 0; right: 0; top: 50%; }
+
+/* 마무리 문단: 문장이 두 줄로 넘어갈 때 끝 낱말만 남지 않게(“… 수준에 / 닿고 싶습니다.” 11-15 밤) */
+.next-card p { text-wrap: pretty; }
+
+/* 첫 화면(성당)과 훅에서는 위쪽 줄을 숨기고, 이야기 단계가 시작되면 나타나게(사용자 11-15 밤 "초반 인트로 상단에 저거 안 뜨게") —
+   bar_hide.js 가 body.in-top 을 붙였다 뗌. 자리는 그대로 두고 안 보이게만(오프닝 → 첫 화면 이어짐이 흔들리지 않게) */
+body.in-top .bar { opacity: 0; pointer-events: none; }
+
+/* '다섯 번의 처음' 지도: 눌러도 이동하지 않는 그림으로(사용자 11-15 밤 "눌렀을 때 이동이 되면 안 돼 — 순차적으로 보여 주는 포트폴리오").
+   아래 단계가 01 부터라 머리에 00 을 단계 번호와 같은 모양 · 같은 자리로(사용자 "00 이든 뭐든 넣어 통일감 있게") */
+.st-map a { pointer-events: none; cursor: default; }
+.st-map-k { position: relative; font-size: clamp(23px, 2.1vw, 30px); line-height: 1.4; letter-spacing: -.025em; }
+.st-map-k .st-no { position: absolute; right: 100%; top: 0; margin-right: 16px; font-size: 1.15em; line-height: inherit; }
+@media (max-width: 1340px) { .st-map-k .st-no { position: static; display: block; margin: 0 0 4px; font-size: .9em; } }
+
+/* 좁은 화면의 '다섯 번의 처음' 지도: 다섯 칸이 한 줄에 눌려 낱말마다 줄이 바뀌던 것을 두 칸씩으로
+   (w-story.css 가 원래 뜻한 좁은 화면 배치 — 뒤에 온 '다섯 칸' 규칙에 덮여 있었음, 11-15 밤 화면 확인 중 발견) */
+@media (max-width: 900px) { .st-intro .st-map { grid-template-columns: 1fr 1fr; } }
+
+/* '도전의 연속' 지도: 카드가 일곱(06 AIGEN 도전 · 07 웹 포트폴리오 추가 — 사용자 11-15 밤 "도전의 연속으로 바꾸고 … 아이젠 도전 · 웹 포트폴리오")이라
+   넓은 화면은 네 칸씩 두 줄, 줄 첫 카드 앞 화살표는 숨김. 좁은 화면은 위 규칙대로 두 칸씩(마지막 카드는 한 줄 차지) */
+@media (min-width: 901px) {
+  .st-intro .st-map { grid-template-columns: repeat(4, 1fr); }
+  .st-intro .st-map li:nth-child(4n+1) a::before { display: none; }
+}
+
+/* 카드가 여덟(08 처음 마주할 현장 — 사용자 11-15 밤 "8번은 현장이잖아")이라 좁은 화면에서도 마지막 카드가 한 줄을 다 차지하지 않고 07 옆에 놓이게 */
+@media (max-width: 900px) { .st-intro .st-map li:last-child { grid-column: auto; } }

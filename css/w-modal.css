@@ -1,0 +1,58 @@
+/* 무엇부터 볼지 팝업(흰 카드) · 분야 묶음 머리(가운데) · 3D 돌려 보기 카드 */
+.pick-modal { position: fixed; inset: 0; z-index: 120; display: flex; align-items: center; justify-content: center; padding: 28px;
+  background: rgba(17, 19, 24, .42); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); opacity: 0; transition: opacity .45s ease, background .25s; }
+.pick-modal[hidden] { display: none; }
+.pick-modal.show { opacity: 1; }
+.pick-modal.solid { background: var(--bg); }
+.pick-modal.solid .pick-box { opacity: 0; transition: opacity .2s ease; }
+.pick-box { width: min(1040px, 100%); max-height: 100%; overflow-y: auto; padding: 44px 44px 30px; border-radius: var(--r-xl); background: #fff;
+  box-shadow: 0 40px 120px rgba(10, 12, 30, .3); text-align: center; transform: translateY(18px); transition: transform .55s var(--ease); }
+.pick-modal.show .pick-box { transform: none; }
+.pick-box .eyebrow { color: var(--mute); font-size: 14px; }
+.pick-box h2 { font-size: clamp(28px, 3.4vw, 42px); }
+.pick-sub { margin: 12px 0 0; color: var(--mute); font-size: 16px; }
+.picks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 34px; text-align: left; }
+.pick-tile { display: block; padding: 10px 10px 16px; border-radius: 20px; background: var(--bg-2); cursor: pointer; transition: background .25s, transform .3s var(--ease); }
+.pick-tile:hover { background: var(--bg-3); transform: translateY(-3px); }
+.pick-tile.chosen { box-shadow: inset 0 0 0 2px var(--accent); }
+.pick-media { position: relative; overflow: hidden; border-radius: 14px; background: var(--dark); aspect-ratio: 4 / 3; }
+.pick-media img, .pick-media video { width: 100%; height: 100%; object-fit: cover; }
+.pick-media .art-wave { gap: 2px; padding: 0 10%; }
+.pick-media .art-wave i:nth-child(odd) { display: none; }
+.pick-text { padding: 14px 8px 0; }
+.pick-text b { display: block; color: var(--ink); font-size: 18px; letter-spacing: -.03em; }
+.pick-text small { display: block; margin-top: 4px; font-size: 13.5px; line-height: 1.5; color: var(--mute); }
+.pick-skip { margin-top: 26px; padding: 10px 18px; border: 0; border-radius: 999px; background: none; color: var(--mute); font-size: 15px; cursor: pointer; }
+.pick-skip:hover { background: var(--bg-2); color: var(--ink); }
+
+/* 분야 묶음 머리: 가운데 큰 제목 */
+.track { padding-top: 40px; }
+.track-head { padding: 140px 0 8px; text-align: center; }
+.track-head .eyebrow { margin-bottom: 12px; }
+.track-head h2 { font-size: clamp(38px, 5vw, 64px); letter-spacing: -.045em; }
+.track-head .lede { margin: 20px auto 0; font-size: 18px; color: var(--ink-2); }
+.track-head + .theatre { margin-top: 72px; }
+
+/* 3D 돌려 보기: 밝은 회색 둥근 무대 두 칸 */
+.orbit-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.orbit-stage { position: relative; overflow: hidden; border-radius: var(--r-xl); background: radial-gradient(closest-side at 50% 46%, #ffffff, #eceef2); aspect-ratio: 1 / .86; }
+.orbit-stage model-viewer { width: 100%; height: 100%; --poster-color: transparent; background: transparent; }
+.orbit-hint { position: absolute; left: 0; right: 0; bottom: 16px; text-align: center; font-size: 13px; color: var(--mute); pointer-events: none; }
+.orbit-hint kbd { padding: 1px 6px; border: 1px solid var(--line-2); border-radius: 5px; background: #fff; font: inherit; font-size: 12px; }
+.orbit-zoom { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: 10px 16px; border-radius: 10px; background: rgba(17, 19, 24, .78); color: #fff; font-size: 14px; opacity: 0; transition: opacity .3s; pointer-events: none; }
+.orbit-zoom.show { opacity: 1; }
+.orbit-txt { padding: 18px 6px 0; }
+.orbit-txt b { display: block; color: var(--ink); font-size: 19px; letter-spacing: -.03em; }
+.orbit-txt span { display: block; margin-top: 4px; font-size: 14.5px; color: var(--mute); }
+
+@media (max-width: 900px) {
+  .pick-modal { padding: 14px; }
+  .pick-box { padding: 28px 16px 18px; border-radius: 22px; }
+  .picks { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 22px; }
+  .pick-text b { font-size: 16px; }
+  .pick-text small { display: none; }
+  .track-head { padding-top: 96px; }
+  .track-head .lede { font-size: 16px; }
+  .orbit-grid { grid-template-columns: 1fr; }
+}
+@media print { .orbit-stage model-viewer { display: none; } }

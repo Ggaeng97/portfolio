@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>이경환 포트폴리오</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="css/w-base.css?v=1125b">
+<link rel="stylesheet" href="css/w-hero.css?v=1125b">
+<link rel="stylesheet" href="css/w-feature.css?v=1125b">
+<link rel="stylesheet" href="css/w-sc.css?v=1125b">
+<link rel="stylesheet" href="css/w-widgets.css?v=1125b">
+<link rel="stylesheet" href="css/w-pin.css?v=1125b">
+<link rel="stylesheet" href="css/w-hgal.css?v=1125b">
+<link rel="stylesheet" href="css/w-tween.css?v=1125b">
+<link rel="stylesheet" href="css/w-line.css?v=1125b">
+<link rel="stylesheet" href="css/w-mesh.css?v=1125b">
+<link rel="stylesheet" href="css/w-parts.css?v=1125b">
+<link rel="stylesheet" href="css/w-modal.css?v=1125b">
+<link rel="stylesheet" href="css/hook.css?v=1125b">
+<link rel="stylesheet" href="css/w-crit.css?v=1125b">
+<link rel="stylesheet" href="css/w-heroback.css?v=1125b">
+<link rel="stylesheet" href="css/w-chip.css?v=1125b">
+<link rel="stylesheet" href="css/w-app.css?v=1125b">
+<link rel="stylesheet" href="css/w-cflow.css?v=1125b">
+<link rel="stylesheet" href="css/w-edit.css?v=1125b">
+<link rel="stylesheet" href="css/w-tech.css?v=1125b">
+<link rel="stylesheet" href="css/w-tech2.css?v=1125b">
+<link rel="stylesheet" href="css/w-tech3.css?v=1125b">
+<link rel="stylesheet" href="css/w-tech4.css?v=1125b">
+<link rel="stylesheet" href="css/w-way.css?v=1125b">
+<link rel="stylesheet" href="css/w-story.css?v=1125b">
+<link rel="stylesheet" href="css/w-dock.css?v=1125b">
+<link rel="stylesheet" href="css/w-more.css?v=1125b">
+<link rel="stylesheet" href="css/w-side.css?v=1125b">
+<link rel="stylesheet" href="css/w-trim.css?v=1125b">
+<link rel="stylesheet" href="css/w-hook2.css?v=1125b">
+<link rel="stylesheet" href="css/w-read.css?v=1125b">
+<script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap">
+<link rel="stylesheet" href="css/marks.css?v=1125b">
+<link rel="stylesheet" href="css/pt.css?v=1125b">
+<link rel="stylesheet" href="css/theme_pastel.css?v=1125b">
+<link rel="stylesheet" href="css/theme_dark.css?v=1125b">
+<link rel="stylesheet" href="css/crayon.css?v=1125b">
+<link rel="stylesheet" href="css/cards05.css?v=1125b">
+<link rel="stylesheet" href="css/story_vis.css?v=1125b">
+<script>try{history.scrollRestoration="manual"}catch(e){}try{document.documentElement.dataset.theme=localStorage.getItem("site-theme")==="dark"?"dark":"pastel"}catch(e){document.documentElement.dataset.theme="pastel"}</script>
+</head>
+<body data-bg0="#0b0c0f">
+<!-- 화면에 고정된 흐린 영상 바탕(성당 구역 앞뒤): 흰 화면 위로 바로 번져 나오고, 성당 액자가 화면 가득 커질 때 걷힘(theatre.js) -->
+<div class="bd-blur" aria-hidden="true"><video muted loop playsinline preload="auto" src="vid/sky_walk.mp4"></video></div>
+<!-- 첫 화면 성당(고정 바탕): 내리면 크게 커지며 세게 흐려져 뒷배경으로 남고, 첫 장이 덮을 때 걷힘(heroback.js, 사용자 11-14) -->
+<div class="hc-back" aria-hidden="true"><div class="hb-zoom"><img class="hb-sharp" src="img/u3d/hero_uppa.webp" alt=""><img class="hb-pen" src="img/u3d/note_0.png" alt=""><img class="hb-pen" src="img/u3d/note_1.png" alt=""><img class="hb-pen" src="img/u3d/note_2.png" alt=""><img class="hb-pen" src="img/u3d/note_3.png" alt=""></div><i></i></div>
+<div class="content">
+
+<header class="bar"><div class="wrap"><a class="brand" href="#top">이경환</a><nav></nav></div></header>
+
+<main>
+<!-- 첫 화면: 오프닝 마지막 장면과 같은 성당 위에 문구 + 아래 작은 칩(장 바로가기). 요약은 여기 한 곳만(사용자 11-13) -->
+<section class="hcath" id="top" aria-label="같은 카메라로 렌더하며 짚어 온 성당 위의 첫 화면">
+  <div class="hc-text"><b>AI를 가르쳐<br>사람 수준까지 만듭니다.</b><span>편집에서 3D, 앱, 실물 출력까지 짚어서 끝까지 완성합니다</span></div>
+  <nav class="hc-chips" aria-label="단계 바로가기"><a href="#st2"><b>편집 도구</b></a><a href="#st3"><b>3D 모델링</b></a><a href="#stR"><b>캐릭터 리깅</b></a><a href="#st4"><b>앱 기획</b></a><a href="#st5"><b>클리커 출력</b></a></nav>
+</section>
+
+<!-- 도전 이야기 훅(사용자 11-14): 첫 화면 바로 아래, 검은 바탕에 흰 글씨 한 문장씩 글자 단위로 바뀜(hook2.js) -->
+<section class="sec fhook" id="why" data-bg="#ffffff" aria-label="들머리 이야기"><div class="wrap">
+  <div class="fh-group">
+    <div class="fh-beat" data-pt="wave"><p class="fh-line">편집자로 일하며 컷과 자막을 다듬는 <em>편집 도구</em>를 직접 만들었습니다.</p></div>
+    <div class="fh-beat" data-pt="skypost"><p class="fh-line">게임에서는 <em>3D 모델링</em>을 맡고 앱에서는 기획부터 출시 준비까지 맡았습니다.</p></div>
+    <div class="fh-beat" data-pt="face"><p class="fh-line">캐릭터는 손가락까지 움직이고, <em>표정</em>이 바뀌게 완성했습니다.</p></div>
+    <div class="fh-beat" data-pt="clicker"><p class="fh-line">머리를 누르면 딸깍하는 클리커는 12개 부품을 <em>첫 출력</em>에서 한 번에 조립했습니다.</p></div>
+  </div>
+  <div class="fh-group">
+    <div class="fh-beat" data-pt="mark"><p class="fh-line">처음 하는 일이 대부분이었지만 어긋난 곳을 <em>짚어</em> 끝까지 완성했습니다.</p></div>
+    <div class="fh-beat" data-pt="rules"><p class="fh-line">짚은 것은 AI가 <em>규칙</em>으로 남기게 해 다음에는 처음부터 맞게 합니다.</p></div>
+  </div>
+  <div class="fh-group last">
+    <div class="fh-beat" data-pt="uppa"><p class="fh-line">맡겨 주시면 처음 하는 일도<br><em>사람 수준</em>까지 해내겠습니다.</p></div>
+  </div>
+</div></section>
+<section class="sec st-intro" id="story" data-bg="#ffffff" data-bg-clear><div class="wrap">
+  <h2 class="st-map-k"><em class="st-no">00</em>맡아서 끝낸 일</h2>
+  <ol class="st-map"><li><a><em>01</em><b>편집 자동화</b></a></li><li><a><em>02</em><b>편집 도구</b></a></li><li><a><em>03</em><b>게임 3D 모델링</b></a></li><li><a><em>04</em><b>캐릭터 리깅과 표정</b></a></li><li><a><em>05</em><b>앱 기획과 출시 준비</b></a></li><li><a><em>06</em><b>클리커 설계와 출력</b></a></li><li><a><em>07</em><b>AI에게 남긴 규칙</b></a></li><li><a><em>08</em><b>맡겨 주실 일</b></a></li></ol>
+</div></section>
+<article class="st" id="st1" data-toc="편집 자동화">
+<section class="sec st-head" data-bg="#ffffff" data-bg-clear><div class="wrap st-sum">
+  <div class="st-title"><h2><em class="st-no">01</em><span class="st-h">저는 회사에서 여러 스트리머의 영상을 편집하는 편집자였습니다.</span></h2></div>
+  <div class="st-txt"><div class="st-story"><p class="st-lede">그중 NG가 잦은 스트리머의 영상은 다시 말한 구간을 자르는 데 가장 오래 걸렸습니다.<br>모두 당연하게 여긴 이 작업을 저는 <b>자동화할 수 있다고 보고</b> 시작했습니다.</p><ol class="st-steps flow"><li class="ic-look"><b>NG 들여다보기</b><span>다시 말하는 버릇이 스트리머마다 호흡처럼 일정했습니다</span></li><li class="ic-rule"><b>규칙으로 정리해 AI에게 가르치기</b><span>사람 감에만 있던 기준을 AI가 따를 수 있는 규칙으로</span></li><li class="ic-done"><b>NG 17곳 모두 찾기</b><span>규칙만 있으면 AI도 같은 기준으로 해냅니다</span></li></ol></div></div>
+  <div class="st-vis out"><span class="pn" style="--r:4px;--b:0px;--rot:-1.5deg">NG 17곳 모두 찾음 ✓</span><div class="cs-pics has-tg"><div class='tg' data-tg='ng' role='img' aria-label='파형에서 신호어 NG를 찾고, 되풀이 · 더듬음 NG를 규칙으로 찾아 잘라 당기는 그림'></div></div></div>
+  <div class="st-more-row"><button class="st-btn" type="button" aria-expanded="false" aria-controls="st1-more">자세히 보기</button></div>
+</div></section>
+<div class="st-more" id="st1-more" hidden>
+<section class="sec st-sec" data-bg="#ffffff" data-bg-clear><div class="wrap">
+<div class="cflow">
+    <article class='cstep rise side'>
+      <div class='cs-pics one'><figure data-lb='영상 편집기가 찾은 NG' class='cs-pic b tall'><img src='img/edit/ng_rules.jpg' alt='영상 편집기가 규칙으로 NG 17곳을 찾아 줄을 긋고 파형에 자를 구간을 표시한 화면' loading='lazy'></figure></div>
+      <div class='cs-aside'><div class='cs-head'><h3>NG를 손으로 찾던 것을 규칙으로</h3></div><p class='cs-story'>기준이 감에만 있어 매번 들으며 잘라 냈습니다.<br>신호어, 호흡 패턴을 <b>새 유형까지 정리해 가르치자</b>, 확정한 NG 17곳을 모두 찾았습니다.</p></div></article>
+</div>
+</div></section>
+<div class="wrap st-close"><button class="st-btn" type="button" aria-expanded="true" aria-controls="st1-more">접기</button></div>
+</div>
+<div class="wrap st-bridge"><div class='st-impact'><b class='ip-num'><i data-from='0' data-to='17' data-dec='0'>17</i>곳</b><span class='ip-cap'>확정한 NG를 모두 찾았습니다</span></div><p>하지만 편집 프로그램에 덧붙인 도구로는 더 나아가기 어려웠습니다.</p></div>
+</article>
+<article class="st" id="st2" data-toc="편집 도구">
+<section class="sec st-head" data-bg="#ffffff" data-bg-clear><div class="wrap st-sum">
+  <div class="st-title"><h2><em class="st-no">02</em><span class="st-h">그래서 빠르면서도 디테일이 높은 편집 도구를 만들었습니다.</span></h2></div>
+  <div class="st-txt"><div class="st-story"><p class="st-lede">단순한 자동화가 아니라 <b>디테일까지 높으면서 빠른 편집</b>을 하고 싶었습니다.<br>개발은 배운 적이 없었지만 자막을 보며 고치고 AI도 쓰는 영상 편집기를 직접 만들었습니다.</p><ol class="st-steps"><li><b>받아쓰기 누락은 치명적인 버그</b><span>자막을 보며 편집하는 구조라 말을 놓쳐 자막이 비면 안 됩니다</span></li><li><b>AI가 말한 '모델의 한계'를 넘게</b><span>듣는 방식을 함께 공부해 무음 한가운데서 잘라 따로 받아쓰게</span></li><li><b>받아쓰기 99.1%, 한 편 20~30분</b><span>정답 일치율 86.8% → 99.1%, 편집은 2~4시간 → 20~30분</span></li></ol></div></div>
+  <div class="st-vis out"><span class="pn" style="--x:4px;--y:0px;--rot:-1.5deg">받아쓰기 86.8% → 99.1% ✓</span><span class="pn" style="--r:4px;--b:0px;--rot:1.5deg">편집 2~4시간 → 20~30분 ✓</span><div class="cs-pics has-tg"><div class='tg' data-tg='race' role='img' aria-label='같은 속도로 같이 시작해서 영상 편집기는 준비 · 자료 조사와 대본 · 목소리와 자료 모으기 · 컷과 배치와 자막과 타이밍 · 내용 확인을 거쳐 20~30분에 끝나고, 편집자가 직접 하면 2~4시간, 늦으면 하루 이틀 걸리는 그림'></div></div></div>
+  <div class="st-more-row"><button class="st-btn" type="button" aria-expanded="false" aria-controls="st2-more">자세히 보기</button></div>
+</div></section>
+<div class="st-more" id="st2-more" hidden>
+<section class="sec st-sec" data-bg="#ffffff" data-bg-clear><div class="wrap">
+<h3 class="cs-group-h">편집 도구를 만들며 이렇게 고쳤습니다</h3>
+<div class="cflow">
+    <article class='cstep rise side wide'>
+      <div class='cs-pics has-tg'><div class='tg' data-tg='asr9' role='img' aria-label='듣는 구간이 9초를 넘으면 위스퍼가 되풀이한 말을 하나로 합치는 그림'></div></div>
+      <div class='cs-aside'><div class='cs-head'><h3>같은 말이 두 번 찍히던 받아쓰기를 짧게 끊어 듣게</h3></div><p class='cs-story'>AI는 9초 넘게 들으면 되풀이를 하나로 합쳤습니다.<br>모델 한계라는 답 대신 <b>그 경계부터 재고 나눠 받아쓰게</b> 해, 227자 중 225자(99.1%)⁠를 맞췄습니다.</p></div></article>
+    <article class='cstep rise side flip wide'>
+      <div class='cs-pics has-tg'><div class='tg' data-tg='breath' role='img' aria-label='숨소리 자리에 아멘을 지어내던 것을, 말소리보다 작은 소리는 받아쓰기에서 빼서 빈칸으로 두게 바꾸는 그림'></div></div>
+      <div class='cs-aside'><div class='cs-head'><h3>숨소리를 '아멘'으로 적던 자막을 말소리만 받아쓰게</h3></div><p class='cs-story'>AI는 '말 없음'이라고 답하지 못해 없는 말을 지어냈습니다.<br>하나씩 덧대 고치는 대신 <b>오류 자리를 모아 원인부터 찾게</b> 해, 16곳 중 15곳을 바로잡았습니다.</p></div></article>
+    <article class='cstep rise side wide'>
+      <div class='cs-pics duo'><figure data-lb='원래 · 프리미어 확장' class='cs-pic a wide'><img src='img/edit/premiere_ext.jpg' alt='원래 · 3월에 만든 프리미어 확장 NG 찾기 패널' loading='lazy'></figure><i class='cs-arr'>→</i><figure data-lb='직접 만든 영상 편집기' class='cs-pic b wide'><img src='img/edit/editra_v11.jpg' alt='직접 만든 편집 도구 영상 편집기 1.1 화면' loading='lazy'></figure></div>
+      <div class='cs-aside'><div class='cs-head'><h3>프리미어에 덧붙이던 것을 편집 도구로</h3></div><p class='cs-story'>확장은 허용된 범위 안에서만 돌아 더할수록 느려졌습니다.<br><b>필요한 기능만 묶어 직접 만들자</b>, 자막을 보며 고치고 AI도 쓰는 영상 편집기가 됐습니다.</p></div></article>
+    <article class='cstep rise side flip wide'>
+      <div class='cs-pics has-tg'><div class='tg' data-tg='order' role='img' aria-label='영상 분석 · 자료 조사 · 이야기 대본 · 목소리 · 컷 편집 · 자료 배치 · 자막 · 배치 타이밍 · 내용 확인 아홉 단계를 차례로 거치면 타임라인이 하나씩 채워지는 그림'></div></div>
+      <div class='cs-aside'><div class='cs-head'><h3>한 번에 시키던 것을 사람의 작업 순서로</h3></div><p class='cs-story'>사람이 거치는 과정이 빠지니 결과에 AI 티가 났습니다.<br><b>분석부터 확인까지 단계마다 다른 점을 기록하며 가르치자</b>, 자연스러운 한 편이 20~30분에 나왔습니다.</p></div></article>
+    
+</div>
+</div></section>
+<div class="wrap st-close"><button class="st-btn" type="button" aria-expanded="true" aria-controls="st2-more">접기</button></div>
+</div>
+<div class="wrap st-bridge"><div class='st-impact'><span class='ip-from'>86.8% →</span><b class='ip-num'><i data-from='86.8' data-to='99.1' data-dec='1'>99.1</i>%</b><span class='ip-cap'>받아쓰기 정답 일치율</span></div><p>그 무렵 저는 친구들과 게임도 만들기 시작했습니다.</p></div>
+</article>
+<article class="st" id="st3" data-toc="3D 모델링">
+<section class="sec st-head" data-bg="#ffffff" data-bg-clear><div class="wrap st-sum">
+  <div class="st-title"><h2><em class="st-no">03</em><span class="st-h">친구 둘과 만드는 게임에서 저는 세부 디자인, 3D 모델링, 물리 엔진을 맡았습니다.</span></h2></div>
+  <div class="st-txt"><div class="st-story"><p class="st-lede">모델링은 AI를 가르치며 함께 익혔습니다.<br>하지만 AI는 그림을 읽지 못해 몇 번을 짚어도 같은 곳을 틀렸습니다.</p><ol class="st-steps"><li><b>짚은 것을 기억하게</b><span>같은 지적을 되풀이하지 않도록</span></li><li><b>보는 법을 가르치게</b><span>편집에서 자막 위치, 크기를 재던 방식으로 3D는 깊이, 간격, 단면을 재게</span></li><li><b>18번 → 3번, 11차와 12차 연속 합격</b><span>쌓인 기록 덕에 보겸 채널은 3번 만에, 학습 내용만 받은 새 AI도 통과</span></li></ol></div></div>
+  <div class="st-vis lb"><span class="pn" style="--x:4px;--y:0px;--rot:-2deg">101번 꼼꼼히 다듬어 완성 ✓</span><span class="pn" style="--r:4px;--b:0px;--rot:1.5deg">규칙만 받은 새 AI도 합격 ✓</span><figure class="st-pic st-evo"><video src="vid/cathedral_evolve.mp4" muted loop playsinline preload="metadata" data-inview aria-label="같은 카메라로 렌더한 성당이 첫 렌더부터 지금까지 짚어 고친 순서대로 바뀌는 영상"></video></figure></div>
+  <div class="st-more-row"><button class="st-btn" type="button" aria-expanded="false" aria-controls="st3-more">자세히 보기</button></div>
+</div></section>
+<div class="st-more" id="st3-more" hidden>
+<div class="track" id="t-3d">
+  
+<!-- 이어지는 장면: 56장 진화 → 제단 쪽으로 확대되며 탁자로 겹쳐 바뀜 → 탁자 무늬로 (theatre.js) -->
+<section class="sec st-sec crit-dark" id="evo" data-bg="#ffffff"><div class="wrap"><div class="cflow"><article class='cstep rise side wide'><div class='cs-pics one'><figure class='cs-pic b nat'><video src='vid/cathedral_evolve.mp4' poster='vid/cathedral_evolve.jpg' muted loop playsinline preload='metadata' data-inview></video></figure></div><div class='cs-aside'><div class='cs-head'><h3>옆에서 보면 무너지던 모델을 101번 꼼꼼히 다듬어 완성으로</h3></div><p class='cs-story'>3D 생성 AI의 모델은 고칠 범위가 좁았습니다.<br>블렌더 모델링을 가르쳐 <b>천장, 의자, 질감, 빛까지 짚어</b> 디테일을 올렸습니다.</p></div></article></div></div></section>
+<section class="sec crit-dark" id="cath" data-bg="#ffffff"><div class="wrap">
+  <div class="sec-title"><h2><span>성당 곳곳도</span>같은 방식으로 짚었습니다</h2></div>
+  <div class="cflow">
+    <article class='cstep rise side wide'>
+      <div class='cs-pics duo'><figure class='cs-pic a'><img src='img/detail/pews_r01.jpg' alt='원래 · 첫 렌더' loading='lazy'><figcaption>원래, 첫 렌더</figcaption></figure><i class='cs-arr'>→</i><figure class='cs-pic b'><img src='img/detail/pews_r73.jpg' alt='고친 뒤 · 같은 자리' loading='lazy'><figcaption>고친 뒤, 같은 자리</figcaption></figure></div>
+      <div class='cs-aside'><div class='cs-head'><h3>상자 덩어리였던 의자를 가구로</h3></div><p class='cs-story'>AI가 멀리서 보이는 윤곽만 맞춰 지었습니다.<br>가까이서 봐도 어색하지 않게 <b>곡선 옆판과 둥근 등받이, 책 선반까지</b> 짓게 했습니다.</p></div></article>
+    <article class='cstep rise side flip wide'>
+      <div class='cs-pics duo'><figure class='cs-pic a'><img src='img/detail/vault_r01.jpg' alt='원래 · 첫 렌더' loading='lazy'><figcaption>원래, 첫 렌더</figcaption></figure><i class='cs-arr'>→</i><figure class='cs-pic b'><img src='img/detail/vault_r73.jpg' alt='고친 뒤 · 같은 자리' loading='lazy'><figcaption>고친 뒤, 같은 자리</figcaption></figure></div>
+      <div class='cs-aside'><div class='cs-head'><h3>갈빗대뿐이었던 천장을 돔으로</h3></div><p class='cs-story'>AI가 그림 위쪽의 둥근 모양을 읽지 못해 밋밋한 하얀 면으로 지었습니다.<br>다시 읽게 해 <b>칸마다 돔과 파란 회칠, 금 갈빗대</b>로 고쳤습니다.</p></div></article>
+    <article class='cstep rise side'>
+      <div class='cs-pics tallpair'><figure class='cs-pic a'><img src='img/detail/pillar_r01.jpg' alt='원래 · 첫 렌더' loading='lazy'><figcaption>원래, 첫 렌더</figcaption></figure><i class='cs-arr'>→</i><figure class='cs-pic b'><img src='img/detail/pillar_r73.jpg' alt='고친 뒤 · 같은 자리' loading='lazy'><figcaption>고친 뒤, 같은 자리</figcaption></figure></div>
+      <div class='cs-aside'><div class='cs-head'><h3>매끈하기만 하던 돌을 돌답게</h3></div><p class='cs-story'>AI가 모든 블록에 재질 하나만 썼습니다.<br><b>조각마다 다른 질감과 닳음, 때, 거칠기, 요철까지</b> 넣게 했습니다.</p></div></article>
+    <article class='cstep rise side flip wide'>
+      <div class='cs-pics duo'><div class='cs-m'><figure><img src='img/crit/sheet_section_155538.jpg' alt='단면도' loading='lazy'><figcaption>단면도</figcaption></figure><figure><img src='img/crit/depth_front_024903.jpg' alt='깊이 색 지도' loading='lazy'><figcaption>깊이 색 지도</figcaption></figure><figure><img src='img/crit/clay_left_142305.jpg' alt='점토 측정용 그림' loading='lazy'><figcaption>점토 측정용 그림</figcaption></figure></div><i class='cs-arr'>→</i><figure class='cs-pic b'><img src='img/evo/altar_5.jpg' alt='고친 뒤 · 부품마다 따로 지은 정답지 모델' loading='lazy'><figcaption>고친 뒤, 부품마다 따로 지은 정답지 모델</figcaption></figure></div>
+      <div class='cs-aside'><div class='cs-head'><h3>짐작으로 짓던 제단을 측정해서</h3></div><p class='cs-story'>AI가 정면만 보고 탁자 짜임을 어림했습니다.<br><b>단면도, 깊이 색 지도, 점토 그림으로 재게</b> 하자, 7cm 틈까지 찾아 159개 부품으로 완성했습니다.</p></div></article>
+  </div>
+</div></section>
+<!-- 2장 계속: 캐릭터 -->
+<!-- 스크롤 고정 장면(사용자 11-14 되살림): 내리는 만큼 마스코트에 부위마다 다가감. 설명이 뜰 때마다 그 자리에서 그림이 걸림(data-one),
+     첫 설명엔 턴어라운드 그림을 겹쳐 보고, 둘째엔 와이어프레임, 마지막엔 옆 그림. 설명은 큰 줄 하나씩 -->
+<section class="sec st-sec crit-dark" id="turn" data-bg="#ffffff"><div class="wrap"><div class="cflow"><article class='cstep rise side wide flip'><div class='cs-pics one'><figure class='cs-pic b nat'><video src='vid/mascot_turn.mp4' poster='vid/mascot_turn.jpg' muted loop playsinline preload='metadata' data-inview></video></figure></div><div class='cs-aside'><div class='cs-head'><h3>그림 한 장의 마스코트를 어느 쪽에서 봐도 자연스럽게</h3></div><p class='cs-story'>시점마다 맞춰 깎던 머리카락과 손끝만 덮던 주머니가 돌리면 어색했습니다.<br>그림의 <b>2D적 허용을 짚어 입체에 맞게</b> 다시 잡게 했습니다.</p></div></article></div></div></section>
+<section class="sec crit-dark" id="chars" data-bg="#ffffff"><div class="wrap">
+  <div class="sec-title"><h2><span>캐릭터도</span>그림 선을 따라 붙이지 않게</h2></div>
+  <p class="sec-lede">2D 마스코트를 3D 피규어로 옮기며 그림과 어긋난 곳의 이유를 AI와 함께 찾았습니다.</p>
+  <div class="cflow">
+    <article class='cstep rise side wide'>
+      <div class='cs-pics sq'><figure class='cs-pic a'><img src='img/chars/head_before_q34.jpg' alt='원래 · 그림 선에 그대로 맞춘 머리' loading='lazy'><figcaption>원래, 그림 선에 그대로 맞춘 머리</figcaption></figure><i class='cs-arr'>→</i><figure class='cs-pic b'><img src='img/chars/head_after_q34.jpg' alt='고친 뒤 · 같은 각도' loading='lazy'><figcaption>고친 뒤, 같은 각도</figcaption></figure></div>
+      <div class='cs-aside'><div class='cs-head'><h3>선을 따라 붙이던 머리를 적은 면과 메쉬 스무스로</h3></div><p class='cs-story'>AI가 시점마다 다른 윤곽을 그대로 맞췄습니다.<br><b>테두리는 기준점만 쓰게</b> 해 얼굴을 가로지르던 줄 없이 인상을 지켰습니다.</p></div></article>
+    <article class='cstep rise side flip wide'>
+      <div class='cs-pics sq'><figure class='cs-pic a'><img src='img/cmp/mascot_mid.jpg' alt='원래 · 면이 많던 때' loading='lazy'><figcaption>원래, 면이 많던 때</figcaption></figure><i class='cs-arr'>→</i><figure class='cs-pic b'><img src='img/cmp/mascot_now.jpg' alt='고친 뒤' loading='lazy'><figcaption>고친 뒤</figcaption></figure></div>
+      <div class='cs-aside'><div class='cs-head'><h3>면을 줄여 잔굴곡이 남던 표면을 매끈하게</h3></div><p class='cs-story'>촘촘한 면에 메쉬 스무스를 걸어 울퉁불퉁했습니다.<br><b>모든 파츠에 같은 규칙을 적용하게</b> 해 귀, 꼬리, 다리까지 고르게 정리했습니다.</p></div></article>
+  </div>
+</div></section>
+<!-- 2장 끝: 블라인드 시험 한 장 -->
+<section class="sec crit-dark" id="blind" data-bg="#ffffff"><div class="wrap">
+  <div class="sec-title"><h2><span>고친 방법이 진짜인지</span>규칙만 준 새 AI로 시험했습니다</h2></div>
+  <p class="sec-lede">고친 방법을 학습시킨 뒤 새 AI에게 그림과 학습 내용만 주고 제단 탁자를 처음부터 짓게 했습니다.<br>제 기록 없이도 되는지 확인한 시험입니다.</p><div class='st-impact'><span class='ip-from'>1차 실패 →</span><b class='ip-num'><i data-from='1' data-to='12' data-dec='0'>12</i>차</b><span class='ip-cap'>11차와 12차 연속 합격, 제 기록 없이 학습 내용만으로</span></div>
+  <div class="cflow">
+    <article class='cstep rise side wide'>
+      <div class='cs-pics duo'><figure class='cs-pic a'><img src='img/blind/front02.jpg' alt='원래 · 1차(실패)' loading='lazy'><figcaption>원래, 1차(실패)</figcaption></figure><i class='cs-arr'>→</i><figure class='cs-pic b'><img src='img/blind/front12.jpg' alt='고친 뒤 · 12차(연속 합격)' loading='lazy'><figcaption>고친 뒤, 12차(연속 합격)</figcaption></figure></div>
+      <div class='cs-aside'><div class='cs-head'><h3>1차 실패에서 11차와 12차 연속 합격까지</h3></div><p class='cs-story'>새 AI는 규칙보다 그림 속 숫자를 믿었습니다.<br>운으로 붙은 회차는 세지 않고 <b>떨어질 때마다 이유와 막는 검사까지 학습시켰습니다</b>.</p></div></article>
+  </div>
+</div></section>
+</div>
+<section class="sec st-sec" data-bg="#ffffff" data-bg-clear><div class="wrap"><div class="sec-title"><h2><span>일하는 방식도</span>원인을 묻고 고른 방법까지 가르쳤습니다</h2></div><p class="sec-lede">AI에게 고쳐 달라고만 하면 같은 지적과 고침이 되풀이됐습니다.<br>그래서 문제가 보이면 원인부터 묻고 AI가 제안한 방법을 비교해 고른 뒤 그 방법까지 학습시켰습니다.</p><div class="cs-pics has-tg"><div class="tg" data-tg="way" role="img" aria-label="해줘 방식은 지적과 고침이 되풀이되고, 제 방식은 문제를 보면 AI에게 원인을 묻고 AI가 제안한 방법을 비교해 고른 뒤 그 방법까지 학습시켜, 완성까지 요청한 횟수가 학습 전 스토리 채널 18번에서 학습 후 보겸 채널 3번으로 준 그림"></div></div></div></section>
+<section class="sec st-sec" data-bg="#ffffff" data-bg-clear><div class="wrap">
+<div class="cflow">
+    <article class='cstep rise side wide'>
+      <div class="cs-pics has-tg"><div class="tg" data-tg="frame" role="img" aria-label="프레임마다 자막을 찾아 위치와 높이, 글꼴과 글자 크기, 상자 여백, 한 장 최대 20자, 반응 밈의 폭 40~56%와 자리를 측정해 규칙으로 학습시키는 그림"></div></div>
+      <div class='cs-aside'><div class='cs-head'><h3>영상은 프레임 단위로 측정할 수 있게 했습니다</h3></div><p class='cs-story'>원본 채널을 멈춰 가며 <b>자막 위치, 글꼴, 상자 여백, 한 장 글자 수, 밈 특징</b>을 재서 규칙으로 학습시켰습니다.</p></div></article>
+    <article class='cstep rise side flip wide'>
+      <div class='cs-pics has-tg'><div class='tg' data-tg='qs' role='img' aria-label='같은 줌 되풀이 · 읽을 시간 · 같은 글자 두 번 · 멈춘 장면 · 확대 · 자막 크기 · 그림체 · 소품 · 요소 · 여운 · 증거 화면 · 같은 작업자처럼 보이는지 같은 질문을 하나씩 짚어, 짚어 고친 장면 27가지 · 한 채널만 18번 고친 그림'></div></div>
+      <div class='cs-aside'><div class='cs-head'><h3>달라 보이던 편집을 몇십 번 짚어 원본처럼</h3></div><p class='cs-story'>AI가 만든 영상에는 작은 차이가 쌓여 있었습니다.<br><b>다른 점을 기록하고 블라인드 테스트로 확인하게</b> 해 나란히 봐도 어색하지 않은 장면 27가지를 만들었습니다.</p></div></article>
+</div>
+</div></section>
+<section class="sec" id="edit-blind"><div class="wrap">
+    <div class="eb rise"><div class="cflow">
+    <article class='cstep side wide'>
+      <div class='cs-pics has-tg'><div class='tg' data-tg='cases' role='img' aria-label='스토리 채널을 18번 고치며 판마다 안 된 부분은 실패 사례로 남기고 된 부분은 좋은 사례로 쌓고, 보겸 채널은 쌓인 사례를 보고 시작해 3번 만에 닮게 만든 그림'></div></div>
+      <div class='cs-aside'><div class='cs-head'><h3>고친 기록을 남기게 하니 보겸 채널은 3번 만에</h3></div><p class='cs-story'>스토리 채널은 AI와 함께 18번 다듬어 완성했습니다.<br>그때마다 <b>안 된 부분은 실패 사례로 남기고 된 부분은 좋은 사례로 쌓게</b> 했습니다.</p></div>
+      <div class="eb-grid">
+        <div class="eb-pair"><b>스토리 채널, 18번 다듬어 완성</b><div class="eb-vids">
+          <figure data-lb="처음 판"><video src="vid/grow/story_first.mp4" poster="vid/grow/story_first.jpg" muted loop playsinline preload="metadata" data-inview aria-label="스토리 채널을 따라 한 처음 판"></video></figure>
+          <figure data-lb="지금 판"><video src="vid/grow/story_now.mp4" poster="vid/grow/story_now.jpg" muted loop playsinline preload="metadata" data-inview aria-label="밈까지 배운 지금 판 — 버그 이야기 쇼츠"></video></figure></div></div>
+        <div class="eb-pair"><b>보겸 채널, 3번 만에 완성</b><div class="eb-vids">
+          <figure data-lb="실제 영상"><video src="vid/edit/bk_real.mp4" poster="vid/edit/bk_real.jpg" muted loop playsinline preload="metadata" data-inview aria-label="보겸 채널의 실제 영상"></video></figure>
+          <figure data-lb="우리 판"><video src="vid/edit/bk_ours.mp4" poster="vid/edit/bk_ours.jpg" muted loop playsinline preload="metadata" data-inview aria-label="같은 원본으로 만든 우리 판"></video></figure></div></div>
+      </div></article>
+  </div></div>
+  </div></section>
+
+<section class="sec st-sec" data-bg="#ffffff" data-bg-clear><div class="wrap">
+<div class="cflow">
+    <article class='cstep rise side wide'>
+      <div class='cs-pics ways6'><div class="way-pics">
+        <figure><img src="img/way/lines.jpg" alt="일러스트 원본 파일에서 꺼낸 마스코트 윤곽선" loading="lazy"><span class="wp-lb">원본 파일에서 선을 그대로</span></figure>
+        <figure><img src="img/way/regions.jpg" alt="그림을 부위마다 색 칸으로 나눈 모습" loading="lazy"><span class="wp-lb">그림을 부위마다 칸으로</span></figure>
+        <figure><img src="img/crit/depth_front_024903.jpg" alt="제단 앞판의 깊이를 색으로 측정한 지도" loading="lazy"><span class="wp-lb">깊이를 색으로 측정</span></figure>
+        <figure><img src="img/crit/clay_left_142305.jpg" alt="굴곡을 재려고 만든 점토 그림" loading="lazy"><span class="wp-lb">점토 그림으로 굴곡을</span></figure>
+        <figure><img src="img/crit/sheet_section_155538.jpg" alt="제단 장식을 자른 단면도" loading="lazy"><span class="wp-lb">단면으로 쪼개고</span></figure>
+        <figure><img src="img/clicker/gap_sections.jpg" alt="클리커 부품 사이 간격을 측정한 단면" loading="lazy"><span class="wp-lb">간격을 숫자로</span></figure>
+      </div></div>
+      <div class='cs-aside'><div class='cs-head'><h3>그림을 못 읽던 AI를 재서 읽게</h3></div><p class='cs-story'>눈으로 판단하는 데는 한계가 남았습니다.<br><b>선, 칸, 깊이 색, 점토, 단면, 간격 숫자</b>로 재는 법까지 학습시켰습니다.</p></div></article>
+  </div>
+<div class="grow-grid">
+    <figure class="gp"><div class="gp-pair" style="--ar:16/10"><div><img src="img/evo/nave_1.jpg" alt="성당 첫 렌더" loading="lazy"></div><div><img src="img/evo/nave_5.jpg" alt="성당 지금" loading="lazy"></div></div><div class="gp-cap"><b>성당</b><span>블라인드 시험까지 101번을 꼼꼼히 다듬어 완성, 같은 카메라 렌더 56장</span></div></figure>
+    <figure class="gp"><div class="gp-pair"><div><img src="img/evo/altar_1.jpg" alt="제단 탁자 처음" loading="lazy"></div><div><img src="img/evo/altar_5.jpg" alt="제단 탁자 지금" loading="lazy"></div></div><div class="gp-cap"><b>제단 탁자</b><span>한 덩어리 → 기둥, 몰딩, 백합 문장까지 따로</span></div></figure>
+    <figure class="gp"><div class="gp-pair"><div><img src="img/blind/front02.jpg" alt="새 AI 블라인드 시험 1차" loading="lazy"></div><div><img src="img/blind/front12.jpg" alt="새 AI 블라인드 시험 12차" loading="lazy"></div></div><div class="gp-cap"><b>학습 내용만 받은 새 AI</b><span>1차 실패 → 11차와 12차 연속 합격</span></div></figure>
+</div>
+</div></section>
+<section class="sec st-sec" data-bg="#ffffff" data-bg-clear><div class="wrap">
+<h3 class="way-h">그래서 요청할 일이 줄고 빨라졌습니다</h3>
+  <div class='way-vis'><div class='wn'><div class='wn-bars'><div class='wn-row'><u>스토리 채널</u><b>18번</b><i style='--w:100%'></i></div><div class='wn-row now'><u>보겸 채널</u><b>3번</b><i style='--w:16.7%'></i></div></div><span>완성까지 요청한 횟수</span></div><div class='wn'><div class='wn-bars'><div class='wn-row'><u>직접 편집</u><b>2~4시간</b><i style='--w:100%'></i></div><div class='wn-row now'><u>영상 편집기</u><b>20~30분</b><i style='--w:13.9%'></i></div></div><span>편집 한 편, 아홉 단계를 다 거치고도</span></div><div class='wn'><div class='wn-dots'><b>11차와 12차 합격</b><div><s class='x'></s><s></s><s></s><s></s><s></s><s></s><s></s><s></s><s></s><s></s><s class='ok'></s><s class='ok'></s></div><p><u>1차</u><u>11, 12차</u></p></div><span>학습 내용만 받은 새 AI가 연속 합격</span></div><div class='wn'><div class='wn-gauge'><svg viewBox='0 0 80 80' aria-hidden='true'><circle cx='40' cy='40' r='30' class='g0'/><circle cx='40' cy='40' r='30' class='g1' stroke-dasharray='186.8 188.5'/><circle cx='40' cy='40' r='30' class='g2' stroke-dasharray='163.6 188.5'/></svg><div><b>99.1%</b><small>86.8%에서</small></div></div><span>받아쓰기 정답 일치율</span></div></div>
+  <h3 class="way-h">AI가 제안한 방법과 제가 고른 쪽</h3>
+  <ol class='pick-vis'><li class='wp ic-wave'><b class='wp-s'>받아쓰기</b><p class='wp-ai'><small>AI의 안</small><s>받아쓰기 AI 모델의 한계라 어쩔 수 없음</s></p><i class='wp-arr'></i><p class='wp-me'><small>제가 고른 쪽</small>짧게 나눠 받아쓰고 합치는 방식으로, 9초라는 근거도 직접 재 봄</p><div class='wp-r'><div class='wp-meter'><i style='--w:99.1%'></i></div><em>227자 중 225자</em></div></li><li class='wp ic-breath'><b class='wp-s'>숨소리</b><p class='wp-ai'><small>AI의 안</small><s>틀린 자막을 하나씩 고쳐 덧대기</s></p><i class='wp-arr'></i><p class='wp-me'><small>제가 고른 쪽</small>틀린 자리를 모아 원인부터, 말소리보다 작은 소리는 빼기</p><div class='wp-r'><div class='wp-meter'><i style='--w:93.8%'></i></div><em>16곳 중 15곳</em></div></li><li class='wp ic-shape'><b class='wp-s'>마스코트</b><p class='wp-ai'><small>AI의 안</small><s>그림 선을 도면처럼 그대로 따라 붙이기</s></p><i class='wp-arr'></i><p class='wp-me'><small>제가 고른 쪽</small>그림의 2D적 허용을 짚어 입체에 맞는 모양으로</p><div class='wp-r'><div class='wp-pair'><img src='img/chars/head_before_q34.jpg' alt='원래 머리' loading='lazy'><i></i><img src='img/chars/head_after_q34.jpg' alt='고친 머리' loading='lazy'></div><em>곡옥 한 가닥, 하마형</em></div></li></ol>
+</div></section>
+<div class="wrap st-close"><button class="st-btn" type="button" aria-expanded="true" aria-controls="st3-more">접기</button></div>
+</div>
+<div class="wrap st-bridge"><div class='st-impact'><span class='ip-from'>18번 →</span><b class='ip-num'><i data-from='18' data-to='3' data-dec='0'>3</i>번</b><span class='ip-cap'>완성까지 요청한 횟수, 쌓인 사례 덕분에</span></div><p>그리고 캐릭터는 손가락까지 움직이게 리깅했습니다.</p></div>
+</article>
+<!-- 04 캐릭터 리깅과 표정(AIGEN 때 완성 못 한 3D): 우파 — 영상 = uppa_3d/out/work/rig/hug_embrace_v11.blend 사본(회전 · 표정) -->
+<article class="st" id="stR" data-toc="캐릭터 리깅">
+<section class="sec st-head" data-bg="#ffffff" data-bg-clear><div class="wrap st-sum">
+  <div class="st-title"><h2><em class="st-no">04</em><span class="st-h">스프라이트 한 장의 캐릭터를 손가락까지 움직이고 표정이 바뀌는 3D로 완성했습니다.</span></h2></div>
+  <div class="st-txt"><div class="st-story"><p class="st-lede">손가락은 기둥을 붙인 듯했고 굽힐 때마다 팔이 고무장갑처럼 물결쳤습니다.<br>그래서 손은 <b>한 덩어리에서 갈라지게</b> 다시 짓고 표정은 부품으로 나눠 기준선에 맞췄습니다.</p><ol class="st-steps"><li><b>손가락 마디 24개까지</b><span>뼈 105개, IK 사슬 14개로 조종 뼈만 옮겨 알약을 껴안게</span></li><li><b>물결 21% → 5%</b><span>뼈를 먼저 따르게 하고 매끈하게는 그다음에</span></li><li><b>표정 76가지</b><span>눈, 눈썹, 입을 기준선에 맞춰 번호 하나로 바뀌게</span></li></ol></div></div>
+  <div class="st-vis"><figure class="st-pic st-evo"><video class="v43" src="vid/u3d/uppa_turn_p.mp4" poster="vid/u3d/uppa_turn_p.jpg" muted loop playsinline preload="metadata" data-inview aria-label="알약을 껴안은 3D 캐릭터가 한 바퀴 도는 영상"></video></figure><span class="pn" style="--x:5%;--y:7%">서브디비전 모델링 ✓</span><span class="pn" style="--r:5%;--b:8%;--rot:2deg">아래팔 물결 21% → 5% ✓</span></div>
+  <div class="st-more-row"><button class="st-btn" type="button" aria-expanded="false" aria-controls="stR-more">자세히 보기</button></div>
+</div></section>
+<div class="st-more" id="stR-more" hidden>
+<section class="sec st-sec" data-bg="#ffffff" data-bg-clear><div class="wrap">
+<h3 class="cs-group-h">움직이게 만들며 이렇게 고쳤습니다</h3>
+<div class="cflow">
+    <article class='cstep rise side wide'>
+      <div class='cs-pics duo sq'><figure class='cs-pic a wide' data-ring='15,33,11,12' data-note='양 끝만 누름'><img src='img/u3d/hug_box.jpg' alt='알약 양 끝을 눌러 상자를 드는 듯한 팔' loading='lazy'></figure><i class='cs-arr'>→</i><figure class='cs-pic b wide'><img src='img/u3d/hug_embrace.jpg' alt='손바닥을 앞면에 대고 알약을 감싸 안은 팔' loading='lazy'></figure></div>
+      <div class='cs-aside'><div class='cs-head'><h3>상자를 들듯 엉거주춤하던 팔을 뻗어 껴안게</h3></div><p class='cs-story'>알약 양 끝을 눌러, 상자를 드는 모습이었습니다.<br><b>손바닥을 대고 손가락은 편 채 한 번만 닿게</b> 하자 감싸 안게 됐습니다.</p></div></article>
+    <article class='cstep rise side flip wide'>
+      <div class='cs-pics duo sq'><figure class='cs-pic a wide' data-ring='55,45,22,16' data-note='물결'><img src='img/u3d/wave_before.jpg' alt='굽힌 아래팔에 물결이 진 모습' loading='lazy'></figure><i class='cs-arr'>→</i><figure class='cs-pic b wide'><img src='img/u3d/wave_after.jpg' alt='물결 없이 매끈하게 굽은 아래팔' loading='lazy'></figure></div>
+      <div class='cs-aside'><div class='cs-head'><h3>순서를 바꿔 고무장갑처럼 물결치던 팔을 매끈하게</h3></div><p class='cs-story'>팔꿈치만 굽혀도 아래팔이 물결쳤습니다.<br><b>뼈를 먼저, 매끈하게는 그다음에</b> 하자 물결 점이 21%에서 5%로 줄었습니다.</p></div></article>
+    <article class='cstep rise side wide'>
+      <div class='cs-pics duo'><figure class='cs-pic a wide'><video src='vid/u3d/face_v1.mp4' poster='vid/u3d/face_v1.jpg' muted loop playsinline preload='metadata' data-inview></video></figure><i class='cs-arr'>→</i><figure class='cs-pic b wide'><video src='vid/u3d/face_v3.mp4' poster='vid/u3d/face_v3.jpg' muted loop playsinline preload='metadata' data-inview></video></figure></div>
+      <div class='cs-aside'><div class='cs-head'><h3>칸마다 그려 흔들리던 얼굴을 부품과 기준선으로</h3></div><p class='cs-story'>칸마다 새로 그려 눈 크기가 제각각이었습니다.<br><b>부품을 기준선에 맞춰 조립하자</b>, 76가지 모두 같은 자리에서 표정만 바뀌었습니다.</p></div></article>
+    <article class='cstep rise side flip'>
+      <div class='cs-pics one'><figure class='cs-pic b tall bare'><video src='vid/u3d/uppa_face_w.mp4' poster='vid/u3d/uppa_face_w.jpg' muted loop playsinline preload='metadata' data-inview></video></figure></div>
+      <div class='cs-aside'><div class='cs-head'><h3>통째로만 바꾸던 표정을 키 하나로 끊어서</h3></div><p class='cs-story'>리그를 움직여도 표정이 머리에 붙어 따라가야 했습니다.<br>블렌더에서 <b>번호나 부품을 고르고 키를 넣으면</b>, 윙크에서 소용돌이 눈까지 끊어서 바뀝니다.</p></div></article>
+</div>
+</div></section>
+<div class="wrap st-close"><button class="st-btn" type="button" aria-expanded="true" aria-controls="stR-more">접기</button></div>
+</div>
+<div class="wrap st-bridge"><div class='st-impact'><span class='ip-from'>21% →</span><b class='ip-num'><i data-from='21' data-to='5' data-dec='0'>5</i>%</b><span class='ip-cap'>팔을 굽힐 때 생기던 물결</span></div><p>그리고 같은 캐릭터가 사는 앱은 기획부터 출시 준비까지 맡았습니다.</p></div>
+</article>
+
+<article class="st" id="st4" data-toc="앱 기획">
+<section class="sec st-head" data-bg="#ffffff" data-bg-clear><div class="wrap st-sum">
+  <div class="st-title"><h2><em class="st-no">05</em><span class="st-h">수익화까지 기획한 앱을 출시 준비까지 전부 맡았습니다.</span></h2></div>
+  <div class="st-txt"><div class="st-story"><p class="st-lede">프로그램은 결국 분석해 따라 만들 수 있어 디테일의 차이도 오래가지 않을 것이라 봤습니다.<br>그래서 길게 보고 <b>장비와 사람의 손이 함께 필요한 현장</b>으로 시야를 넓혔고 그러려면 처음 해 보는 일도 해내야 했습니다.</p><ol class="st-steps"><li><b>기획, 화면, 수익 구조 모두 처음</b><span>강의용 AI 해커톤의 약 알림 앱, AI의 제안을 하나하나 확인하며</span></li><li><b>위험한 순간의 빈틈까지</b><span>혼자서는 연락하지 못하는 순간을 위해 지인 알림까지 설계</span></li><li><b>흐름을 끊지 않는 수익 세 갈래</b><span>자리를 옮긴 광고, 월 1,990원 구독, 영양제 추천으로</span></li></ol></div></div>
+  <div class="st-vis"><span class="pn" style="--x:0%;--y:16%">수익 구조까지<br>직접 기획 ✓</span><span class="pn" style="--r:0%;--b:18%;--rot:2deg">위험한 순간엔<br>지인 알림 ✓</span><figure class="st-phone"><video src="vid/app2_nag.mp4" poster="img/app/p2_nag.jpg" muted loop playsinline preload="none" data-inview aria-label="잔소리가 세지다 4단계부터 화면을 두드리고, 먹었어를 누르면 칭찬하는 앱 녹화"></video></figure></div>
+  <div class="st-more-row"><button class="st-btn" type="button" aria-expanded="false" aria-controls="st4-more">자세히 보기</button></div>
+</div></section>
+<div class="st-more" id="st4-more" hidden>
+<div class="track" id="t-app" data-bg="#ffffff" data-bg-clear>
+  <section class="sec" id="app-use"><div class="wrap app-use">
+    <div class="app-phone rise">
+      <figure class="phone"><div class="ph-screen">
+        <video class="ph-s on" data-s="0" src="vid/app2_intro.mp4" poster="img/app/p2_intro.jpg" muted loop playsinline preload="metadata" aria-label="첫 실행 대화부터 홈의 팝콘통까지, 잔소리 약 알림 앱 실제 녹화"></video>
+        <video class="ph-s" data-s="1" src="vid/app2_nag.mp4" poster="img/app/p2_nag.jpg" muted loop playsinline preload="none" aria-label="3단계 잔소리에서 4단계부터 화면을 두드리고, 먹었어를 누르면 칭찬"></video>
+        <video class="ph-s" data-s="2" src="vid/app2_loud.mp4" poster="img/app/p2_loud.jpg" muted loop playsinline preload="none" aria-label="강제 소리 남은 횟수 0에서 광고를 보고 충전(가짜 광고)"></video>
+        <video class="ph-s" data-s="3" src="vid/app2_care.mp4" poster="img/app/p2_care.jpg" muted loop playsinline preload="none" aria-label="가족 · 지인 알림 웹 시제품: 초대 링크 보내기, 지인 폰에서 받기, 지인 폰 알림(로그인 · 알림은 가짜)"></video>
+      </div>
+        <figcaption><span data-s="0">실제 앱 녹화, 약과 기록은 시연 데이터</span><span data-s="1" hidden>실제 앱 녹화, 3단계 → 4단계부터 화면 쾅쾅 → 칭찬</span><span data-s="2" hidden>실제 앱 녹화, 강제 소리 횟수를 광고로 충전(광고는 가짜)</span><span data-s="3" hidden>웹 시제품, 초대 → 지인 폰에서 받기 → 지인 알림(로그인, 알림은 가짜)</span></figcaption></figure>
+    </div>
+    <div class="app-ladder rise">
+      <div class="app-intro"><h2 class="app-title">잔소리 약 알림 앱</h2><p class="app-lede">약 알림을 위험한 순간까지 지켜 주는 안전망이자 정이 드는 캐릭터로 만들고 싶었습니다.<br>설계마다 이유를 확인하며 AI와 다듬었습니다.</p></div>
+      <ol class="ladder">
+        <li data-s="1"><b>잔소리 6단계</b><span>한 번 울리고 끝나는 알림은 쉽게 넘기게 되므로 넘겨도 끝나지 않게</span></li>
+        <li data-s="2"><b>그래도 안 먹으면 소리를 강제로 키움<em>폰 단계</em></b><span>약을 놓치면 위험해지는 사람은 무음이어도 꼭 들어야 하므로 필요 없는 사람은 끌 수 있게</span></li>
+        <li data-s="3"><b>그래도 확인이 안 되면 등록한 지인에게 알림<em>웹 시제품</em></b><span>혼자 있다 위험해지면 스스로 연락하지 못하므로 곁에 없는 사람이라도 먼저 알 수 있게</span></li>
+      </ol>
+
+    </div>
+  </div>
+  <div class="wrap app-money rise">
+    <h3>처음 설계한 수익 구조</h3>
+    <ul class="money">
+      <li><b>광고와 강제 소리 충전</b>강제 소리가 더 필요할 때 스스로 보는 자리에만 두어 약 먹는 흐름을 지켰습니다</li>
+      <li><b>월 1,990원 구독</b>뺀 광고를 대신할 최소한의 수익원으로, 소리를 되돌려 주는 편의 기능을 담고 '우파에게 팝콘 사주기'라는 친근한 이름으로 결제 부담을 낮췄습니다</li>
+      <li><b>영양제 추천 제휴</b>약은 추천할 수 없지만 영양제는 제휴로 추천할 수 있어 고민하는 사람이 우파와 대화하며 고르게 했습니다</li>
+    </ul>
+  </div></section>
+  <section class="sec" id="app"><div class="wrap"><div class="cflow">
+    <article class='cstep rise side'>
+      <div class='cs-pics'><figure class='cs-pic b tall crop crop-care'><video src='vid/app2_care.mp4' poster='img/app/p2_care.jpg' muted loop playsinline preload='none' data-inview aria-label='가족 · 지인 알림 웹 시제품: 초대 링크 보내기, 지인 폰에서 받기, 지인 알림'></video><figcaption>지인 알림 웹 시제품, 초대 → 지인 폰에서 받기 → 알림</figcaption></figure></div>
+      <div class='cs-aside'><div class='cs-head'><h3>잔소리만 하던 약 알림을 위험한 상황까지 대비하게</h3></div><p class='cs-story'>이대로는 흔한 앱과 다를 게 없었습니다.<br>약을 놓치면 위험해지는 이를 떠올려 <b>소리를 강제로 키우고 그래도 안 되면 등록한 사람에게 알리게</b> 했습니다.</p></div></article>
+    <article class='cstep rise side flip'>
+      <div class='cs-pics has-tg'><div class='tg' data-tg='ad' role='img' aria-label='먹었어 뒤 광고는 홈 버튼으로 꺼져 먹는 흐름만 방해하므로, 먹는 흐름에서는 광고를 빼고 강제 소리가 필요할 때 광고를 끝까지 보면 3회 충전, 수익은 광고 · 구독 월 1,990원 · 영양제 제휴로 나눈 그림'></div></div>
+      <div class='cs-aside'><div class='cs-head'><h3>약 먹는 흐름을 끊던 광고를 직접 골라 보는 자리로</h3></div><p class='cs-story'>약을 먹었다고 누르면 바로 광고가 떠 흐름을 끊었습니다.<br>광고는 <b>강제 소리가 더 필요할 때 직접 골라 보게</b> 옮기고 영양제 추천과 구독을 더했습니다.</p></div></article>
+    
+    <article class='cstep rise side'>
+      <div class='cs-pics motion'><figure class='cs-pic a night cell'><img src='img/app/motion_before_cell.jpg' alt='원래 · 그림 한 장에서 오려 낸 눈 · 손 · 꼬리 조각' loading='lazy'></figure><i class='cs-arr'>→</i><figure class='cs-pic b clip tight'><img src='img/app/stomp.webp' alt='고친 뒤 · 발을 굴러도 꼬리가 따라 늘어나지 않는 우파' loading='lazy'></figure></div>
+      <div class='cs-aside'><div class='cs-head'><h3>오려 쓰던 우파를 따로 그려 받은 동작으로</h3></div><p class='cs-story'>한 장에서 떼어 내니 옆 부위까지 딸려 왔습니다.<br>잔소리가 귀엽게 느껴지도록 <b>움직일 부위를 하나씩 새로 받아 붙이게</b> 했습니다.</p></div></article>
+    <article class='cstep rise side flip'>
+      <div class='cs-pics'><figure class='cs-pic b tall fit-text'><video src='vid/app2_play.mp4' poster='img/app/p2_grab.jpg' muted loop playsinline preload='none' data-inview aria-label='앱 밖 우파를 잡고 흔들면 목만 아래로 늘어나 대롱대롱 매달리고, 던지면 포물선으로 날아가 벽에 튕기고 바닥에서 통통 튀는 녹화'></video><figcaption>앱 밖 우파, 잡고 흔들면 대롱대롱 → 던지면 통통</figcaption></figure></div>
+      <div class='cs-aside'><div class='cs-head'><h3>목이 꺾이고 휙 날아가던 우파를 대롱대롱 매달리고 통통 튀게</h3></div><p class='cs-story'>정이 들면 알림을 덜 무시하고 만지는 재미가 있으면 자주 열어 볼 것이라 봤습니다.<br>그래서 <b>잡고 흔드는 맛과 던지는 손맛</b>이 나게 고쳤습니다.</p></div></article>
+    <article class='cstep rise side'>
+      <div class='cs-pics'><figure class='cs-pic b tall crop crop-cancel'><video src='vid/app2_cancel.mp4' poster='img/app/p2_cancel.jpg' muted loop playsinline preload='none' data-inview aria-label='그만 사 주기를 누르면 시무룩한 우파가 매달리는 확인 창이 뜨는 녹화(결제는 가짜)'></video><figcaption>그만 사 주기, 결제는 가짜</figcaption></figure></div>
+      <div class='cs-aside'><div class='cs-head'><h3>바로 끝나던 해지를 우파가 매달리는 확인 창으로</h3></div><p class='cs-story'>해지는 수익과 곧장 이어지는 순간입니다.<br><b>시무룩한 표정으로 한 번 붙잡게</b> 해 다시 생각할 틈을 만들었습니다.</p></div></article>
+  </div></div></section>
+</div>
+<div class="wrap st-close"><button class="st-btn" type="button" aria-expanded="true" aria-controls="st4-more">접기</button></div>
+</div>
+<div class="wrap st-bridge"><div class='st-impact'><b class='ip-num'><i data-from='1' data-to='6' data-dec='0'>6</i>단계</b><span class='ip-cap'>넘겨도 끝나지 않는 잔소리 단계에 지인 알림까지</span></div><p>제 모델링을 본 사업자의 제안으로 화면 밖 실물 설계까지 이어졌습니다.</p></div>
+</article>
+<article class="st" id="st5" data-toc="클리커 출력">
+<section class="sec st-head" data-bg="#ffffff" data-bg-clear><div class="wrap st-sum">
+  <div class="st-title"><h2><em class="st-no">06</em><span class="st-h">딸깍하는 클리커를 12개 부품으로 설계해 첫 시험 출력에서 한 번에 조립했습니다.</span></h2></div>
+  <div class="st-txt"><div class="st-story"><p class="st-lede">제 모델링을 본 3D 모델 판매 사업자의 제안이었습니다.<br>부품 설계는 처음이었지만, <b>모델링에서 쓰던 방식 그대로</b> 설계해 첫 출력에서 한 번에 조립했습니다.</p><ol class="st-steps"><li><b>모델링에서 쌓은 방식 그대로</b><span>설계를 공부해 AI에게 가르치고 벽 두께와 끼워지는 길까지 검사하게</span></li><li><b>한 번 끼우면 안 빠지게</b><span>걸쇠를 처음 설계해 보고 써 본 사업자의 경험을 듣고 조립할 사람에게 맞는 사각 못으로</span></li><li><b>12개 부품이 한 번에</b><span>첫 시험 출력에서 모두 한 번에 조립되어 편집에서 쌓은 방식이 화면 밖에서도 통했습니다</span></li></ol></div></div>
+  <div class="st-vis lb"><span class="pn" style="--x:4px;--y:0px;--rot:-2deg">12개 부품 한 번에 조립 ✓</span><span class="pn" style="--r:4px;--b:0px;--rot:1.5deg">벽 두께, 끼우는 길까지 검사 ✓</span><figure class="real-print"><img class="rp-main" src="img/print/print_assembled.webp" alt="실제로 출력해 조립한 클리커" loading="lazy"><img class="rp-inset" src="img/print/print_switch.webp" alt="머리를 빼면 보이는, 몸통에 끼운 스위치" loading="lazy"></figure></div>
+  <div class="st-more-row"><button class="st-btn" type="button" aria-expanded="false" aria-controls="st5-more">자세히 보기</button></div>
+</div></section>
+<div class="st-more" id="st5-more" hidden>
+<div class="track" id="t-clicker">
+<section class="sec crit-dark" id="clicker-head" data-bg="#ffffff" data-bg-clear><div class="wrap">
+  <div class="sec-title"><h2><span>응용</span>설계는 몰랐지만 클리커까지</h2></div>
+  <p class="sec-lede">모델링에서 AI에게 학습시킨 방식을 배운 적 없는 기구 설계에 그대로 썼습니다.<br>받은 마스코트에 머리를 누르면 딸깍하는 구조를 더했습니다.</p>
+  <div class="cflow"><article class='cstep rise side'><div class='cs-pics pair'><figure class='cs-pic a'><img src='img/clicker/cut/sugar_first.webp?v=1125b' alt='처음 만든 설탕이 모델(11월 11일)' loading='lazy'></figure><i class='cs-arr'>→</i><figure class='cs-pic b'><img src='img/clicker/cut/sugar_learned.webp?v=1125b' alt='블렌더를 학습한 뒤의 설탕이 클리커 판' loading='lazy'></figure></div><div class='cs-aside'><div class='cs-head'><h3>처음 만든 설탕이와, 블렌더를 학습한 뒤의 클리커 판</h3></div><p class='cs-story'>왼쪽은 11월 11일에 처음 만든 설탕이 모델입니다.<br>오른쪽은 <b>블렌더를 학습한 뒤</b> 만든 클리커 판입니다.</p></div></article></div>
+</div></section>
+<!-- 스크롤 고정 장면(환기): 내리는 만큼 클리커가 조립됨 -->
+<section class="sec st-sec crit-dark" id="asm" data-bg="#ffffff"><div class="wrap"><div class="cflow"><article class='cstep rise side wide flip'><div class='cs-pics one'><figure class='cs-pic b nat av'><img class='av-poster' src='img/clicker/cut/asm_poster.webp?v=1125b' alt='부품 12개가 차례로 끼워지는 클리커'><video data-alpha src='vid/mascot_clicker_assemble_a.mp4?v=1125b' muted loop playsinline preload='metadata' data-inview></video></figure></div><div class='cs-aside'><div class='cs-head'><h3>받은 마스코트 그대로, 머리를 통째로 누르는 버튼으로</h3></div><p class='cs-story'>출력해 조립하도록 12개 부품으로 나눴습니다.<br>벽 두께와 <b>끼워 넣는 길까지 검사하게</b> 해 첫 시험 출력에서 한 번에 조립했습니다.</p></div></article></div></div></section>
+<section class="sec st-sec crit-dark" id="clicker" data-bg="#ffffff"><div class="wrap">
+<h3 class="cs-group-h">부품마다 이유를 확인하며 이렇게 설계했습니다</h3>
+<div class="cflow">
+<article class='cstep rise side'><div class='cs-pics one'><figure class='cs-pic b fit'><img src='img/clicker/cut/section_front.webp?v=1125b' alt='머리 속 목 기둥과 코어(단면)' loading='lazy'></figure></div><div class='cs-aside'><div class='cs-head'><h3>머리를 통째로 누르는 구조</h3></div><p class='cs-story'>버튼을 깊숙이 넣어야 흔들림이 준다고 짚었습니다.<br>목 기둥이 머리 속 관에 <b>20mm 물려, 위아래로만</b> 움직입니다.</p></div></article>
+<article class='cstep rise side flip'><div class='cs-pics one'><figure class='cs-pic b fit'><img src='img/clicker/cut/print_a.webp?v=1125b' alt='부품마다 정한 출력 자세' loading='lazy'></figure></div><div class='cs-aside'><div class='cs-head'><h3>머리 속 부품은 따로 뽑게</h3></div><p class='cs-story'>멈춤 턱과 십자 홈을 머리 안에 붙이면 뽑을 때 허공에 뜹니다.<br><b>'코어'라는 부품으로 빼서</b> 따로 뽑은 뒤 끼우게 했습니다.</p></div></article>
+<article class='cstep rise side'><div class='cs-pics one'><figure class='cs-pic b fit'><img src='img/clicker/cut/pin_ends.webp?v=1125b' alt='꼬리 · 날개 · 귀의 끼우는 못 끝' loading='lazy'></figure></div><div class='cs-aside'><div class='cs-head'><h3>잘못 끼울 수 없게</h3></div><p class='cs-story'>좌우 짝이 있는 날개, 귀는 반대로 끼우기 쉽습니다.<br>앞선 판에서는 못 끝을 깎고 쐐기를 둬, <b>틀리면 끝까지 안 들어가게</b> 했습니다.</p></div></article>
+<article class='cstep rise side flip'><div class='cs-pics one'><figure class='cs-pic b fit boxed'><img src='img/clicker/cut/latch_pull.webp?v=1125b' alt='끝까지 들어가 걸림 → 당기면 턱이 걸림(빨강)' loading='lazy'></figure></div><div class='cs-aside'><div class='cs-head'><h3>한 번 끼우면 안 빠지게</h3></div><p class='cs-story'>통짜 못에 돌기만 달면 휘지 않아 끼울 때 짓눌리기만 합니다.<br>앞선 판에서는 <b>못 끝을 가는 팔로 떼어 휘게</b> 하고 턱을 달았습니다.</p></div></article>
+<article class='cstep rise side'><div class='cs-pics one'><figure class='cs-pic b fit'><img src='img/clicker/cut/fit_test_a.webp?v=1125b' alt='맞춤 시험 조각' loading='lazy'></figure></div><div class='cs-aside'><div class='cs-head'><h3>큰 부품 전에 작은 조각으로</h3></div><p class='cs-story'>큰 부품이 안 맞으면 시간과 재료를 다 버리게 됩니다.<br><b>홈 둘레만 떼어 낸 시험 조각</b>을 먼저 뽑아 물림을 맞추게 했습니다.</p></div></article>
+<article class='cstep rise side flip'><div class='cs-pics one'><figure class='cs-pic b fit'><img src='img/clicker/cut/baked_one.webp?v=1125b' alt='겉면을 얇은 색 층으로 구운 클리커' loading='lazy'></figure></div><div class='cs-aside'><div class='cs-head'><h3>블렌더에서 보던 색 그대로 출력되게</h3></div><p class='cs-story'>AI가 형상만 꺼내, 색 무늬가 출력 파일에서 빠졌습니다.<br>색 무늬는 <b>겉면의 얇은 색 층으로 잘라</b> 다색 프린터로 뽑게 했습니다.</p></div></article>
+<article class='cstep rise side'><div class='cs-pics one'><figure class='cs-pic b fit'><span class='cs-hint'>눌러 보세요</span><img class='press-img' src='img/clicker/cut/press/p000.webp?v=1125b' alt='조립된 클리커 — 머리를 누르면 3.6 mm 내려갔다 올라옵니다' data-press='img/clicker/cut/press/p' data-ext='.webp?v=1125b' data-count='13' draggable='false'></figure></div><div class='cs-aside'><div class='cs-head'><h3>누른 머리가 다시 올라오게</h3></div><p class='cs-story'>스위치 힘이 머리 무게보다 약하면 안 올라옵니다.<br><b>힘 그래프로 더 센 스위치</b>를 고르고 머리 속을 비워 가볍게 했습니다.</p></div></article>
+<article class='cstep rise side flip'><div class='cs-pics one'><figure class='cs-pic b fit'><img src='img/clicker/cut/gap_sections.webp?v=1125b' alt='검사 그림: 부품(파랑)과 홈(크림) 사이가 단면마다 떨어져 있는지' loading='lazy'></figure></div><div class='cs-aside'><div class='cs-head'><h3>AI가 설계할 때 지킬 규칙을 정했습니다</h3></div><p class='cs-story'>모르는 값을 짐작으로 채우지 않게 했습니다.<br>모든 부품 쌍이 <b>겹치지 않는 검사를 통과해야만</b> 파일을 내보냅니다.</p></div></article>
+</div></div></section>
+</div>
+<div class="wrap st-close"><button class="st-btn" type="button" aria-expanded="true" aria-controls="st5-more">접기</button></div>
+</div>
+<div class="wrap st-bridge"><div class='st-impact'><b class='ip-num'><i data-from='0' data-to='12' data-dec='0'>12</i>개</b><span class='ip-cap'>부품을 첫 출력에서 한 번에 조립했습니다</span></div><p>그래서 처음 맡는 일도 끝까지 해낼 수 있습니다.</p></div>
+</article>
+<!-- 다음 -->
+<section class="sec" id="next" data-bg="#ffffff" data-toc="맡겨 주실 일"><div class="wrap">
+  <div class="next-card rise"><img class="peek" src="img/u3d/uppa_peek.webp" alt="" aria-hidden="true"><h2>맡겨 주시면,<br><em>끝까지</em> 해내겠습니다</h2>
+    <p>모르는 분야는 먼저 잘 만든 결과를 재서 기준으로 삼겠습니다.<br>어긋난 곳은 짚어 AI가 규칙으로 남기게 해 같은 실수가 되풀이되지 않게 하겠습니다.<br>그리고 결과는 실제로 돌려 보고 확인한 뒤에 넘기겠습니다.</p>
+    <div class="flow"><span class="c1">기준 재기<small>잘 만든 결과를 숫자로</small></span><span class="c3">규칙으로 남기기<small>두 번 나온 지적은 AI가 규칙으로</small></span><span class="c2">돌려 보고 넘기기<small>실제로 돌아가는 결과만</small></span></div>
+  </div>
+</div></section>
+<!-- 칩 팝업 내용(chipmodal.js): 칩마다 그 장의 카드 — 왼쪽 큰 그림 + 오른쪽 글, 아래 작은 그림을 누르면 그 항목으로(페이지 이동 없음) -->
+<script type="application/json" id="chipData">{"#t-edit": {"title": "영상 편집 자동화", "items": [{"thumb": {"img": "img/edit/ng_rules.jpg", "cap": "NG 규칙"}, "stage": {"img": "img/edit/ng_rules.jpg", "cap": "영상 편집기가 규칙으로 찾은 NG 17곳"}, "h": "NG를 손으로 찾던 것을, 규칙으로", "story": "기준이 감에만 있어, 매번 들으며 잘라 냈습니다.<br>신호어 · 호흡 패턴을 <b>새 유형까지 정리해 가르치자</b>, 확정한 NG 17곳을 모두 찾았습니다."}, {"thumb": {"img": "img/edit/th_asr9.jpg", "cap": "받아쓰기 되풀이"}, "stage": {"img": "img/edit/th_asr9.jpg", "cap": "9초 넘게 한 번에 들려주면 되풀이가 하나로 합쳐짐"}, "h": "같은 말이 두 번 찍히던 받아쓰기를, 짧게 끊어 듣게", "story": "AI는 9초 넘게 들으면 되풀이를 하나로 합쳤습니다.<br>모델 한계라는 답 대신 <b>그 경계부터 재고 나눠 받아쓰게</b> 해, 227자 중 225자(99.1%)⁠를 맞췄습니다."}, {"thumb": {"img": "img/edit/th_breath.jpg", "cap": "숨소리 '아멘'"}, "stage": {"img": "img/edit/th_breath.jpg", "cap": "숨소리를 받아쓰게 하면 '아멘'을 지어냄"}, "h": "숨소리를 '아멘'으로 적던 자막을, 말소리만 받아쓰게", "story": "AI는 '말 없음'이라고 답하지 못해 없는 말을 지어냈습니다.<br>하나씩 덧대 고치는 대신 <b>오류 자리를 모아 원인부터 찾게</b> 해, 16곳 중 15곳을 바로잡았습니다."}, {"thumb": {"img": "img/edit/editra_v11.jpg", "cap": "편집 도구 영상 편집기"}, "stage": {"cmp": ["img/edit/premiere_ext.jpg", "img/edit/editra_v11.jpg"], "lb": ["원래 · 프리미어 확장", "직접 만든 영상 편집기"]}, "h": "프리미어에 덧붙이던 것을, 편집 도구로", "story": "확장은 허용된 범위 안에서만 돌아, 더할수록 느려졌습니다.<br><b>필요한 기능만 묶어 직접 만들자</b>, 자막을 보며 고치고 AI도 쓰는 영상 편집기가 됐습니다."}, {"thumb": {"img": "img/edit/th_steps.jpg", "cap": "사람의 작업 순서"}, "stage": {"img": "img/edit/th_steps.jpg", "cap": "영상 편집기가 단계별로 작업하는 화면"}, "h": "한 번에 시키던 것을, 사람의 작업 순서로", "story": "사람이 거치는 과정이 빠지니 결과에 AI 티가 났습니다.<br><b>분석부터 확인까지 단계마다 다른 점을 기록하며 가르치자</b>, 자연스러운 한 편이 20~30분에 나왔습니다."}, {"thumb": {"img": "img/edit/th_dur.jpg", "cap": "2~4시간 → 20~30분"}, "stage": {"dur": 1}, "h": "한 편에 걸리는 시간", "story": "편집자가 직접 하면 2~4시간, 늦으면 하루 이틀이 걸렸습니다.<br>빠르기만 하면 세밀함이 떨어지니 <b>아홉 단계를 모두 거치게 세팅하고도 20~30분</b>에 끝냈습니다."}, {"thumb": {"img": "img/edit/th_q.jpg", "cap": "몇십 번 짚기"}, "stage": {"flow": ["같은 그림에 같은 줌이 되풀이되지 않나?", "숫자를 읽을 시간이 충분한가?", "한 화면에 같은 글자가 두 번 나오지 않나?", "멈춰 있는 장면은 없나?", "보여 줄 부분을 잘라 확대했나?", "자막 크기가 고르고 잘리지 않나?"]}, "h": "달라 보이던 편집을, 몇십 번 짚어 원본처럼", "story": "AI가 만든 영상에는 작은 차이가 쌓여 있었습니다.<br><b>다른 점을 기록하고 블라인드 테스트로 확인하게</b> 해, 나란히 봐도 어색하지 않은 장면 27가지를 만들었습니다."}, {"thumb": {"img": "vid/edit/bk_ours.jpg", "cap": "18번 → 3번"}, "stage": {"cmp": ["vid/edit/bk_real.jpg", "vid/edit/bk_ours.jpg"], "lb": ["실제 영상", "우리 판"]}, "h": "고친 기록을 남기게 하니, 보겸 채널은 3번 만에", "story": "스토리 채널은 AI와 함께 18번 다듬어 완성했습니다.<br>그때마다 <b>안 된 부분은 실패 사례로 남기고 된 부분은 좋은 사례로 쌓게</b> 했습니다."}]}, "#t-3d": {"title": "게임 개발 및 3D 모델링", "items": [{"thumb": {"img": "img/lab/cathedral_ref.jpg", "cap": "시작"}, "stage": {"img": "img/lab/cathedral_ref.jpg", "cap": "AI에게 준 그림 한 장"}, "h": "게임을 만들다, 모델링을 가르치기 시작했습니다", "story": "3D 생성 AI의 모델은 고칠 수 있는 범위가 좁았습니다.<br><b>AI에게 블렌더 작업법을 하나씩 가르치자</b>, 그림 한 장으로 성당과 캐릭터까지 지었습니다."}, {"thumb": {"img": "img/flip/r73.jpg", "cap": "성당"}, "stage": {"cmp": ["img/flip/r01.jpg", "img/flip/r73.jpg"], "lb": ["첫 렌더", "지금"]}, "h": "한 각도만 맞춘 첫 모델을, 같은 카메라로 대조하며", "story": "AI가 정면 그림에만 맞춰, 옆에서 보면 D자로 무너졌습니다.<br><b>사방을 돌려 보게</b> 해 돔 · 돌 · 빛 · 제단까지 101번 짚어 완성했습니다."}, {"thumb": {"img": "img/evo/altar_5.jpg", "cap": "제단"}, "stage": {"cmp": ["img/evo/altar_1.jpg", "img/evo/altar_5.jpg"], "lb": ["AI 첫 결과", "지금"]}, "h": "짐작으로 짓던 제단을, 측정해서", "story": "AI가 정면만 보고 탁자 짜임을 어림했습니다.<br><b>단면도 · 깊이 색 지도 · 점토 그림으로 재게</b> 하자, 7cm 틈까지 찾아 159개 부품으로 완성했습니다."}, {"thumb": {"img": "img/chars/head_after_q34.jpg", "cap": "캐릭터"}, "stage": {"cmp": ["img/chars/head_before_q34.jpg", "img/chars/head_after_q34.jpg"], "lb": ["지적 전", "지적 뒤"]}, "h": "선을 따라 붙이던 머리를, 적은 면과 메쉬 스무스로", "story": "AI가 시점마다 다른 윤곽을 그대로 맞췄습니다.<br><b>테두리는 기준점만 쓰게</b> 해, 얼굴을 가로지르던 줄 없이 인상을 지켰습니다."}, {"thumb": {"img": "img/blind/front12.jpg", "cap": "블라인드 시험"}, "stage": {"cmp": ["img/blind/front02.jpg", "img/blind/front12.jpg"], "lb": ["1차 · 실패", "12차 · 연속 합격"]}, "h": "고친 방법이 진짜인지, 규칙만 준 새 AI로", "story": "1차에서는 그림 속 숫자를 믿어 층을 하나 더 쌓았습니다.<br><b>떨어질 때마다 이유와 막는 검사까지 학습시켜</b> 11차와 12차에 연속으로 합격했습니다."}]}, "#t-clicker": {"title": "응용: 클리커", "items": [{"thumb": {"img": "img/clicker/section_front.jpg", "cap": "머리가 버튼"}, "stage": {"img": "img/clicker/section_front.jpg", "cap": "머리 속 목 기둥과 코어(단면)"}, "h": "설계는 몰랐지만, 머리를 통째로 누르는 버튼으로", "story": "누를 때의 흔들림이 가장 큰 걱정이었습니다.<br><b>버튼을 깊숙이(목 기둥 20mm) 넣게</b> 해 기울어짐을 ±1.7°로 잡았습니다."}, {"thumb": {"img": "img/assemble_m/a000.jpg", "cap": "12개 부품"}, "stage": {"img": "img/assemble_m/a000.jpg", "cap": "따로 끼우는 12개 부품"}, "h": "팔 · 다리까지 따로 끼우는 12개 부품으로", "story": "통짜 모델은 출력해 조립할 사람에게 불편했습니다.<br><b>본드 없이 맞물리도록 나누게</b> 하고, 한 파일에 조립 모습과 색까지 담았습니다."}, {"thumb": {"img": "img/clicker/joint_wing_l.jpg", "cap": "날개 두께"}, "stage": {"img": "img/clicker/joint_wing_l.jpg", "cap": "날개 끼우는 자리"}, "h": "너무 얇던 날개를, 출력할 수 있는 두께로", "story": "보기에만 맞춰 지은 형태는 부서지기 쉬웠습니다.<br>실제로 뽑아 쓸 물건이라고 보고 <b>통통하게</b> 고쳐 출력 받침대(서포트) 걱정을 덜었습니다."}, {"thumb": {"img": "img/clicker/pin_ends.jpg", "cap": "걸쇠 → 사각 못"}, "stage": {"img": "img/clicker/pin_ends.jpg", "cap": "끼우는 자리 — 써 본 사람의 경험을 반영한 박스형 사각 못과 사각 홈"}, "h": "처음 만든 걸쇠를, 써 본 분 말대로 사각 못으로", "story": "빠지지 않는 구조를 처음 설계해 봤습니다.<br>이 방식을 써 본 사업자의 경험을 듣고, 실제로 조립할 사람에게 맞게 <b>사각 못과 사각 홈으로 다시 설계</b>했습니다."}, {"thumb": {"img": "img/clicker/cmp_front_c.jpg", "cap": "첫 시도 성공"}, "stage": {"img": "img/clicker/press_poster.jpg", "cap": "조립된 클리커 — 머리를 누르면 3.6 mm"}, "h": "테스트 제안을 받아, 한 번에 성공", "story": "3D 모델 판매 사업을 하는 분의 테스트였습니다.<br>받은 마스코트를 살리려 <b>겉모양과 크기는 두고 누르는 구조만 더하게</b> 해, 첫 시도에 성공시켰습니다."}]}, "#t-app": {"title": "잔소리 약 알림 앱", "items": [{"thumb": {"img": "img/app/use_poster.jpg", "cap": "우파 소개"}, "stage": {"vid": "vid/app2_intro.mp4", "poster": "img/app/p2_intro.jpg", "cap": "첫 실행 · 우파가 인사하며 시작"}, "h": "한 번 울리고 끝나는 알림을, 끝나지 않는 잔소리로", "story": "약 먹을 시간을 쉽게 흘려보내게 하던 방식이었습니다.<br>그래서 <b>우파가 6단계에 걸쳐 계속 말을 걸도록</b> 설계했습니다."}, {"thumb": {"img": "img/app/nag5.jpg", "cap": "위험 대비"}, "stage": {"vid": "vid/app2_care.mp4", "poster": "img/app/p2_care.jpg", "cap": "지인 알림 웹 시제품 · 초대 → 지인 폰에서 받기 → 알림"}, "h": "잔소리만 하던 약 알림을, 위험한 상황까지 대비하게", "story": "이대로는 흔한 앱과 다를 게 없었습니다.<br>약을 놓치면 위험해지는 이를 떠올려 <b>소리를 강제로 키우고, 그래도 안 되면 등록한 사람에게 알리게</b> 했습니다."}, {"thumb": {"img": "img/app/th_money.jpg", "cap": "수익 구조"}, "stage": {"vid": "vid/app2_loud.mp4", "poster": "img/app/p2_loud.jpg", "cap": "강제 소리 횟수를 광고로 충전(광고는 가짜)"}, "h": "약 먹는 흐름을 끊던 광고를 직접 골라 보는 자리로", "story": "약을 먹었다고 누르면 바로 광고가 떠 흐름을 끊었습니다.<br>광고는 <b>강제 소리가 더 필요할 때 직접 골라 보게</b> 옮기고 영양제 추천과 구독을 더했습니다."}, {"thumb": {"img": "img/app/stomp_still.jpg", "cap": "캐릭터 동작"}, "stage": {"img": "img/app/stomp.webp", "cap": "발 동동 · 발을 굴러도 꼬리는 그대로"}, "h": "오려 쓰던 우파를, 따로 그려 받은 동작으로", "story": "한 장에서 떼어 내니 옆 부위까지 딸려 왔습니다.<br>잔소리가 귀엽게 느껴지도록 <b>움직일 부위를 하나씩 새로 받아 붙이게</b> 했습니다."}, {"thumb": {"img": "img/app/p2_grab.jpg", "cap": "앱 밖 우파"}, "stage": {"vid": "vid/app2_play.mp4", "poster": "img/app/p2_grab.jpg", "cap": "앱 밖 우파 · 잡고 흔들면 대롱대롱 → 던지면 통통"}, "h": "목이 꺾이고 휙 날아가던 우파를, 대롱대롱 매달리고 통통 튀게", "story": "정이 들면 알림을 덜 무시하고, 만지는 재미가 있으면 자주 열어 볼 것이라 봤습니다.<br>그래서 <b>잡고 흔드는 맛과 던지는 손맛</b>이 나게 고쳤습니다."}, {"thumb": {"img": "img/app/p2_cancel.jpg", "cap": "그만 사 주기"}, "stage": {"vid": "vid/app2_cancel.mp4", "poster": "img/app/p2_cancel.jpg", "cap": "그만 사 주기 · 결제는 가짜"}, "h": "바로 끝나던 해지를, 우파가 매달리는 확인 창으로", "story": "해지는 수익과 곧장 이어지는 순간입니다.<br><b>시무룩한 표정으로 한 번 붙잡게</b> 해, 다시 생각할 틈을 만들었습니다."}]}, "#st1": {"title": "영상 편집 · 01 편집 자동화 · 02 편집 도구", "items": [{"thumb": {"img": "img/edit/ng_rules.jpg", "cap": "NG 규칙"}, "stage": {"img": "img/edit/ng_rules.jpg", "cap": "영상 편집기가 규칙으로 찾은 NG 17곳"}, "h": "NG를 손으로 찾던 것을, 규칙으로", "story": "기준이 감에만 있어, 매번 들으며 잘라 냈습니다.<br>신호어 · 호흡 패턴을 <b>새 유형까지 정리해 가르치자</b>, 확정한 NG 17곳을 모두 찾았습니다."}, {"thumb": {"img": "img/edit/editra_v11.jpg", "cap": "편집 도구 영상 편집기"}, "stage": {"cmp": ["img/edit/premiere_ext.jpg", "img/edit/editra_v11.jpg"], "lb": ["원래 · 프리미어 확장", "직접 만든 영상 편집기"]}, "h": "프리미어에 덧붙이던 것을, 편집 도구로", "story": "확장은 허용된 범위 안에서만 돌아, 더할수록 느려졌습니다.<br><b>필요한 기능만 묶어 직접 만들자</b>, 자막을 보며 고치고 AI도 쓰는 영상 편집기가 됐습니다."}, {"thumb": {"img": "img/edit/th_steps.jpg", "cap": "사람의 작업 순서"}, "stage": {"img": "img/edit/th_steps.jpg", "cap": "영상 편집기가 단계별로 작업하는 화면"}, "h": "한 번에 시키던 것을, 사람의 작업 순서로", "story": "사람이 거치는 과정이 빠지니 결과에 AI 티가 났습니다.<br><b>분석부터 확인까지 단계마다 다른 점을 기록하며 가르치자</b>, 자연스러운 한 편이 20~30분에 나왔습니다."}, {"thumb": {"img": "img/edit/th_dur.jpg", "cap": "2~4시간 → 20~30분"}, "stage": {"dur": 1}, "h": "한 편에 걸리는 시간", "story": "편집자가 직접 하면 2~4시간, 늦으면 하루 이틀이 걸렸습니다.<br>빠르기만 하면 세밀함이 떨어지니 <b>아홉 단계를 모두 거치게 세팅하고도 20~30분</b>에 끝냈습니다."}, {"thumb": {"img": "img/edit/th_asr9.jpg", "cap": "받아쓰기 되풀이"}, "stage": {"img": "img/edit/th_asr9.jpg", "cap": "9초 넘게 한 번에 들려주면 되풀이가 하나로 합쳐짐"}, "h": "같은 말이 두 번 찍히던 받아쓰기를, 짧게 끊어 듣게", "story": "AI는 9초 넘게 들으면 되풀이를 하나로 합쳤습니다.<br>모델 한계라는 답 대신 <b>그 경계부터 재고 나눠 받아쓰게</b> 해, 227자 중 225자(99.1%)⁠를 맞췄습니다."}, {"thumb": {"img": "img/edit/th_breath.jpg", "cap": "숨소리 '아멘'"}, "stage": {"img": "img/edit/th_breath.jpg", "cap": "숨소리를 받아쓰게 하면 '아멘'을 지어냄"}, "h": "숨소리를 '아멘'으로 적던 자막을, 말소리만 받아쓰게", "story": "AI는 '말 없음'이라고 답하지 못해 없는 말을 지어냈습니다.<br>하나씩 덧대 고치는 대신 <b>오류 자리를 모아 원인부터 찾게</b> 해, 16곳 중 15곳을 바로잡았습니다."}]}, "#st2": {"ref": "#st1", "start": 1}, "#st3": {"title": "03 3D 모델링", "items": [{"thumb": {"img": "img/edit/th_q.jpg", "cap": "몇십 번 짚기"}, "stage": {"flow": ["같은 그림에 같은 줌이 되풀이되지 않나?", "숫자를 읽을 시간이 충분한가?", "한 화면에 같은 글자가 두 번 나오지 않나?", "멈춰 있는 장면은 없나?", "보여 줄 부분을 잘라 확대했나?", "자막 크기가 고르고 잘리지 않나?"]}, "h": "달라 보이던 편집을, 몇십 번 짚어 원본처럼", "story": "AI가 만든 영상에는 작은 차이가 쌓여 있었습니다.<br><b>다른 점을 기록하고 블라인드 테스트로 확인하게</b> 해, 나란히 봐도 어색하지 않은 장면 27가지를 만들었습니다."}, {"thumb": {"img": "vid/edit/bk_ours.jpg", "cap": "18번 → 3번"}, "stage": {"cmp": ["vid/edit/bk_real.jpg", "vid/edit/bk_ours.jpg"], "lb": ["실제 영상", "우리 판"]}, "h": "고친 기록을 남기게 하니, 보겸 채널은 3번 만에", "story": "스토리 채널은 AI와 함께 18번 다듬어 완성했습니다.<br>그때마다 <b>안 된 부분은 실패 사례로 남기고 된 부분은 좋은 사례로 쌓게</b> 했습니다."}, {"thumb": {"img": "img/lab/cathedral_ref.jpg", "cap": "시작"}, "stage": {"img": "img/lab/cathedral_ref.jpg", "cap": "AI에게 준 그림 한 장"}, "h": "게임을 만들다, 모델링을 가르치기 시작했습니다", "story": "3D 생성 AI의 모델은 고칠 수 있는 범위가 좁았습니다.<br><b>AI에게 블렌더 작업법을 하나씩 가르치자</b>, 그림 한 장으로 성당과 캐릭터까지 지었습니다."}, {"thumb": {"img": "img/flip/r73.jpg", "cap": "성당"}, "stage": {"cmp": ["img/flip/r01.jpg", "img/flip/r73.jpg"], "lb": ["첫 렌더", "지금"]}, "h": "한 각도만 맞춘 첫 모델을, 같은 카메라로 대조하며", "story": "AI가 정면 그림에만 맞춰, 옆에서 보면 D자로 무너졌습니다.<br><b>사방을 돌려 보게</b> 해 돔 · 돌 · 빛 · 제단까지 101번 짚어 완성했습니다."}, {"thumb": {"img": "img/evo/altar_5.jpg", "cap": "제단"}, "stage": {"cmp": ["img/evo/altar_1.jpg", "img/evo/altar_5.jpg"], "lb": ["AI 첫 결과", "지금"]}, "h": "짐작으로 짓던 제단을, 측정해서", "story": "AI가 정면만 보고 탁자 짜임을 어림했습니다.<br><b>단면도 · 깊이 색 지도 · 점토 그림으로 재게</b> 하자, 7cm 틈까지 찾아 159개 부품으로 완성했습니다."}, {"thumb": {"img": "img/chars/head_after_q34.jpg", "cap": "캐릭터"}, "stage": {"cmp": ["img/chars/head_before_q34.jpg", "img/chars/head_after_q34.jpg"], "lb": ["지적 전", "지적 뒤"]}, "h": "선을 따라 붙이던 머리를, 적은 면과 메쉬 스무스로", "story": "AI가 시점마다 다른 윤곽을 그대로 맞췄습니다.<br><b>테두리는 기준점만 쓰게</b> 해, 얼굴을 가로지르던 줄 없이 인상을 지켰습니다."}, {"thumb": {"img": "img/blind/front12.jpg", "cap": "블라인드 시험"}, "stage": {"cmp": ["img/blind/front02.jpg", "img/blind/front12.jpg"], "lb": ["1차 · 실패", "12차 · 연속 합격"]}, "h": "고친 방법이 진짜인지, 규칙만 준 새 AI로", "story": "1차에서는 그림 속 숫자를 믿어 층을 하나 더 쌓았습니다.<br><b>떨어질 때마다 이유와 막는 검사까지 학습시켜</b> 11차와 12차에 연속으로 합격했습니다."}]}, "#st4": {"title": "04 처음 만든 앱", "items": [{"thumb": {"img": "img/app/use_poster.jpg", "cap": "우파 소개"}, "stage": {"vid": "vid/app2_intro.mp4", "poster": "img/app/p2_intro.jpg", "cap": "첫 실행 · 우파가 인사하며 시작"}, "h": "한 번 울리고 끝나는 알림을, 끝나지 않는 잔소리로", "story": "약 먹을 시간을 쉽게 흘려보내게 하던 방식이었습니다.<br>그래서 <b>우파가 6단계에 걸쳐 계속 말을 걸도록</b> 설계했습니다."}, {"thumb": {"img": "img/app/nag5.jpg", "cap": "위험 대비"}, "stage": {"vid": "vid/app2_care.mp4", "poster": "img/app/p2_care.jpg", "cap": "지인 알림 웹 시제품 · 초대 → 지인 폰에서 받기 → 알림"}, "h": "잔소리만 하던 약 알림을, 위험한 상황까지 대비하게", "story": "이대로는 흔한 앱과 다를 게 없었습니다.<br>약을 놓치면 위험해지는 이를 떠올려 <b>소리를 강제로 키우고, 그래도 안 되면 등록한 사람에게 알리게</b> 했습니다."}, {"thumb": {"img": "img/app/th_money.jpg", "cap": "수익 구조"}, "stage": {"vid": "vid/app2_loud.mp4", "poster": "img/app/p2_loud.jpg", "cap": "강제 소리 횟수를 광고로 충전(광고는 가짜)"}, "h": "약 먹는 흐름을 끊던 광고를 직접 골라 보는 자리로", "story": "약을 먹었다고 누르면 바로 광고가 떠 흐름을 끊었습니다.<br>광고는 <b>강제 소리가 더 필요할 때 직접 골라 보게</b> 옮기고 영양제 추천과 구독을 더했습니다."}, {"thumb": {"img": "img/app/stomp_still.jpg", "cap": "캐릭터 동작"}, "stage": {"img": "img/app/stomp.webp", "cap": "발 동동 · 발을 굴러도 꼬리는 그대로"}, "h": "오려 쓰던 우파를, 따로 그려 받은 동작으로", "story": "한 장에서 떼어 내니 옆 부위까지 딸려 왔습니다.<br>잔소리가 귀엽게 느껴지도록 <b>움직일 부위를 하나씩 새로 받아 붙이게</b> 했습니다."}, {"thumb": {"img": "img/app/p2_grab.jpg", "cap": "앱 밖 우파"}, "stage": {"vid": "vid/app2_play.mp4", "poster": "img/app/p2_grab.jpg", "cap": "앱 밖 우파 · 잡고 흔들면 대롱대롱 → 던지면 통통"}, "h": "목이 꺾이고 휙 날아가던 우파를, 대롱대롱 매달리고 통통 튀게", "story": "정이 들면 알림을 덜 무시하고, 만지는 재미가 있으면 자주 열어 볼 것이라 봤습니다.<br>그래서 <b>잡고 흔드는 맛과 던지는 손맛</b>이 나게 고쳤습니다."}, {"thumb": {"img": "img/app/p2_cancel.jpg", "cap": "그만 사 주기"}, "stage": {"vid": "vid/app2_cancel.mp4", "poster": "img/app/p2_cancel.jpg", "cap": "그만 사 주기 · 결제는 가짜"}, "h": "바로 끝나던 해지를, 우파가 매달리는 확인 창으로", "story": "해지는 수익과 곧장 이어지는 순간입니다.<br><b>시무룩한 표정으로 한 번 붙잡게</b> 해, 다시 생각할 틈을 만들었습니다."}]}, "#st5": {"title": "05 현장으로 가는 첫걸음", "items": [{"thumb": {"img": "img/clicker/section_front.jpg", "cap": "머리가 버튼"}, "stage": {"img": "img/clicker/section_front.jpg", "cap": "머리 속 목 기둥과 코어(단면)"}, "h": "설계는 몰랐지만, 머리를 통째로 누르는 버튼으로", "story": "누를 때의 흔들림이 가장 큰 걱정이었습니다.<br><b>버튼을 깊숙이(목 기둥 20mm) 넣게</b> 해 기울어짐을 ±1.7°로 잡았습니다."}, {"thumb": {"img": "img/assemble_m/a000.jpg", "cap": "12개 부품"}, "stage": {"img": "img/assemble_m/a000.jpg", "cap": "따로 끼우는 12개 부품"}, "h": "팔 · 다리까지 따로 끼우는 12개 부품으로", "story": "통짜 모델은 출력해 조립할 사람에게 불편했습니다.<br><b>본드 없이 맞물리도록 나누게</b> 하고, 한 파일에 조립 모습과 색까지 담았습니다."}, {"thumb": {"img": "img/clicker/joint_wing_l.jpg", "cap": "날개 두께"}, "stage": {"img": "img/clicker/joint_wing_l.jpg", "cap": "날개 끼우는 자리"}, "h": "너무 얇던 날개를, 출력할 수 있는 두께로", "story": "보기에만 맞춰 지은 형태는 부서지기 쉬웠습니다.<br>실제로 뽑아 쓸 물건이라고 보고 <b>통통하게</b> 고쳐 출력 받침대(서포트) 걱정을 덜었습니다."}, {"thumb": {"img": "img/clicker/pin_ends.jpg", "cap": "걸쇠 → 사각 못"}, "stage": {"img": "img/clicker/pin_ends.jpg", "cap": "끼우는 자리 — 써 본 사람의 경험을 반영한 박스형 사각 못과 사각 홈"}, "h": "처음 만든 걸쇠를, 써 본 분 말대로 사각 못으로", "story": "빠지지 않는 구조를 처음 설계해 봤습니다.<br>이 방식을 써 본 사업자의 경험을 듣고, 실제로 조립할 사람에게 맞게 <b>사각 못과 사각 홈으로 다시 설계</b>했습니다."}, {"thumb": {"img": "img/clicker/cmp_front_c.jpg", "cap": "첫 시도 성공"}, "stage": {"img": "img/clicker/press_poster.jpg", "cap": "조립된 클리커 — 머리를 누르면 3.6 mm"}, "h": "테스트 제안을 받아, 한 번에 성공", "story": "3D 모델 판매 사업을 하는 분의 테스트였습니다.<br>받은 마스코트를 살리려 <b>겉모양과 크기는 두고 누르는 구조만 더하게</b> 해, 첫 시도에 성공시켰습니다."}]}}</script>
+</main>
+
+<footer id="contact"><div class="wrap">
+  <b>이경환</b>
+  <p class="todo">채울 내용: 연락처(이메일), 영상·코드 링크 등 공개해도 되는 것만</p>
+</div></footer>
+</div>
+
+
+<script src="chipmodal.js?v=1125b"></script>
+<script src="heroback.js?v=1125b"></script>
+
+
+<script src="autoscene.js?v=1125b"></script>
+
+
+
+
+
+
+<script src="slots.js?v=1125b"></script>
+<script src="compare.js?v=1125b"></script>
+<script src="widgets.js?v=1125b"></script>
+
+
+<script src="railnav.js?v=1125b"></script>
+<script src="press.js?v=1125b"></script>
+<script src="themes.js?v=1125b"></script>
+<script src="bgtween.js?v=1125b"></script>
+<script src="reveal.js?v=1125b"></script>
+<script src="vidplay.js?v=1125b"></script>
+<script src="appstage.js?v=1125b"></script>
+<script src="techart_order.js?v=1125b"></script>
+<script src="techart_race.js?v=1125b"></script>
+<script src="techart_qs.js?v=1125b"></script>
+<script src="techart_cases.js?v=1125b"></script>
+<script src="techart_ad.js?v=1125b"></script>
+<script src="techart_way.js?v=1125b"></script>
+<script src="techart_frame.js?v=1125b"></script>
+<script src="techart.js?v=1125b"></script>
+<script src="hgal.js?v=1125b"></script>
+<script src="story.js?v=1125b"></script>
+<script src="story_fold.js?v=1125b"></script>
+<script src="title_wrap.js?v=1125b"></script>
+<script src="more_row.js?v=1125b"></script>
+<script src="bar_hide.js?v=1125b"></script>
+
+<script src="toc.js?v=1125b"></script>
+<script src="pt/engine.js?v=1125b"></script>
+<script src="pt/shapes.js?v=1125b"></script>
+<script src="pt/shapes_live.js?v=1125b"></script>
+<script src="pt/shapes_model.js?v=1125b"></script>
+<script src="pt/real3d.js?v=1125b"></script>
+<script src="pt/scene.js?v=1125b"></script>
+<script src="alpha_video.js?v=1125b"></script>
+<script src="impact.js?v=1125b"></script>
+<script src="pen.js?v=1125b"></script>
+<script src="audio.js?v=1125b"></script>
+<script src="sound.js?v=1125b"></script>
+<script src="darkfix.js?v=1125b"></script>
+<script src="entry.js?v=1125b"></script>
+</body>
+</html>

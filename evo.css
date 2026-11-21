@@ -1,0 +1,61 @@
+/* 진화 단계(처음 → 최후반)와 블라인드 시험 줄 모양 */
+
+/* ---- 진화 단계 ---- */
+.evo { margin: 26px 0 10px; }
+.evo h3 { margin: 0 0 4px; font-size: 20px; }
+.evo .sub { color: var(--muted); font-size: 14px; margin: 0 0 12px; }
+.evo-stage { position: relative; border-radius: 10px; overflow: hidden; background: #1b1c1f; aspect-ratio: 16 / 9; }
+.evo-stage.light { background: #f1efe9; }
+.evo-stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .6s ease, transform 1.2s ease; transform: scale(1.02); }
+.evo-stage.light img { object-fit: contain; }
+.evo-stage img.on { opacity: 1; transform: none; }
+.evo-tag { position: absolute; left: 12px; top: 10px; z-index: 2; background: rgba(0,0,0,.62); color: #fff; font-size: 13px; padding: 3px 10px; border-radius: 4px; }
+.evo-steps { list-style: none; padding: 0; margin: 10px 0 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.evo-steps li { cursor: pointer; border-radius: 8px; border: 2px solid transparent; background: var(--paper); padding: 6px; transition: border-color .3s, transform .3s; }
+.evo-steps li img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 5px; background: #ddd; }
+.evo-steps.light li img { object-fit: contain; background: #f1efe9; }
+.evo-steps li b { display: block; font-size: 13px; margin-top: 5px; }
+.evo-steps li span { display: block; font-size: 12px; color: var(--muted); line-height: 1.45; }
+.evo-steps li.on { border-color: var(--red); transform: translateY(-3px); }
+.evo-bar { height: 3px; background: var(--line); border-radius: 3px; margin-top: 10px; }
+.evo-bar i { display: block; height: 100%; width: 0; background: var(--red); border-radius: 3px; transition: width .4s; }
+
+/* ---- 블라인드 시험 ---- */
+.rules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 18px 0 8px; }
+.rules .note b { display: block; margin-bottom: 2px; }
+.dots-line { display: flex; flex-wrap: wrap; gap: 6px; margin: 18px 0 6px; align-items: center; font-size: 12.5px; color: var(--muted); }
+.dots-line i { width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-style: normal; font-size: 11.5px; color: #fff; font-family: var(--mono); }
+.k-fail { background: var(--red); }
+.k-luck { background: var(--c3); }
+.k-pass { background: var(--c1); }
+.k-wip { background: #8b8d93; }
+.k-raise { background: transparent; color: var(--ink) !important; width: auto !important; padding: 0 6px; border: 1px dashed var(--ink); border-radius: 999px !important; }
+.goal { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+.goal figure { margin: 0; }
+.goal img { width: 100%; border-radius: 6px; display: block; }
+.goal figcaption { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+
+.run { display: grid; grid-template-columns: 74px 300px 1fr; gap: 16px; align-items: start; padding: 18px 0; border-bottom: 1px dashed var(--line);
+  opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+.run.in { opacity: 1; transform: none; }
+.run .no { font-family: var(--mono); font-size: 13px; }
+.run .no i { display: inline-block; margin-top: 6px; font-style: normal; font-family: var(--sans); font-size: 12px; color: #fff; padding: 1px 8px; border-radius: 999px; }
+.run .pics { display: flex; gap: 6px; }
+.run .pics img { height: 120px; width: calc(50% - 3px); object-fit: cover; border-radius: 5px; border: 1px solid var(--line); transition: transform .35s ease, box-shadow .35s; transform-origin: left center; background: #222; }
+.run .pics img:hover { transform: scale(2.1); box-shadow: 0 10px 30px rgba(0,0,0,.35); position: relative; z-index: 5; }
+.run p { margin: 0 0 6px; }
+.run .fix { font-size: 13.5px; color: #3a3a3f; }
+.run .fix b { color: var(--c1); }
+.raise-row { margin: 14px 0; padding: 12px 14px; border: 1px dashed var(--ink); border-radius: 8px; font-size: 14.5px; background: var(--paper); }
+
+@media (max-width: 720px) {
+  .evo-steps { grid-template-columns: repeat(3, 1fr); }
+  .rules, .goal { grid-template-columns: 1fr; }
+  .run { grid-template-columns: 1fr; gap: 8px; }
+  .run .pics img:hover { transform: scale(1.6); }
+}
+@media print {
+  .run { opacity: 1; transform: none; }
+  .evo-stage img { opacity: 0; }
+  .evo-stage img:last-child { opacity: 1; }
+}

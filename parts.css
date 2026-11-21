@@ -1,0 +1,61 @@
+/* 편집 프로그램 모양 부품: 지나온 길 타임라인, 작업 순서 트랙, 시간 막대, 원본/편집본 비교 */
+
+/* 어두운 편집 패널 */
+.panel { background: var(--panel); color: #e9e9ec; border-radius: 10px; padding: 14px 16px 16px; margin: 26px 0 8px; font-family: var(--mono); font-size: 12px; }
+.panel .title { display: flex; justify-content: space-between; color: #9b9ca3; margin-bottom: 10px; }
+.panel .title b { color: var(--red); font-weight: 600; }
+
+/* 눈금자 */
+.ruler { height: 16px; margin-left: 44px; border-bottom: 1px solid var(--panel-line);
+  background: repeating-linear-gradient(90deg, #4a4c52 0 1px, transparent 1px 25%),
+              repeating-linear-gradient(90deg, #393b40 0 1px, transparent 1px 5%);
+  background-size: 100% 9px, 100% 5px; background-repeat: no-repeat; background-position: bottom, bottom; }
+
+/* 트랙 한 줄: 왼쪽 이름 + 클립들 */
+.track { display: flex; align-items: stretch; margin-top: 6px; }
+.track .name { width: 44px; flex: none; color: #8a8c93; padding-top: 8px; }
+.track .lane { flex: 1; display: flex; gap: 3px; min-height: 46px; }
+.clip { flex: var(--w, 1); border-radius: 4px; padding: 6px 8px; color: #fff; overflow: hidden; line-height: 1.35; border-top: 3px solid rgba(255,255,255,.35); }
+.clip small { display: block; opacity: .8; font-size: 10.5px; }
+.clip.k1 { background: var(--c1); }
+.clip.k2 { background: var(--c2); }
+.clip.k3 { background: var(--c3); }
+.clip.k4 { background: var(--c4); }
+.clip.k5 { background: #c2477a; }
+.clip.ghost { background: transparent; border: 1px dashed #5a5c63; color: #b9bac0; }
+
+/* 표식(마커) 줄 */
+.markers .lane { min-height: 30px; position: relative; }
+.mk { position: absolute; left: var(--x); top: 4px; color: #ffd166; white-space: nowrap; font-size: 11px; }
+.mk::before { content: ""; display: inline-block; width: 0; height: 0; margin-right: 5px; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 8px solid var(--red); }
+
+/* 시간 막대: 영상 한 편 편집 시간 */
+.durations { margin: 22px 0 6px; }
+.dur { display: grid; grid-template-columns: 120px 1fr; align-items: center; gap: 12px; margin: 8px 0; font-size: 14px; }
+.dur .barline { height: 22px; border-radius: 4px; background: #d8d3c7; position: relative; }
+.dur .barline i { position: absolute; inset: 0 auto 0 0; width: var(--p); border-radius: 4px; background: var(--ink); }
+.dur .barline i.red { background: var(--red); }
+.dur .barline em { position: absolute; left: calc(var(--p) + 8px); top: 0; font-style: normal; font-size: 13px; line-height: 22px; }
+
+/* 원본/편집본 비교: 그림 둘이 다 있으면 compare.js 가 손잡이로 밀어 보는 비교로 바꾼다 */
+.compare.ready figure.slot { display: none; }
+.cmp { position: relative; overflow: hidden; border-radius: 6px; border: 1px solid var(--line); user-select: none; }
+.cmp img { display: block; width: 100%; }
+.cmp .top { position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--x, 50%)) 0 0); }
+.cmp .top img { height: 100%; object-fit: cover; }
+.cmp .handle { position: absolute; top: 0; bottom: 0; left: var(--x, 50%); width: 2px; background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.3); }
+.cmp .lab { position: absolute; top: 10px; font-family: var(--mono); font-size: 12px; color: #fff; background: rgba(0,0,0,.55); padding: 2px 8px; border-radius: 4px; }
+.cmp .lab.l { left: 10px; }
+.cmp .lab.r { right: 10px; }
+.cmp input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; margin: 0; }
+
+@media (max-width: 720px) {
+  .track .lane { flex-direction: column; }
+  .clip { flex: none; }
+  .ruler, .markers { display: none; }
+  .dur { grid-template-columns: 1fr; gap: 4px; }
+}
+@media print {
+  .panel { break-inside: avoid; }
+  .cmp input { display: none; }
+}

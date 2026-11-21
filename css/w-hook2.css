@@ -1,0 +1,18 @@
+/* 도전 이야기 훅(첫 화면 바로 아래, 사용자 11-14): 검은 바탕에 흰 글씨, 영상처럼 저절로 재생 · 스크롤 빠르기만큼 빨리 감기.
+   훅이 맨 위에 닿으면 hook2.js 가 그 자리에 세우고 재생, 끝나면 풂. 글자마다의 흐림·떠오름은 재생 시각으로 직접 칠함.
+   바탕은 칠하지 않음(data-bg-clear) — 첫 화면 성당이 걷힌 뒤의 어두운 바탕이 그대로 보인다. */
+.hk { position: relative; height: 100vh; }   /* 한 화면 — 스크롤은 페이지 대신 재생 빠르기로 쓰임 */
+.hk-stage { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+.hk-line { position: absolute; left: 0; right: 0; top: 50%; max-width: 1180px; margin: 0 auto; padding: 0 24px; transform: translateY(-50%);
+  color: #fff; font-size: clamp(28px, 4.4vw, 62px); font-weight: 800; line-height: 1.32; letter-spacing: -.04em; text-align: center; pointer-events: none; }
+.hk-line em { font-style: normal; color: #9fb0ff; }
+.hk-line .w { display: inline-block; white-space: nowrap; }
+.hk-line { visibility: hidden; }
+.hk-line .c { display: inline-block; white-space: pre; opacity: 0; }
+/* 훅을 보는 동안은 위쪽 줄(머리 줄)을 숨겨 검은 화면 한 장으로 */
+body.in-hook .bar, body.hk-lock .bar { opacity: 0; pointer-events: none; }
+@media (max-width: 900px) {
+  .hk-line { font-size: clamp(24px, 7vw, 34px); padding: 0 20px; }
+}
+/* 고정 장면 자동 재생 중(autoscene.js): '휠을 내려 보십시오' 안내는 필요 없음 */
+body.as-lock .op-hint { display: none; }

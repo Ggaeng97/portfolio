@@ -1,0 +1,17 @@
+/* 돌려 보기: 3D(model-viewer) 두 칸 + 각도 렌더가 저절로 넘어가는 한 칸 */
+.orbit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 18px 0 6px; }
+.orbit { background: var(--panel); border-radius: 12px; overflow: hidden; color: #e9e9ec; display: flex; flex-direction: column; }
+.orbit-stage { position: relative; aspect-ratio: 4 / 3.4; background: radial-gradient(circle at 50% 40%, #34363c, #1a1b1e 70%); }
+.orbit-stage model-viewer { width: 100%; height: 100%; --poster-color: transparent; }
+.orbit-stage .angles img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .7s ease; }
+.orbit-stage .angles img.on { opacity: 1; }
+.orbit-stage .angles { position: absolute; inset: 0; cursor: ew-resize; touch-action: pan-y; }
+.orbit-tag { position: absolute; left: 10px; top: 10px; z-index: 2; font-size: 12px; background: rgba(0,0,0,.55); padding: 2px 9px; border-radius: 999px; }
+.orbit-dots { position: absolute; left: 0; right: 0; bottom: 8px; display: flex; justify-content: center; gap: 4px; z-index: 2; }
+.orbit-dots i { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,.35); }
+.orbit-dots i.on { background: #fff; }
+.orbit-txt { padding: 10px 12px 12px; }
+.orbit-txt b { display: block; font-size: 15px; color: #fff; }
+.orbit-txt span { display: block; font-size: 12.5px; color: #a9abb1; margin-top: 2px; }
+@media (max-width: 860px) { .orbit-grid { grid-template-columns: 1fr; } .orbit-stage { aspect-ratio: 4 / 3; } }
+@media print { .orbit-stage model-viewer { display: none; } }

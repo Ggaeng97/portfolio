@@ -1,0 +1,58 @@
+/* 분야 카드: 분야마다 둥근 큰 그라데이션 카드 — 위엔 글·버튼과 저절로 도는 영상(좌우 번갈아), 아래엔 작은 카드 넷. */
+.feat { --a: 120deg; position: relative; margin-top: 28px; padding: 56px 56px 44px; border-radius: 32px; overflow: hidden; color: #fff;
+  background: linear-gradient(var(--a), var(--g1) 0%, var(--g2) 52%, var(--g3) 100%); }
+.feat.flip { --a: 240deg; }
+.f-edit { --g1: #b9452f; --g2: #e3805c; --g3: #f3c4a1; }
+.f-editra { --g1: #0c5f5a; --g2: #239584; --g3: #9bd8c6; }
+.f-3d { --g1: #3240b8; --g2: #6676e4; --g3: #b7bdf2; }
+.f-game { --g1: #5b34ad; --g2: #9a59cc; --g3: #e2b4e4; }
+.feat-top { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 52px; align-items: center; }
+.feat.flip .feat-top { grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); }
+.feat.flip .feat-text { order: 2; }
+.feat-text small { display: block; font-size: 14px; font-weight: 700; letter-spacing: .02em; opacity: .85; }
+.feat-text h3 { margin: 14px 0 16px; color: #fff; font-size: clamp(28px, 2.8vw, 40px); line-height: 1.28; letter-spacing: -.04em; }
+.feat-text .typer, .feat-text .cycle, .feat-text .checks { margin: 0 0 26px; }
+.feat-text p { margin: 0 0 22px; color: rgba(255, 255, 255, .9); font-size: 16.5px; line-height: 1.75; }
+.feat-media { position: relative; overflow: hidden; border-radius: 20px; background: var(--dark); aspect-ratio: 16 / 9; box-shadow: 0 24px 60px rgba(10, 12, 30, .28); }
+.feat-media video { width: 100%; height: 100%; object-fit: cover; }
+
+.feat-subs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 44px; }
+.feat-subs.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.sub { display: block; color: #fff; }
+.sub-media { overflow: hidden; border-radius: 16px; background: rgba(255, 255, 255, .94); aspect-ratio: 4 / 3; transition: transform .4s var(--ease); }
+.sub-media.dark { background: var(--dark); }
+.sub-media video, .sub-media img { width: 100%; height: 100%; object-fit: cover; }
+a.sub:hover .sub-media { transform: translateY(-4px); }
+.sub > b { display: block; margin-top: 12px; font-size: 15.5px; font-weight: 600; }
+.sub.text { padding: 22px 22px 24px; border-radius: 16px; background: #fff; box-shadow: 0 10px 30px rgba(10, 12, 30, .12); }
+.sub.text small { display: block; font-size: 13px; font-weight: 800; color: var(--g1); }
+.sub.text b { display: block; margin-top: 8px; color: var(--ink); font-size: 17px; font-weight: 800; line-height: 1.4; letter-spacing: -.03em; }
+.sub.text span { display: block; margin-top: 8px; font-size: 14px; line-height: 1.6; color: var(--ink-2); }
+
+/* 그림이 아직 없는 분야의 움직이는 그림: 파형 · 편집 타임라인 · 진행 경로 (picker.js 가 그린다) */
+.art { position: absolute; inset: 0; }
+.art-wave { display: flex; align-items: center; gap: 4px; padding: 0 7%; }
+.art-wave i { flex: 1; border-radius: 3px; background: linear-gradient(#ffb59a, #e3805c); transform-origin: center; animation: wav 1.6s ease-in-out infinite alternate; }
+.art-wave i:nth-child(3n) { animation-delay: -.5s; } .art-wave i:nth-child(3n+1) { animation-delay: -1.1s; } .art-wave i:nth-child(5n) { animation-duration: 1.1s; }
+@keyframes wav { from { transform: scaleY(.45); } to { transform: scaleY(1); } }
+.art-wave s, .art-line s { position: absolute; top: 12%; bottom: 12%; left: 8%; width: 2px; background: #fff; box-shadow: 0 0 12px rgba(255, 255, 255, .8); animation: head 6s linear infinite; }
+@keyframes head { from { left: 8%; } to { left: 92%; } }
+.art-line { display: flex; flex-direction: column; justify-content: center; gap: 14px; padding: 0 8%; }
+.art-line > div { display: flex; gap: 6px; height: 34px; }
+.art-line span { border-radius: 6px; }
+.art-route svg path { stroke-dashoffset: 0; animation: route 3s linear infinite; }
+@keyframes route { to { stroke-dashoffset: -48; } }
+
+@media (max-width: 900px) {
+  .feat { padding: 30px 22px 26px; border-radius: 24px; }
+  .feat-top, .feat.flip .feat-top { grid-template-columns: minmax(0, 1fr); gap: 26px; }
+  .feat.flip .feat-text { order: 0; }
+  .feat-text p { font-size: 15px; margin-bottom: 20px; }
+  .feat-subs, .feat-subs.three { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 26px; }
+  .feat-subs.three .sub:last-child { grid-column: 1 / -1; }
+  .sub > b { font-size: 14px; margin-top: 8px; }
+  .sub.text { padding: 16px; }
+  .sub.text b { font-size: 15px; }
+  .art-wave { gap: 2px; padding: 0 6%; }
+  .art-wave i:nth-child(odd) { display: none; }
+}

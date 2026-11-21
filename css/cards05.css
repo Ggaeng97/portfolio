@@ -1,0 +1,83 @@
+/* 펼침('자세히 보기') 카드를 05(앱) 카드 기준으로 통일 — 맨 마지막에 불러 앞 규칙을 덮는다(11-21 사용자: "05가 가장 읽기 좋다 · 05처럼 맞춰 줘").
+   05 를 재 보니 글자 크기 · 간격은 다른 단계와 같고, 다른 것은 ① 그림 칸 380(글 칸 480 · 한 줄 24자 · 본문 3줄)
+   ② 카드마다 그림 하나, 그림 높이 ≈ 글 높이 ③ 짝 그림이면 원래는 작게 · 고친 뒤는 크게(05 '오려 쓰던 우파')였다. */
+@media (min-width: 901px) {
+  /* ① 그림 칸 440 → 380(05 와 같게). 아래 짝 영상 줄(eb-grid)이 붙은 카드만 그대로 */
+  .cstep.side.wide:not(:has(.eb-grid)) { grid-template-columns: 380px minmax(0, 1fr); }
+  .cstep.side.wide.flip:not(:has(.eb-grid)) { grid-template-columns: minmax(0, 1fr) 380px; }
+
+  /* ③ 짝 그림(렌더 · 영상): 고친 뒤를 칸 가득 크게, 원래는 왼쪽 아래에 작게 겹침 + 원래 그림에 빨간 크레파스 ✗(11-22 사용자: "카드 안에 카드로 두고 x를 넣어봐").
+     이름표가 붙은 화면 캡처 짝 · 세로 짝(기둥)은 나란히 */
+  .cstep.side .cs-pics:is(.duo, .sq):not(:has(.cs-m)):not(:has(figure[data-lb])) { position: relative; display: block; margin: 0 0 12px 12px; }
+  .cstep.side .cs-pics:is(.duo, .sq):not(:has(.cs-m)):not(:has(figure[data-lb])) > .cs-arr { display: none; }
+  .cstep.side .cs-pics:is(.duo, .sq):not(:has(.cs-m)):not(:has(figure[data-lb])) > .cs-pic.b { width: 100%; max-width: none; }
+  .cstep.side .cs-pics:is(.duo, .sq):not(:has(.cs-m)):not(:has(figure[data-lb])) > .cs-pic.a { position: absolute; left: -12px; bottom: -12px; z-index: 2; width: 38%; max-width: none;
+    border-radius: 14px; box-shadow: 0 0 0 4px var(--inset-ring, #fff), 0 10px 24px rgba(10, 12, 30, .22); }
+  .cstep.side .cs-pics:is(.duo, .sq):not(:has(.cs-m)):not(:has(figure[data-lb])) > .cs-pic.a::after { content: ""; position: absolute; right: -16px; top: -18px; z-index: 3; width: 50px; height: 50px; pointer-events: none;
+    background: #e0544f; filter: url(#crayon-i);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Cpath d='M7 6 C 13 12, 21 21, 30 31 M30 5 C 23 12, 14 22, 6 31' fill='none' stroke='white' stroke-width='6.5' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Cpath d='M7 6 C 13 12, 21 21, 30 31 M30 5 C 23 12, 14 22, 6 31' fill='none' stroke='white' stroke-width='6.5' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat; }
+  .cstep.side .cs-pics.duo:not(.sq):not(:has(.cs-m)):not(:has(figure[data-lb])) > .cs-pic img { aspect-ratio: 4 / 3; object-fit: cover; }
+  .cstep.side .cs-pics.sq:not(:has(figure[data-lb])) > .cs-pic.b img { aspect-ratio: 5 / 4; object-fit: cover; object-position: 50% 35%; }   /* 머리가 덜 잘리게 위쪽을 더 */
+  .cstep.side .cs-pics.sq:not(:has(figure[data-lb])) > .cs-pic.a img { aspect-ratio: 1; object-fit: cover; }   /* 빨간 동그라미가 그림 % 로 찍혀 있어 원래 비율 */
+  /* 나란히 두는 짝(이름표 붙은 화면 캡처 · 세로 짝): 두 장 같은 크기 · 윗선 맞춤 */
+  .cstep.side .cs-pics:is(.duo, .tallpair):has(figure[data-lb]), .cstep.side .cs-pics.tallpair { display: flex; align-items: flex-start; gap: 8px; }
+  .cstep.side .cs-pics:is(.duo, .tallpair):has(figure[data-lb]) > .cs-pic, .cstep.side .cs-pics.tallpair > .cs-pic { flex: 1 1 0; max-width: none; }
+  .cstep.side .cs-pics:is(.duo, .tallpair):has(figure[data-lb]) > .cs-arr, .cstep.side .cs-pics.tallpair > .cs-arr { align-self: center; }
+  .cstep.side .cs-pics.duo:has(figure[data-lb]) > .cs-pic :is(img, video) { aspect-ratio: 3 / 2; object-fit: cover; height: auto; }
+  .cstep.side .cs-pics.tallpair > figure img { aspect-ratio: 320 / 440; }
+  /* 제단(측정 그림 셋 + 완성, 11-22 사용자 "1 큰 / 2- 1"): 왼쪽 위 = 단면도 · 왼쪽 아래 = 깊이 색 지도 · 점토 그림 나란히 · 오른쪽 = 완성을 두 줄 높이로 크게.
+     그림이 넷이라 이 카드만 그림 칸 460(380 이면 아래 두 장이 너무 작음) */
+  .cstep.side.wide.flip:has(.cs-pics .cs-m) { grid-template-columns: minmax(0, 1fr) 460px; }
+  .cstep.side .cs-pics.duo:has(.cs-m) { display: grid; grid-template-columns: 1fr 1fr auto 2.2fr; gap: 6px; }
+  .cstep.side .cs-pics.duo:has(.cs-m) > .cs-m { display: contents; }
+  .cstep.side .cs-pics.duo:has(.cs-m) > .cs-arr { grid-column: 3; grid-row: 1 / span 2; align-self: center; margin: 0 4px; }   /* 측정 → 완성(11-22 사용자: "사이에 화살표는 넣어야지") */
+  .cstep.side .cs-pics.duo:has(.cs-m) .cs-m > figure { margin: 0; max-width: none; }
+  .cstep.side .cs-pics.duo:has(.cs-m) .cs-m > figure:first-child { grid-column: 1 / span 2; grid-row: 1; }
+  .cstep.side .cs-pics.duo:has(.cs-m) .cs-m > figure:first-child img { aspect-ratio: 2 / 1; object-fit: contain; background: #fff; }   /* 치수가 적힌 단면도는 자르지 않음 */
+  .cstep.side .cs-pics.duo:has(.cs-m) .cs-m > figure:nth-child(2) { grid-column: 1; grid-row: 2; }
+  .cstep.side .cs-pics.duo:has(.cs-m) .cs-m > figure:nth-child(3) { grid-column: 2; grid-row: 2; }
+  .cstep.side .cs-pics.duo:has(.cs-m) .cs-m > figure:not(:first-child) img { aspect-ratio: 3 / 2; height: auto; }
+  .cstep.side .cs-pics.duo:has(.cs-m) > .cs-pic.b { position: relative; grid-column: 4; grid-row: 1 / span 2; align-self: stretch; max-width: none; overflow: hidden; border-radius: 14px; }
+  .cstep.side .cs-pics.duo:has(.cs-m) > .cs-pic.b img { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; object-fit: cover; }
+}
+
+/* ② 그림 하나 카드(06 클리커): 바탕을 걷어 낸 물체 그림(_tools/cutout_bg.py)을 카드 위에 바로 — 그림마다 있던 흰 · 검정 바탕 네모가
+   카드 안 상자가 되고 그 안에 여백이 컸음(11-22 사용자: "박스 안에 박스 · 여백이 많고 지저분"). 칸이 따로 있는 걸쇠 그림만 둥근 모서리 */
+.cstep.side .cs-pic.fit { display: flex; justify-content: center; max-width: none; }
+.cstep.side .cs-pic.fit img { width: auto; max-width: 100%; height: auto; max-height: 230px; aspect-ratio: auto; object-fit: contain; border-radius: 0; background: none; }
+.cstep.side .cs-pic.fit.boxed img { border-radius: 14px; }
+/* 투명 바탕 영상(alpha_video.js): 포스터(투명 그림)가 칸 크기를 정하고, 그 위에 캔버스가 영상을 그린다. 영상 요소는 재생만 맡아 안 보이게 */
+.cstep.side .cs-pics > .cs-pic.av { position: relative; flex: 0 0 auto; width: fit-content; max-width: 100%; margin: 0 auto; }   /* flex: 1 이면 칸이 가로로 늘어 영상이 납작해졌음(11-22) */
+.cstep.side .cs-pic.av .av-poster { display: block; width: auto; max-width: 100%; height: auto; max-height: 340px; aspect-ratio: auto; object-fit: contain; border-radius: 0; background: none; transition: opacity .2s; }
+.cstep.side .cs-pic.av video { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; pointer-events: none; border-radius: 0; background: none; }
+.cstep.side .cs-pic.av canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.cstep.side .cs-pic.av.on .av-poster { opacity: 0; }
+
+/* 머리 누르기 안내(11-22 사용자: "눌러 보세요? 그게 안 보여"): 그림 위에 빨간 손글씨 + 아래를 가리키는 크레파스 화살표, 한 번 누르면 사라짐(press.js) */
+.cstep.side .cs-pic.fit:has(.cs-hint) { position: relative; padding-top: 40px; }
+.cs-hint { position: absolute; left: 50%; top: 0; z-index: 2; display: inline-flex; align-items: center; gap: 4px; transform: translateX(-50%) rotate(-3deg); pointer-events: none; white-space: nowrap;
+  font: 400 clamp(25px, 2.1vw, 31px)/1.1 var(--hand); color: var(--note, var(--mk)); -webkit-text-stroke: .5px currentColor; text-shadow: var(--note-glow, none); transition: opacity .4s; }
+.cs-hint::after { content: ""; width: 20px; height: 30px; margin-top: 8px; background: currentColor; -webkit-mask: var(--cr-d) center / contain no-repeat; mask: var(--cr-d) center / contain no-repeat; }
+.cs-pic.pressed .cs-hint { opacity: 0; }
+/* 설탕이 짝: 두 장 같은 크기 · 원래 비율 그대로(세로로 잘라 얼굴이 잘렸던 것) */
+.cstep.side .cs-pics.pair { display: flex; align-items: center; gap: 8px; margin: 0; }
+.cstep.side .cs-pics.pair > .cs-pic { flex: 1 1 0; max-width: none; }
+.cstep.side .cs-pics.pair > .cs-arr { flex: none; }
+.cstep.side .cs-pics.pair > .cs-pic img { aspect-ratio: auto; height: auto; max-height: 260px; object-fit: contain; border-radius: 0; background: none; }
+
+/* 펼침 묶음 제목(05 '처음 짜 본 수익 구조'와 같은 결) */
+.sec h3.cs-group-h { margin: 0 0 22px; font-size: clamp(28px, 2.8vw, 38px); line-height: 1.3; letter-spacing: -.04em; }
+.sec h3.cs-group-h + .cflow { margin-top: 0; }
+html[data-theme="pastel"] .crit-dark .cs-group-h { color: #111318; }
+
+/* 처음 · 지금 묶음(grow-grid): 홀수면 첫 칸을 윗줄 가득 크게, 나머지는 두 칸씩(11-22 사용자: "홀수는 하나는 윗줄에 크게, 남은 쌍은 아래") ·
+   위 카드와 다닥다닥 붙어 있던 것 → 카드 사이와 같은 22 */
+.grow-grid { gap: 22px; }
+.cflow + .grow-grid, .grow-grid { margin-top: 22px; }
+@media (min-width: 901px) { .grow-grid > .gp:first-child:nth-last-child(odd) { grid-column: 1 / -1; } }
+
+/* 여섯 칸 그림 이름표: 흰 그림(단면 · 간격) 위 흰 글자가 안 읽혀 → 그림 아래쪽만 어두워지는 띠 위에 흰 글자(자막처럼) */
+.way-pics .wp-lb { left: 0; right: 0; bottom: 0; padding: 22px 8px 7px; text-align: center; font-size: 13px; line-height: 1.35; text-shadow: none;
+  background: linear-gradient(rgba(10, 12, 20, 0), rgba(10, 12, 20, .74)); }
+html[data-theme="dark"] .cstep { --inset-ring: #171a21; }

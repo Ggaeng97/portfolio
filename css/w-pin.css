@@ -1,0 +1,52 @@
+/* 스크롤 고정 장면(.pin, assemble.js): 카드 사이에 넣는 환기 — 화면 한 장을 꽉 쓰고, 내리는 만큼 그림이 넘어가며 글이 바뀐다.
+   .light = 밝은 회색 바탕(마스코트 한 바퀴), .dark = 어두운 바탕(클리커 조립). 그림 바탕색 = 장면 바탕색이라 이음매 없음. */
+.pin { position: relative; height: 320vh; margin-top: 120px; }
+.pin.light { background: #eef0f4; }
+.pin.dark { background: var(--dark); }
+.pin-stage { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; align-items: center; }
+.pin-grid { width: 100%; display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); align-items: center; gap: 40px; }
+.pin.flip .asm-caps { order: 2; }
+.asm-img { display: block; width: 100%; max-height: 84vh; aspect-ratio: 1; object-fit: contain; }
+.asm-caps { position: relative; height: 48vh; }
+.asm-cap { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-44%); opacity: 0; transition: opacity .2s ease, transform .2s ease; }
+.asm-cap.in { opacity: 1; transform: translateY(-50%); transition: opacity .6s var(--ease) .2s, transform .6s var(--ease) .2s; }
+.asm-cap small { display: block; margin-bottom: 14px; color: var(--accent); font-size: 15px; font-weight: 800; }
+.asm-cap b { display: block; color: var(--ink); font-size: clamp(30px, 3.4vw, 48px); line-height: 1.24; letter-spacing: -.04em; }
+.asm-cap span { display: block; margin-top: 18px; font-size: 17px; line-height: 1.7; color: var(--ink-2); }
+.pin.dark .asm-cap small { color: #9fb0ff; }
+.pin.dark .asm-cap b { color: #fff; }
+.pin.dark .asm-cap span { color: rgba(255, 255, 255, .8); }
+.pin .op-rail { right: 34px; text-shadow: none; }
+.pin.light .op-rail { color: var(--ink-2); }
+.pin.light .op-track { background: rgba(17, 19, 24, .12); }
+.pin.light .op-track i { background: var(--ink); }
+.pin.light .op-track s { background: rgba(17, 19, 24, .2); }
+.pin.light .op-track s.past { background: var(--accent); }
+.pin + .sec { padding-top: 80px; }
+
+@media (max-width: 900px) {
+  .pin { height: 300vh; margin-top: 84px; }
+  .pin-stage { align-items: flex-start; padding-top: 64px; }
+  .pin-grid { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .pin.flip .asm-caps { order: 0; }
+  .asm-img { order: -1; max-height: 48vh; margin: 0 auto; }
+  .asm-caps { height: 34vh; }
+  .asm-cap b { font-size: 24px; } .asm-cap span { font-size: 15px; margin-top: 10px; }
+  .pin .op-rail { display: none; }
+}
+
+.asm-box { position: relative; }
+.asm-intro { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+@media (max-width: 900px) { .asm-box { order: -1; } }
+.asm-stop { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none; opacity: 0; transition: opacity .5s ease; }
+#spin { height: 900vh; }
+/* 캐릭터 장면(#spin): 그림을 상자에 가두지 않고 화면 오른쪽 끝·위·아래까지 붙임 — 잘리는 곳은 화면 테두리, 글 쪽 경계만 넓게 부드럽게(사용자 11-13) */
+@media (min-width: 901px) {
+  #spin .pin-stage { overflow: hidden; }
+  #spin .asm-caps { z-index: 1; }
+  #spin .asm-box { position: absolute; top: 64px; right: 0; width: min(calc(100vh - 64px), 66vw); height: calc(100vh - 64px);   /* 위끝은 메뉴 막대 아래부터(머리카락이 가리지 않게) */
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 26%); mask-image: linear-gradient(90deg, transparent, #000 26%); }
+  #spin .asm-box .asm-img, #spin .asm-box .asm-stop { width: 100%; height: 100%; max-height: none; aspect-ratio: auto; object-fit: cover; -webkit-mask-image: none; mask-image: none; }
+}
+/* 클리커 조립: 설명 8개(부품 하나씩)라 장면을 길게 */
+#build { height: 620vh; }

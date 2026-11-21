@@ -1,0 +1,81 @@
+/* 'AI와 일하는 방식' 그림(techart_way.js · techart_frame.js) — w-tech.css 와 같은 바르코 카드 결 */
+
+/* ── 고리: 해줘 방식 vs 제 방식 ── */
+.cs-pics.has-tg > .tg[data-tg=way] { max-width: none; }
+.tg[data-tg=way] { height: 350px; }
+.tg[data-tg=way] .tg-stage > .w-row { position: absolute; left: 4%; right: 4%; display: flex; align-items: center; gap: 14px; }
+.w-row.a { top: 9%; } .w-row.b { top: 36%; } .w-row.c { top: 74%; }
+.w-row u { flex: none; width: 110px; text-decoration: none; font-size: 13.5px; font-weight: 700; color: #cfd3ee; }
+.w-a { display: flex; gap: 12px; overflow: hidden; opacity: .9; }
+.w-a i { font-style: normal; font-size: 13.5px; font-weight: 800; color: #ff9fb2; opacity: 0; transform: scale(.8); transition: opacity .3s, transform .3s; }   /* 알약 없이 글자만(11-21 사용자) */
+.w-a i:nth-child(even) { color: #aab0d0; }
+.tg.u0 .w-a i:nth-child(1), .tg.u1 .w-a i:nth-child(2), .tg.u2 .w-a i:nth-child(3), .tg.u3 .w-a i:nth-child(4),
+.tg.u4 .w-a i:nth-child(5), .tg.u5 .w-a i:nth-child(6), .tg.u6 .w-a i:nth-child(7), .tg.u7 .w-a i:nth-child(8) { opacity: 1; transform: none; }
+.w-cnt { margin-left: auto; font-size: 12px; font-weight: 800; color: #ff9fb2; white-space: nowrap; }
+.w-flow { display: flex; align-items: center; gap: 8px; flex: 1; }
+.w-n { position: relative; display: flex; align-items: center; gap: 7px; padding: 9px 12px; border-radius: 14px; background: rgba(255, 255, 255, .07);
+  font-size: 13.5px; font-weight: 800; color: #aab0d0; white-space: nowrap; transition: background .3s, color .3s, transform .3s; }
+.w-n em { font-style: normal; width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; background: rgba(255, 255, 255, .12); color: #fff; }
+.tg.p0 .n1, .tg.p4 .n1, .tg.p1 .n2, .tg.p5 .n2, .tg.p2 .n3, .tg.p6 .n3, .tg.p3 .n4, .tg.p7 .n4 { background: #9fb0ff; color: #0b0c12; transform: translateY(-2px); }
+.tg.p0 .n1 em, .tg.p4 .n1 em, .tg.p1 .n2 em, .tg.p5 .n2 em, .tg.p2 .n3 em, .tg.p6 .n3 em, .tg.p3 .n4 em, .tg.p7 .n4 em { background: #0b0c12; }
+.w-flow s { text-decoration: none; font-weight: 800; color: rgba(255, 255, 255, .35); }
+.w-flow s.back { color: #8ef0c3; font-size: 18px; }
+.w-opt { position: absolute; left: 50%; top: calc(100% + 8px); transform: translateX(-50%); display: flex; gap: 12px; opacity: 0; transition: opacity .3s; }
+.w-opt b { color: #aab0d0; font-size: 13px; font-weight: 800; white-space: nowrap; }
+.w-opt b.pick::after { content: " ✓"; opacity: 0; }
+.tg.p2 .w-opt, .tg.p6 .w-opt { opacity: 1; }
+.tg.p2 .w-opt b.pick, .tg.p6 .w-opt b.pick { animation: wPick .35s .9s both; }
+.tg.p2 .w-opt b.pick::after, .tg.p6 .w-opt b.pick::after { animation: wShow .3s 1s both; }
+@keyframes wPick { to { color: #8ef0c3; } }
+@keyframes wShow { to { opacity: 1; } }
+.w-round { position: absolute; right: 0; top: -26px; color: #8ef0c3; font-size: 13.5px; font-weight: 800; white-space: nowrap; opacity: 0; transition: opacity .3s; }
+.tg.u4 .w-round { opacity: 1; }
+.w-bars { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.w-bars i { position: relative; display: block; height: 18px; width: 0; border-radius: 6px; transition: width .9s cubic-bezier(.6, 0, .3, 1); }
+.w-bars .b1 { background: #ff9fb2; } .w-bars .b2 { background: #8ef0c3; }
+.tg.u3 .w-bars .b1 { width: 90%; } .tg.u7 .w-bars .b2 { width: 15%; }
+.tg.loop .w-bars i { transition: none; }
+.w-bars em { position: absolute; top: 50%; transform: translateY(-50%); white-space: nowrap; font-style: normal; font-size: 12.5px; font-weight: 800; opacity: 0; transition: opacity .3s .6s; }
+.w-bars .b1 em { left: 10px; color: #0b0c12; } .w-bars .b2 em { left: calc(100% + 10px); color: #8ef0c3; }
+.tg.u3 .b1 em, .tg.u7 .b2 em { opacity: 1; }
+
+/* ── 프레임 단위로 재기 ── */
+.tg[data-tg=frame] { height: 360px; max-width: none; }
+.f-phone { position: absolute; left: 7%; top: 6%; bottom: 6%; aspect-ratio: 9 / 16; border-radius: 16px; overflow: hidden; background: linear-gradient(#2a2f45, #171a26); }
+.f-head { position: absolute; left: 50%; top: 18%; width: 34%; aspect-ratio: 1; border-radius: 50%; transform: translateX(-50%); background: #3b4160; }
+.f-body { position: absolute; left: 50%; top: 38%; width: 72%; height: 46%; border-radius: 40% 40% 0 0; transform: translateX(-50%); background: #323854; }
+.f-sub { position: absolute; left: 16%; right: 16%; top: 76%; height: 8%; padding: 0 9%; border-radius: 6px; background: rgba(255, 255, 255, .94);
+  display: flex; flex-direction: column; justify-content: center; gap: 4px; opacity: 0; transition: opacity .3s; }
+.f-sub i { height: 3px; border-radius: 2px; background: #1b1e2b; } .f-sub i:last-child { width: 64%; margin: 0 auto; }
+.tg.u0 .f-sub { opacity: 1; }
+.f-scan { position: absolute; left: 0; right: 0; top: 0; height: 2px; background: #fff; box-shadow: 0 0 10px #fff; opacity: 0; }
+.tg.p0 .f-scan { animation: fScan 1.4s linear both; }
+@keyframes fScan { 0% { top: 0; opacity: 1; } 100% { top: 100%; opacity: 1; } }
+.f-gy { position: absolute; left: 0; right: 0; top: 80%; border-top: 1.5px dashed #9fb0ff; opacity: 0; transition: opacity .3s; }
+.f-gx { position: absolute; left: 9%; top: 76%; height: 8%; border-left: 2px solid #ffcf6b; opacity: 0; transition: opacity .3s; }
+.f-pad { position: absolute; top: 74.5%; width: 7%; border-top: 2px solid #ffcf6b; opacity: 0; transition: opacity .3s; }
+.f-pad.l { left: 16%; } .f-pad.r { right: 16%; }
+.tg.u1 .f-gy, .tg.u2 .f-gx, .tg.u2 .f-pad { opacity: 1; }
+.f-meme { position: absolute; left: 50%; top: 52%; width: 48%; height: 21%; transform: translateX(-50%); border-radius: 8px; display: grid; place-items: center;
+  background: rgba(255, 207, 107, .3); box-shadow: 0 0 16px 4px rgba(0, 0, 0, .75); color: #ffe2a3; font-size: 12px; opacity: 0; transition: opacity .35s; }
+.f-mw { position: absolute; left: 26%; right: 26%; top: 49%; border-top: 2px solid #8ef0c3; opacity: 0; transition: opacity .35s; }
+.f-mw em { position: absolute; left: 50%; bottom: 4px; transform: translateX(-50%); white-space: nowrap; font-style: normal; font-size: 11px; font-weight: 800; color: #8ef0c3; }
+.tg.u3 .f-meme, .tg.u3 .f-mw { opacity: 1; }
+.f-list { position: absolute; left: 44%; right: 5%; top: 50%; transform: translateY(-50%); margin: 0; padding: 0; list-style: none; }
+.f-list li { margin-bottom: 7px; padding: 8px 12px; border-radius: 10px; background: rgba(255, 255, 255, .06); color: #7e84a3; font-size: 14px; font-weight: 800; transition: background .3s, color .3s; }
+.tg.u1 .f-list .l0, .tg.u2 .f-list .l1, .tg.u2 .f-list .l2, .tg.u2 .f-list .l3, .tg.u3 .f-list .l4 { background: rgba(159, 176, 255, .16); color: #eef0ff; }
+.tg.p4 .f-list li { background: rgba(142, 240, 195, .14); color: #8ef0c3; }
+.tg.p4 .f-list li::after { content: " ✓ 학습"; font-size: 12px; }
+
+@media (max-width: 900px) {
+  .tg[data-tg=way] { height: 430px; }
+  .tg[data-tg=way] .tg-stage > .w-row { flex-wrap: wrap; gap: 6px 8px; }
+  .w-row u { width: 100%; font-size: 12px; }
+  .w-row.a { top: 4%; } .w-row.b { top: 27%; } .w-row.c { top: 74%; }
+  .w-a i { font-size: 10.5px; padding: 2px 7px; } .w-cnt { display: none; }
+  .w-flow { flex-wrap: wrap; gap: 5px; } .w-flow s { display: none; }
+  .w-n { font-size: 11px; padding: 6px 8px; } .w-opt { position: static; transform: none; margin-left: 4px; } .w-opt b { font-size: 10px; padding: 1px 6px; }
+  .w-round { top: -22px; font-size: 10.5px; } .w-bars em { font-size: 11px; }
+  .tg[data-tg=frame] { height: 330px; }
+  .f-phone { left: 4%; } .f-list { left: 46%; } .f-list li { font-size: 11.5px; padding: 6px 8px; }
+}

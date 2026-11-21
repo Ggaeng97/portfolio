@@ -1,0 +1,93 @@
+/* 영상 편집 장 기술 그림(techart.js) — 바르코 카드 결: 어두운 둥근 판 + 연보라 파형 + 흰 재생 막대. 단계(p0~p3)마다 CSS 가 바뀐다 */
+.tg { position: relative; flex: 1 1 0; min-width: 0; max-width: 640px; height: 330px; display: flex; flex-direction: column; gap: 12px; padding: 14px;
+  border-radius: 22px; background: #111217; border: 1px solid rgba(255, 255, 255, .12); color: #fff; }
+.tg-stage { position: relative; flex: 1; overflow: hidden; border-radius: 14px; background: #08090c; }
+.tg-step { display: flex; align-items: center; gap: 12px; min-height: 24px; padding: 0 4px; font-size: 14.5px; font-weight: 700; letter-spacing: -.02em; color: #eef0ff; }
+.tg-step i { display: flex; gap: 5px; flex: none; }
+.tg-step i b { width: 7px; height: 7px; border-radius: 50%; background: rgba(255, 255, 255, .22); transition: background .3s; }
+.tg-step i b.on { background: #9fb0ff; }
+.tg-step span { animation: tgIn .45s ease; }
+.tg.p0 .tg-step span, .tg.p1 .tg-step span, .tg.p2 .tg-step span, .tg.p3 .tg-step span { animation-name: tgIn; }
+@keyframes tgIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+/* 파형 */
+.tg-wave { position: absolute; left: 6%; right: 6%; top: 24%; bottom: 16%; display: flex; align-items: center; gap: 3px; }
+.tg-wave i { flex: 1 1 0; min-width: 0; border-radius: 3px; background: linear-gradient(#eef1ff, #8f9ff0); opacity: .9;
+  transition: background .45s, opacity .45s, flex-grow .7s cubic-bezier(.6, 0, .3, 1), margin .7s cubic-bezier(.6, 0, .3, 1); }
+.tg-wave s { position: absolute; top: -8%; bottom: -8%; left: 0; width: 2px; background: #fff; box-shadow: 0 0 12px rgba(255, 255, 255, .8); animation: tgHead 3.4s linear infinite; }
+@keyframes tgHead { from { left: 0; } to { left: 100%; } }
+.tg-tag { position: absolute; top: 9%; transform: translateX(-50%); padding: 2px 4px; white-space: nowrap; font-size: 15px; font-weight: 800;   /* 그림 속 이름표는 알약 없이 글자만(11-21 사용자) */
+  color: #eef0ff; opacity: 0; transition: opacity .4s, transform .4s; }
+
+/* NG: ① 신호어 NG(a) → ② 규칙 NG(b · c) → ③ 잘라 내고 당김 */
+.tg[data-tg=ng] .ta { left: 28%; } .tg[data-tg=ng] .tb { left: 54.6%; } .tg[data-tg=ng] .tc { left: 77.5%; }
+.tg.p1 .ng.a, .tg.p2 .ng { background: linear-gradient(#ffc2cc, #ff5c7a); opacity: 1; }
+.tg.p1 .ta, .tg.p2 .ta, .tg.p2 .tb, .tg.p2 .tc { opacity: 1; }
+.tg.p3 .ng { flex-grow: 0; opacity: 0; margin-right: -3px; }
+.tg.loop .tg-wave i { transition-duration: 0s; }
+
+/* 위스퍼 9초: 듣는 구간(창)이 넓어지면 되풀이가 하나로 합쳐짐 → 짧게 끊어 처음부터.
+   낱말 칸은 같은 너비(5칸), 창은 칸 경계에 딱 맞게: --cw 칸 너비 · --g 칸 사이 · --pd 창 여백 (사용자 11-15 "묶는 위치가 안 맞아") */
+.tg[data-tg=asr9] { --sl: 6%; --g: 10px; --pd: 5px; --cw: calc((88% - 4 * var(--g)) / 5); --ch: 34px; }
+.tg-strip { position: absolute; left: var(--sl); right: var(--sl); top: 22%; display: flex; gap: var(--g); }
+.tg-strip span { flex: 1 1 0; min-width: 0; height: var(--ch); line-height: var(--ch); border-radius: 9px; text-align: center; white-space: nowrap; overflow: hidden;
+  font-size: 13.5px; font-weight: 700; letter-spacing: -.03em; background: rgba(255, 255, 255, .08); color: #eef0ff; }
+.tg-strip .r1, .tg-strip .r2 { box-shadow: inset 0 0 0 1.5px rgba(159, 176, 255, .55); }
+.tg-win, .tg-seg { position: absolute; top: calc(22% - var(--pd) - 2px); height: calc(var(--ch) + 2 * var(--pd) + 4px); left: calc(var(--sl) - var(--pd) - 2px); border-radius: 13px; box-sizing: border-box; }
+.tg-win { width: calc(2 * var(--cw) + var(--g) + 2 * var(--pd) + 4px); border: 2px solid #9fb0ff; background: rgba(159, 176, 255, .08);
+  transition: width .8s cubic-bezier(.6, 0, .3, 1), border-color .4s, background .4s; }
+.tg-win b { position: absolute; right: 4px; bottom: calc(100% + 6px); color: #9fb0ff; font-size: 14px; font-weight: 800; white-space: nowrap; transition: color .4s; }
+.tg-win b::after { content: "5초씩 듣기"; }
+.tg.p1 .tg-win { width: calc(3 * var(--cw) + 2 * var(--g) + 2 * var(--pd) + 4px); } .tg.p1 .tg-win b::after { content: "9초"; }
+.tg.p2 .tg-win { width: calc(5 * var(--cw) + 4 * var(--g) + 2 * var(--pd) + 4px); border-color: #ff7b93; background: rgba(255, 92, 122, .08); }
+.tg.p2 .tg-win b { color: #ff7b93; } .tg.p2 .tg-win b::after { content: "13초"; }
+.tg.p3 .tg-win { width: calc(5 * var(--cw) + 4 * var(--g) + 2 * var(--pd) + 4px); border-color: transparent; background: none; }
+.tg.p3 .tg-win b { color: #8ef0c3; } .tg.p3 .tg-win b::after { content: "짧게 나눠 받아쓰고 합치기"; }
+.tg-seg { border: 2px solid #8ef0c3; opacity: 0; transition: opacity .4s; }
+.tg-seg.s1 { width: calc(2 * var(--cw) + var(--g) + 2 * var(--pd) + 4px); }
+.tg-seg.s2 { left: calc(var(--sl) + 2 * var(--cw) + 2 * var(--g) - var(--pd) - 2px); width: calc(2 * var(--cw) + var(--g) + 2 * var(--pd) + 4px); }
+.tg-seg.s3 { left: calc(var(--sl) + 4 * var(--cw) + 4 * var(--g) - var(--pd) - 2px); width: calc(var(--cw) + 2 * var(--pd) + 4px); }
+.tg.p3 .tg-seg { opacity: 1; }
+.tg-out { position: absolute; left: 6%; right: 6%; bottom: 12%; }
+.tg-out u { display: inline-block; margin-bottom: 6px; text-decoration: none; font-size: 14px; font-weight: 800; color: #aab0d0; }
+.tg-out p { margin: 0; font-size: 16px; font-weight: 700; color: #fff; }
+.tg-out p::after { margin-left: 8px; font-size: 13px; font-weight: 800; color: #8ef0c3; content: "✓ 그대로"; }
+.tg-out .o1 { transition: color .4s, opacity .4s; }
+.tg.p2 .tg-out .o1 { color: #ff7b93; opacity: .55; text-decoration: line-through; }
+.tg.p2 .tg-out p::after { color: #ff7b93; content: "✕ 되풀이가 사라짐"; }
+.tg.p3 .tg-out .o1 { color: #8ef0c3; }
+
+/* 숨소리: 말소리는 받아쓰고 → 숨소리에 '아멘'을 지어냄 → 말소리 기준 아래는 묻지 않음 */
+.tg[data-tg=breath] .tg-wave { top: 30%; }
+.tg-words { position: absolute; left: 6%; right: 6%; top: 10%; height: 24px; }
+.tg-words span { position: absolute; transform: translateX(-50%); white-space: nowrap; font-size: 14px; font-weight: 700; color: #eef0ff; opacity: 0; transition: opacity .5s; }
+.tg-words .w1 { left: 20%; } .tg-words .w2 { left: 80%; }
+.tg.p0 .tg-words .w1 { opacity: 1; transition-delay: .3s; } .tg.p0 .tg-words .w2 { opacity: 1; transition-delay: 1.1s; }
+.tg.p1 .tg-words span, .tg.p2 .tg-words span { opacity: 1; }
+.tg-wave i.br { background: linear-gradient(#c9cdea, #7c82b8); opacity: .7; }
+.tg.p1 .tg-wave i.br { background: linear-gradient(#ffc2cc, #ff5c7a); opacity: 1; }
+.tg.p2 .tg-wave i.br { background: #3c3f4d; opacity: 1; }
+.tg-wave hr { position: absolute; left: -2%; right: -2%; top: 36%; margin: 0; border: 0; border-top: 2px dashed #9fb0ff; opacity: 0; transition: opacity .4s; }
+.tg.p2 .tg-wave hr { opacity: 1; }
+.tg-gate { position: absolute; right: 4%; top: 21%; font-size: 12px; font-weight: 800; color: #9fb0ff; opacity: 0; transition: opacity .4s; }
+.tg.p2 .tg-gate { opacity: 1; }
+.tg-bub { position: absolute; left: 50%; top: 19%; transform: translateX(-50%); }
+.tg-bub span { position: absolute; left: 50%; transform: translate(-50%, 6px); padding: 6px 12px; border-radius: 12px; white-space: nowrap; font-size: 14px; font-weight: 800; opacity: 0; transition: opacity .35s, transform .35s; }
+.tg-bub .x { background: #ff5c7a; color: #fff; } .tg-bub .x::after { content: " ✕ 없는 말"; font-size: 12px; }
+.tg-bub .ok { background: #8ef0c3; color: #0b0c12; } .tg-bub .ok::before { content: "✓ "; }
+.tg.p1 .tg-bub .x, .tg.p2 .tg-bub .ok { opacity: 1; transform: translate(-50%, 0); }
+
+/* 카드 안 배치: 그림 + 실제 화면을 나란히(휴대폰은 위아래) */
+.cs-pics .tg + figure { flex: 0 1 auto; }
+@media (max-width: 900px) {
+  .tg { height: 270px; padding: 10px; gap: 8px; border-radius: 18px; }
+  .tg-step { font-size: 13px; }
+  .tg[data-tg=asr9] { --g: 6px; --pd: 3px; --ch: 28px; }
+  .tg-strip span { font-size: 10.5px; letter-spacing: -.05em; }
+  .tg-out p { font-size: 14px; } .tg-words span, .tg-bub span { font-size: 12.5px; }
+  .cs-pics.has-tg { flex-wrap: wrap; }
+  .cs-pics.has-tg > .tg { flex-basis: 100%; max-width: none; }
+}
+
+/* 받아쓰기 그림 마지막 장면: 긴 글자표가 오른쪽 칸 테두리 위에 겹쳐 보이던 것(사용자 11-15 "버그") → 세 칸 위 가운데로 띄움 */
+.tg.p3 .tg-win b { right: auto; left: 50%; top: -34px; transform: translateX(-50%); }

@@ -1,0 +1,52 @@
+/* 다크 테마 — 3판의 검은 한 바탕 + 빨간 짚기(11-21 사용자: "아까 다크테마도 나빴다고 생각 안 해"). 모든 구역이 같은 검정(themes.js)이라 색 전환이 없다.
+   위 글(요약 · 들머리 · 다리 문장)은 흰 글, 자세히 보기의 밝은 구역은 검정 위 종이, 어두운 구역은 검정 그대로. */
+html[data-theme="dark"] { --mk: #ff5a5f; --note: #ff7379; --note-glow: none;
+  --en-veil: rgba(5, 6, 9, .55); --en-card: radial-gradient(120% 140% at 50% 0%, #3a1d22 0%, #12131a 62%); --en-ink: #f3f5f8; --en-sub: #9aa1b0; --en-tile: rgba(255, 255, 255, .06); --en-ring: #ff5a5f;
+  --sb-bg: rgba(20, 23, 29, .88); --sb-sh: 0 4px 14px rgba(0, 0, 0, .4); --sb-ink: #f3f5f8; --sb-on: rgba(255, 90, 95, .92);
+  --ts-bg: rgba(20, 23, 29, .86); --ts-sh: 0 3px 12px rgba(0, 0, 0, .4); --ts-ink: #b9bfcb; --ts-on: #f3f5f8; --ts-on-ink: #0b0c0f;
+  --rl-line: rgba(255, 90, 95, .3); --rl-ink: #8b93a3; --rl-ink-on: #f3f5f8; --rl-num: #6c7486; --rl-dot: #0b0c0f; --rl-pop: rgba(20, 23, 29, .96); --rl-pop-sh: 0 6px 24px rgba(0, 0, 0, .4); }
+/* 맨 아래 바탕도 검정(bgtween 은 마지막 구역 아래를 흰색으로 둠 — 파스텔에선 그대로) */
+html[data-theme="dark"] body { background: #0b0c0f !important; }
+html[data-theme="dark"] .hc-back i { background: linear-gradient(rgba(11, 12, 15, 0) 38%, rgba(11, 12, 15, .7)); }
+
+/* 위 글 */
+html[data-theme="dark"] .st-map-k, html[data-theme="dark"] .st-title h2, html[data-theme="dark"] .st-h, html[data-theme="dark"] .st-bridge p, html[data-theme="dark"] .fh-line { color: #f3f5f8; }
+html[data-theme="dark"] .st-lede, html[data-theme="dark"] .st-steps span { color: #c4cad5; }
+html[data-theme="dark"] .st-steps b, html[data-theme="dark"] .st-lede b, html[data-theme="dark"] .fh-line em { color: #fff; }
+html[data-theme="dark"] .st-no, html[data-theme="dark"] .st-map em { color: var(--mk); }
+html[data-theme="dark"] .st-trait, html[data-theme="dark"] .st-bridge p::before { background: rgba(255, 90, 95, .13); color: var(--mk); }
+html[data-theme="dark"] .st-steps li { background: #14171d; }
+html[data-theme="dark"] .st-map a { background: #14171d; color: #f3f5f8; }
+html[data-theme="dark"] .st + .st .st-head { border-top: 1px dashed rgba(255, 255, 255, .08); }
+html[data-theme="dark"] .st-sum > .st-more-row::after { background: rgba(255, 255, 255, .1); }
+html[data-theme="dark"] .st-btn { background: #f3f5f8; color: #0b0c0f; }
+html[data-theme="dark"] .st-btn:hover { background: var(--mk); color: #fff; }
+html[data-theme="dark"] .st-open-pill, html[data-theme="dark"] .st-open-pill.floating { background: rgba(20, 23, 29, .95); box-shadow: 0 4px 16px rgba(0, 0, 0, .4); }
+html[data-theme="dark"] .st-open-pill span { color: #f3f5f8; }
+html[data-theme="dark"] .bar { background: rgba(11, 12, 15, .82); border-bottom: 1px solid rgba(255, 255, 255, .06); }
+html[data-theme="dark"] .bar .brand { color: #fff; }
+html[data-theme="dark"] .bar nav, html[data-theme="dark"] .bar nav a { color: #c4cad5; }
+html[data-theme="dark"] .hc-chips a:hover { background: rgba(255, 90, 95, .22); border-color: rgba(255, 140, 143, .6); }
+html[data-theme="dark"] .next-card { background: radial-gradient(120% 140% at 50% 0%, #3a1d22 0%, #12131a 62%); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .06); }
+html[data-theme="dark"] .next-card .flow span { background: rgba(255, 255, 255, .06); color: #f3f5f8; }   /* 칩: 다른 포폴 같던 주황 · 파랑 · 초록 → 검정 위 반투명 + 단계 색 윗줄 */
+html[data-theme="dark"] .next-card .flow .c1 { box-shadow: inset 0 3px 0 #ffb08f, inset 0 0 0 1px rgba(255, 255, 255, .08); }
+html[data-theme="dark"] .next-card .flow .c3 { box-shadow: inset 0 3px 0 #b5a8ff, inset 0 0 0 1px rgba(255, 255, 255, .08); }
+html[data-theme="dark"] .next-card .flow .c2 { box-shadow: inset 0 3px 0 #7fdcb5, inset 0 0 0 1px rgba(255, 255, 255, .08); }
+html[data-theme="dark"] footer { background: transparent !important; color: #8b93a3; }
+html[data-theme="dark"] footer b { color: #f3f5f8; }
+
+/* 자세히 보기의 밝은 구역도 어둡게(11-21 사용자: "다크모드 일부 박스가 적용이 안 돼" — 예전엔 검정 위 밝은 종이로 뒀음).
+   원래 디자인이 색을 변수(--ink · --bg · --cb …)로 쓰는 곳은 변수만 바꿔 한 번에, 색이 박힌 부품은 아래에서 하나씩 */
+html[data-theme="dark"] .st-more > .sec { --bg: #0b0c0f; --bg-2: #14171d; --bg-3: #1b1f27; --ink: #f3f5f8; --ink-2: #c4cad5; --mute: #8b93a3; --faint: #646b78;
+  --line: rgba(255, 255, 255, .08); --line-2: rgba(255, 255, 255, .14); --accent: #8fa2ff; --accent-2: #a9b7ff; color: var(--ink-2); }
+html[data-theme="dark"] .st-more .cstep, html[data-theme="dark"] #t-app .cstep { --cb: #171a21 !important; --ct: #f3f5f8 !important; --cm: rgba(255, 255, 255, .72) !important; --ck: #ff9a9d !important; --cl: rgba(255, 255, 255, .08) !important; }
+html[data-theme="dark"] section.crit-dark .cstep { --cb: #171a21 !important; --ct: #f3f5f8 !important; --cm: rgba(255, 255, 255, .74) !important; --ck: #ff9a9d !important; --cl: rgba(255, 255, 255, .1) !important; }
+html[data-theme="dark"] .sec-title h2 { color: #f3f5f8; }
+html[data-theme="dark"] .sec-title h2 span { color: rgba(255, 255, 255, .45); }
+
+html[data-theme="dark"] .ul { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 8' preserveAspectRatio='none'><path d='M1 5.2 C 30 3, 70 7, 119 4.2' fill='none' stroke='%23ff5a5f' stroke-width='2.4' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>"); }
+
+
+/* 펼친 구역 · 앱 구역 안에 흰색이 박혀 있던 상자와 검정 글씨(darkfix.js 가 표시) */
+html[data-theme="dark"] .dk-box { background-color: #171a21 !important; border-color: rgba(255, 255, 255, .08) !important; box-shadow: none !important; }
+html[data-theme="dark"] .dk-ink { color: #e6e9f0 !important; }

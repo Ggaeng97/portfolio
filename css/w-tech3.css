@@ -1,0 +1,98 @@
+/* 영상 편집 07(질문) · 18번→3번(사례) · 앱 02(광고 흐름) 그림 — w-tech.css 와 같은 바르코 카드 결 */
+
+/* ── 07 질문: 하나씩 쌓이는 질문 → 숫자 ── */
+.q-wall { position: absolute; left: 5%; right: 5%; top: 50%; transform: translateY(-50%); display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 22px; transition: opacity .4s, filter .4s; }
+.q-wall span { display: inline-flex; align-items: baseline; gap: 5px; font-size: 14px; font-weight: 700; letter-spacing: -.02em; color: #eef0ff;   /* 알약 없이 글자만(11-21 사용자) */
+  opacity: 0; transform: translateY(6px) scale(.96); }
+.q-wall b { color: #9fb0ff; font-size: 14px; font-weight: 900; }
+.tg.p0 .q-wall span { animation: qIn .35s calc(.2s + var(--i) * .42s) both; }
+.tg.p1 .q-wall span { opacity: 1; transform: none; }
+.tg.p1 .q-wall { opacity: .1; filter: blur(1.5px); }
+@keyframes qIn { to { opacity: 1; transform: none; } }
+.q-num { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 48px; opacity: 0; transition: opacity .4s; }
+.q-num p { margin: 0; display: flex; align-items: flex-end; gap: 8px; }
+.q-num em { font-style: normal; font-size: 64px; font-weight: 900; line-height: .9; letter-spacing: -.04em; color: #9fb0ff; }
+.q-num span { padding-bottom: 4px; font-size: 14px; font-weight: 700; line-height: 1.35; color: #eef0ff; }
+.tg.p1 .q-num { opacity: 1; }
+.tg.p1 .q-num p { animation: qIn .45s both; } .tg.p1 .q-num p + p { animation-delay: .35s; }
+.tg.p1 .q-num p { transform: translateY(6px); opacity: 0; }
+
+/* ── 18번 → 3번: 판이 쌓이는 줄 두 개 + 가운데 사례 선반 ── */
+.tg[data-tg=cases] { height: 290px; --ts: 22px; }
+.tg[data-tg=cases] .tg-stage > div { position: absolute; left: 4%; right: 4%; display: flex; align-items: center; gap: 12px; }
+.cs-ln.a { top: 13%; } .cs-shelf { top: 39%; } .cs-ln.b { top: 75%; }
+.tg[data-tg=cases] u { flex: none; width: 82px; text-decoration: none; font-size: 13.5px; font-weight: 700; color: #cfd3ee; }
+.cs-t, .cs-m { display: flex; gap: 5px; }
+.cs-t i { width: var(--ts); height: var(--ts); border-radius: 6px; opacity: 0; transform: scale(.6); }
+.cs-t i.mx { background: linear-gradient(135deg, rgba(255, 123, 147, .6) 0 50%, rgba(142, 240, 195, .6) 50% 100%); box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .22); }
+.cs-t i.ok { background: #8ef0c3; }
+.cs-t i.ok::after { content: "✓"; display: grid; place-items: center; height: 100%; font-size: 12px; font-weight: 900; color: #0b0c12; }
+.cs-m i { width: 12px; height: 13px; border-radius: 3px; opacity: 0; }
+.cs-m i.ng { background: #ff7b93; } .cs-m i.ok { background: #8ef0c3; }
+.cs-rows { display: flex; flex-direction: column; gap: 6px; }
+.cs-row { display: flex; align-items: center; gap: 10px; }
+.cs-row > b { flex: none; width: 58px; font-size: 12px; font-weight: 800; white-space: nowrap; } .cs-row > b.g { color: #8ef0c3; } .cs-row > b.r { color: #ff9fb2; }
+.tg.p0 .cs-ln.a .cs-t i, .tg.p0 .cs-m i { animation: csIn .3s calc(.15s + var(--i) * .22s) both; }
+.tg.u1 .cs-ln.a .cs-t i, .tg.u1 .cs-m i { opacity: 1; transform: none; }
+.tg.p1 .cs-ln.b .cs-t i { animation: csIn .3s calc(.9s + var(--i) * .4s) both; }
+.tg.u2 .cs-ln.b .cs-t i { opacity: 1; transform: none; }
+@keyframes csIn { to { opacity: 1; transform: none; } }
+.tg[data-tg=cases] em { font-style: normal; font-size: 15px; font-weight: 900; white-space: nowrap; opacity: 0; transition: opacity .35s; }
+.cs-ln.a em { color: #ff9fb2; } .cs-ln.b em { color: #8ef0c3; font-size: 20px; }
+.tg.u1 .cs-ln.a em, .tg.u2 .cs-ln.b em { opacity: 1; }
+.cs-lg { display: flex; align-items: center; gap: 5px; margin-left: 8px; font-size: 12px; font-weight: 700; color: #aab0d0; white-space: nowrap; }
+.cs-lg i { width: 9px; height: 12px; border-radius: 2px; margin-left: 6px; }
+.cs-arrow { flex: none; color: #8ef0c3; font-size: 14px; font-weight: 800; white-space: nowrap; opacity: 0; transition: opacity .35s; }
+.tg.u1 .cs-arrow { opacity: 1; }
+.tg.p1 .cs-shelf { animation: csGlow 1s .2s both; }
+@keyframes csGlow { 40% { filter: drop-shadow(0 0 8px rgba(142, 240, 195, .8)); } }
+
+/* ── 앱 02: 단계마다 바뀌는 흐름 한 줄 ── */
+.ad-g { position: absolute; left: 4%; right: 4%; top: 50%; transform: translateY(-50%); display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 8px; opacity: 0; visibility: hidden; }
+.tg.p0 .g0, .tg.p1 .g1, .tg.p2 .g2, .tg.p3 .g3 { opacity: 1; visibility: visible; }
+.ad-n { position: relative; display: inline-flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 14px; border-radius: 14px; background: rgba(255, 255, 255, .08);
+  font-size: 14px; font-weight: 800; letter-spacing: -.02em; color: #eef0ff; white-space: nowrap; opacity: 0; transform: translateY(6px); }
+.ad-n.ok { background: rgba(142, 240, 195, .16); color: #8ef0c3; }
+.ad-n.bad { background: rgba(255, 92, 122, .2); color: #ffb3c0; }
+.ad-n.ad { background: rgba(159, 176, 255, .18); color: #c8d2ff; }
+.ad-n.gone { text-decoration: line-through; opacity: 0; }
+.ad-ar { font-style: normal; font-size: 15px; font-weight: 800; color: rgba(255, 255, 255, .35); }
+.tg.p0 .g0 .ad-n, .tg.p1 .g1 .ad-n, .tg.p2 .g2 .ad-n { animation: adIn .35s calc(.15s + var(--i) * .7s) both; }
+.tg.p1 .g1 .ad-n.gone { animation-name: adGone; }
+@keyframes adIn { to { opacity: 1; transform: none; } }
+@keyframes adGone { 0% { opacity: 0; } 30% { opacity: .9; } 100% { opacity: .28; transform: none; } }
+.ad-pg { position: relative; width: 100%; height: 4px; border-radius: 99px; background: rgba(255, 255, 255, .15); overflow: hidden; }
+.ad-pg s { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: #9fb0ff; }
+.tg.p2 .ad-pg s { animation: adPg 1.3s .9s linear both; }
+@keyframes adPg { to { width: 100%; } }
+.ad-vol { display: flex; align-items: flex-end; gap: 3px; height: 14px; }
+.ad-vol i { width: 4px; border-radius: 2px; background: #9fb0ff; height: 30%; }
+.tg.p2 .ad-vol i { animation: adVol .5s calc(2.4s + var(--k, 0s)) infinite alternate; }
+.ad-vol i:nth-child(2) { --k: .1s; } .ad-vol i:nth-child(3) { --k: .2s; } .ad-vol i:nth-child(4) { --k: .3s; }
+@keyframes adVol { to { height: 100%; } }
+.ad-m { display: flex; flex-direction: column; gap: 6px; width: 30%; padding: 14px; border-radius: 14px; background: rgba(255, 255, 255, .08); font-size: 12.5px; font-weight: 600; color: #cfd3ee;
+  opacity: 0; transform: translateY(6px); white-space: normal; }
+.ad-m u { text-decoration: none; font-size: 15px; font-weight: 800; color: #fff; }
+.tg.p3 .ad-m { animation: adIn .35s calc(.15s + var(--i) * .35s) both; }
+
+@media (max-width: 900px) {
+  .tg[data-tg=qs] { height: 370px; }
+  .q-wall { gap: 5px; } .q-wall span { font-size: 10.5px; padding: 4px 8px 4px 4px; } .q-wall b { width: 14px; height: 14px; font-size: 9px; }
+  .q-num { gap: 22px; } .q-num em { font-size: 44px; } .q-num span { font-size: 11.5px; }
+  .tg[data-tg=cases] { height: 300px; --ts: 11px; }
+  .tg[data-tg=cases] .tg-stage > div { flex-wrap: wrap; gap: 6px 8px; }
+  .cs-ln.a { top: 5%; } .cs-shelf { top: 34%; } .cs-ln.b { top: 70%; }
+  .cs-row > b { width: 50px; font-size: 10.5px; } .cs-row { gap: 6px; }
+  .tg[data-tg=cases] u { width: 100%; font-size: 12px; }
+  .cs-t, .cs-m { gap: 3px; } .cs-m i { width: 7px; height: 9px; }
+  .cs-t i.ok::after { font-size: 8px; }
+  .tg[data-tg=cases] em { font-size: 12.5px; } .cs-ln.b em { font-size: 15px; } .cs-arrow { font-size: 10.5px; }
+  .ad-n { font-size: 11.5px; padding: 7px 9px; white-space: normal; text-align: center; } .ad-ar { font-size: 12px; }
+  .ad-m { width: 31%; padding: 8px; font-size: 10.5px; } .ad-m u { font-size: 12px; }
+}
+
+/* 앱 02 수익 도식: 상자를 낮추고(330 → 270), 마지막 장면 세 칸은 좁아서 여러 줄로 접히던 것을 가로로 긴 세 줄로
+   (사용자 11-15 저녁 "띄우는 것만 정리하면 줄일 여지가 많다") */
+.tg[data-tg=ad] { height: 270px; }
+.tg[data-tg=ad] .ad-g.g3 { flex-direction: column; flex-wrap: nowrap; align-items: stretch; gap: 6px; }
+.tg[data-tg=ad] .ad-m { width: auto; padding: 7px 14px; gap: 1px; line-height: 1.4; }   /* 세 줄 합 172px — 무대 203px 안에 여유 있게 */

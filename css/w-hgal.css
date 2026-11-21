@@ -1,0 +1,56 @@
+/* 가로 갤러리(hgal.js): 어두운 전체 화면(#build) 뒤 — 같은 어두운 바탕에서 카드 상자 없이, 내리는 만큼 판이 옆으로 넘어간다 */
+.hgal { position: relative; background: var(--dark); color: #fff; }
+.hg-stage { position: sticky; top: 0; height: 100vh; overflow: hidden; background: var(--dark); }
+.hg-track { display: flex; align-items: center; gap: 7vw; height: 100%; padding: 0 max(6vw, calc((100vw - var(--wrap)) / 2 + 32px)); will-change: transform;
+  transition: transform .85s cubic-bezier(.2, .8, .16, 1); }
+.hg-panel { flex: none; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: 52px; align-items: center; width: min(1180px, 78vw); opacity: .05; transition: opacity .6s ease; }
+.hg-panel.on { opacity: 1; }
+.hg-intro { grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); }
+
+.hg-pics { display: flex; align-items: center; justify-content: center; gap: 18px; height: 62vh; }
+.hg-pics figure { display: flex; flex: 1 1 0; flex-direction: column; align-items: center; justify-content: center; min-width: 0; height: 100%; margin: 0; }
+.hg-pics img { max-width: 100%; max-height: calc(100% - 34px); border-radius: 18px; object-fit: contain; box-shadow: 0 0 0 1px rgba(255, 255, 255, .08), 0 30px 70px rgba(0, 0, 0, .5); }
+.hg-pics figcaption { margin-top: 14px; font-size: 13.5px; color: rgba(255, 255, 255, .6); text-align: center; }
+.hg-intro .hg-pics img, .hg-intro .hg-pics video { max-height: 100%; }
+.hg-pics video { max-width: 100%; max-height: 100%; border-radius: 18px; box-shadow: 0 0 0 1px rgba(255, 255, 255, .08), 0 30px 70px rgba(0, 0, 0, .5); }
+
+.hg-text small { display: block; font-size: 14px; font-weight: 700; color: #9fb0ff; }
+.hg-panel.crit .hg-text small { color: #c9a6ff; }
+.hg-text h3 { margin: 12px 0 22px; color: #fff; font-size: clamp(26px, 2.6vw, 38px); line-height: 1.28; letter-spacing: -.04em; }
+.hg-intro h3 { font-size: clamp(34px, 3.6vw, 52px); }
+.hg-text p { margin: 0; font-size: 16.5px; line-height: 1.8; color: rgba(255, 255, 255, .78); }
+.hg-text dl { margin: 0; }
+.hg-text dl > div { padding: 13px 0; border-top: 1px solid rgba(255, 255, 255, .12); }
+.hg-text dt { margin-bottom: 4px; font-size: 12.5px; font-weight: 700; color: rgba(255, 255, 255, .45); letter-spacing: .02em; }
+.hg-text dd { margin: 0; font-size: 15.5px; line-height: 1.65; color: rgba(255, 255, 255, .88); }
+.hg-hint { display: inline-flex; align-items: center; gap: 8px; margin-top: 30px; font-size: 14px; font-weight: 600; color: rgba(255, 255, 255, .6); }
+.hg-hint b { display: inline-block; animation: hgnudge 1.4s ease-in-out infinite; }
+@keyframes hgnudge { 50% { transform: translateX(6px); } }
+
+/* 아래: 진행 막대 + 묶음 이름 */
+.hg-foot { position: absolute; left: max(6vw, calc((100vw - var(--wrap)) / 2 + 32px)); right: max(6vw, calc((100vw - var(--wrap)) / 2 + 32px)); bottom: 6vh; }
+.hg-groups { position: relative; height: 22px; margin-bottom: 10px; }
+.hg-groups span { position: absolute; bottom: 0; transform: translateX(-50%); font-size: 13.5px; font-weight: 600; white-space: nowrap; color: rgba(255, 255, 255, .38); transition: color .3s; }
+.hg-groups span:last-child { transform: translateX(-100%); }
+.hg-groups span.on { color: #fff; }
+.hg-bar { height: 2px; border-radius: 2px; background: rgba(255, 255, 255, .14); }
+.hg-bar i { display: block; width: 0; height: 100%; border-radius: 2px; background: #9fb0ff; transition: width .6s ease; }
+
+/* 어두운 갤러리 → 흰 블라인드 시험: 위 여백까지 같은 색으로 스며듦(bgtween.js) */
+.sec.fadein { padding-top: 140px; }
+
+/* 좁은 화면: 붙잡지 않고 위아래로 쌓기 */
+.hgal.flat .hg-stage { position: static; height: auto; }
+.hgal.flat .hg-track { flex-direction: column; align-items: stretch; gap: 64px; padding: 72px 20px 88px; transform: none !important; }
+.hgal.flat .hg-panel { grid-template-columns: minmax(0, 1fr); gap: 22px; width: auto; opacity: 1; }
+.hgal.flat .hg-pics { height: auto; flex-direction: column; }
+.hgal.flat .hg-pics img { max-height: none; }
+.hgal.flat .hg-foot, .hgal.flat .hg-hint { display: none; }
+/* 묶음 이름·진행 막대는 누르면 그 판으로(hgal.js) */
+.hg-groups span { cursor: pointer; }
+.hg-groups span:hover { color: #fff; }
+.hg-bar { position: relative; cursor: pointer; }
+.hg-bar::before { content: ""; position: absolute; left: 0; right: 0; top: -10px; bottom: -10px; }
+/* 클리커 첫 판: 머리를 누르면 딸깍(press.js) — 올리면 손가락 커서·살짝 밝아짐 */
+.press-img { cursor: pointer; user-select: none; -webkit-user-select: none; -webkit-user-drag: none; touch-action: manipulation; transition: filter .2s; }
+.press-img:hover { filter: brightness(1.08); }

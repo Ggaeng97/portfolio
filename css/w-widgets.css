@@ -1,0 +1,66 @@
+/* 카드 속 움직이는 그래픽(widgets.js) + 좌우로 끌어 비교(.cmpd) */
+.typer { display: flex; align-items: center; gap: 12px; max-width: 460px; margin-top: 26px; padding: 16px 20px; border-radius: 16px;
+  background: rgba(8, 12, 30, .28); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); font-size: 15.5px; font-weight: 500; }
+.typer > small { flex: none; padding: 3px 8px; border-radius: 6px; background: rgba(255, 255, 255, .18); font-size: 11.5px; font-weight: 700; opacity: 1; letter-spacing: 0; }
+.typer-text { flex: 1; min-width: 0; min-height: 1.5em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.typer-text::after { content: ""; display: inline-block; width: 2px; height: 1.05em; margin-left: 2px; vertical-align: -2px; background: #fff; animation: caret 1s steps(1) infinite; }
+@keyframes caret { 50% { opacity: 0; } }
+.ty-wave { display: flex; align-items: center; gap: 3px; height: 22px; opacity: .8; }
+.ty-wave i { width: 2.5px; height: 40%; border-radius: 2px; background: #fff; animation: tyw 1s ease-in-out infinite alternate; }
+.ty-wave i:nth-child(2) { animation-delay: -.3s; } .ty-wave i:nth-child(3) { animation-delay: -.6s; } .ty-wave i:nth-child(4) { animation-delay: -.15s; }
+@keyframes tyw { to { height: 100%; } }
+
+.cycle { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+.cycle span { padding: 7px 13px; border-radius: 999px; background: rgba(255, 255, 255, .14); font-size: 14px; font-weight: 600; color: rgba(255, 255, 255, .78); transition: background .4s, color .4s, transform .4s; }
+.cycle span.on { background: #fff; color: #222; transform: translateY(-2px); }
+.cycle.arrows span + span::before { content: none; }
+
+/* 짚은 순서: 누르면 그 지적이 아래 상세로 열림 */
+.goto { margin-top: 26px; }
+.goto small { display: block; margin-bottom: 10px; font-size: 13px; font-weight: 700; opacity: .8; }
+.goto-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 6px; }
+.goto-row i { font-style: normal; opacity: .55; font-size: 13px; }
+.goto button { padding: 8px 14px; border: 0; border-radius: 999px; background: #fff; color: var(--g1); font-size: 14px; font-weight: 800; cursor: pointer;
+  box-shadow: 0 6px 18px rgba(10, 8, 40, .18); transition: transform .25s var(--ease), box-shadow .25s, background .25s, color .25s; }
+/* 안내 문구 없이도 누를 수 있다는 게 보이게: 올리면 색이 바뀌고 조금 커짐 */
+.goto button:hover, .goto button:focus-visible { transform: translateY(-2px) scale(1.08); background: #9fb0ff; color: #0e1230; box-shadow: 0 12px 28px rgba(80, 100, 255, .35); outline: none; }
+.goto button.on { background: var(--g1); color: #fff; box-shadow: 0 0 0 2px #fff; }
+.checks { margin: 24px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.checks li { position: relative; padding-left: 32px; font-size: 15.5px; font-weight: 600; color: rgba(255, 255, 255, .6); transition: color .4s; }
+.checks li::before { content: ""; position: absolute; left: 0; top: 2px; width: 20px; height: 20px; border-radius: 6px; border: 2px solid rgba(255, 255, 255, .5); transition: background .3s, border-color .3s; }
+.checks li::after { content: ""; position: absolute; left: 7px; top: 6px; width: 5px; height: 9px; border: solid transparent; border-width: 0 2.5px 2.5px 0; transform: rotate(45deg); transition: border-color .3s; }
+.checks li.on { color: #fff; }
+.checks li.on::before { background: #fff; border-color: #fff; }
+.checks li.on::after { border-color: var(--g1, #0b4373); }
+
+.rules-mini { display: grid; gap: 10px; margin-top: 24px; }
+.rules-mini div { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border-radius: 14px; background: rgba(255, 255, 255, .13); font-size: 14.5px; }
+.rules-mini b { flex: none; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: #fff; color: var(--g1, #0b4a39); font-size: 13px; }
+
+/* 좌우로 끌어 비교: 왼쪽 = 처음, 오른쪽 = 지금 */
+.cmpd { --x: 50%; position: absolute; inset: 0; cursor: ew-resize; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+.cmpd img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.cmpd .bef { position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--x)) 0 0); }
+.cmpd .bar { position: absolute; top: 0; bottom: 0; left: var(--x); width: 2px; margin-left: -1px; background: #fff; box-shadow: 0 0 12px rgba(0, 0, 0, .4); }
+.cmpd .bar b { position: absolute; left: 50%; top: 50%; display: grid; place-items: center; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%;
+  background: #fff; color: #222; font-size: 14px; font-weight: 800; letter-spacing: 2px; box-shadow: 0 6px 20px rgba(0, 0, 0, .3); transition: transform .2s; }
+.cmpd.held .bar b { transform: scale(.9); }
+.cmpd .lb { position: absolute; top: 14px; padding: 5px 11px; border-radius: 999px; background: rgba(10, 12, 20, .62); color: #fff; font-size: 12.5px; font-weight: 600; pointer-events: none; }
+.cmpd .lb.l { left: 14px; } .cmpd .lb.r { right: 14px; }
+.cmpd.fit img { object-fit: contain; }
+
+@media (max-width: 900px) {
+  .typer { margin-top: 18px; padding: 12px 14px; font-size: 14px; }
+  .cycle { margin-top: 18px; } .cycle span { font-size: 13px; padding: 6px 11px; }
+  .checks { margin-top: 18px; } .checks li { font-size: 14px; }
+  .cmpd .bar b { width: 38px; height: 38px; margin: -19px 0 0 -19px; }
+}
+
+/* 그림 ↔ 3D 겹쳐 바뀜(번갈아 저절로) */
+.xfade { position: absolute; inset: 0; background: #fff; }
+.xfade img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 5% 3% 3%; }
+.xfade img.b { animation: xf 7s ease-in-out infinite; }
+.xfade .lb { position: absolute; top: 14px; padding: 5px 11px; border-radius: 999px; background: rgba(10, 12, 20, .72); color: #fff; font-size: 12.5px; font-weight: 600; }
+.xfade .lb.l { left: 14px; animation: xfl 7s ease-in-out infinite; } .xfade .lb.r { right: 14px; animation: xf 7s ease-in-out infinite; }
+@keyframes xf { 0%, 38% { opacity: 0; } 50%, 88% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes xfl { 0%, 38% { opacity: 1; } 50%, 88% { opacity: .25; } 100% { opacity: 1; } }

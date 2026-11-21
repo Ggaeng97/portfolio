@@ -1,0 +1,28 @@
+/* 크레파스로 통일(11-21 사용자: "본문에서 사용한 줄 긋는 효과도 전부 통일 · 화살표도 전부 크레파스 효과로 · 붉은 효과 포함").
+   왼쪽 줄(marks.css .rail)과 같은 질감 — 가장자리가 살짝 흔들리고 흰 틈이 군데군데. 페이지 안 그림(펜 · 줄 긋기)은 SVG 필터 #crayon-i(toc.js 가 만듦),
+   배경 · 가리개로 그리는 것(밑줄 · 글자 화살표)은 미리 그린 크레파스 획 그림(img/crayon, _tools/crayon_png.py — 글자 폭에 맞춰 늘어나도 질감이 안 뭉개지게). 색은 자리마다 원래 색(currentColor · 테마 색) 그대로. */
+:root {
+  --cr-r: url("../img/crayon/arrow_r.png");
+  --cr-d: url("../img/crayon/arrow_d.png");
+}
+/* 밑줄 */
+html[data-theme="pastel"] .ul { background-image: url("../img/crayon/ul_pastel.png"); }
+html[data-theme="dark"] .ul { background-image: url("../img/crayon/ul_dark.png"); }
+/* 동그라미 · ✓ · 그림 사이 화살표: 선은 그대로 긋고 겉에 크레파스 질감 */
+.pen-mark path, .pen-ring path, .pen-arrow path { filter: url(#crayon-i); }   /* 선 자체에 건다(그림 상자에 걸면 화살표가 통째로 사라졌음) */
+/* NG 그림의 줄 긋기: 매끈한 빛 막대 → 크레파스 */
+.tg[data-tg=ng] .tg-tag::after { height: 4px; margin-top: -2px; box-shadow: none; filter: url(#crayon-i); }
+/* 글자 화살표(→ · ↓)를 크레파스로 그은 손그림 화살표로 — 색은 그 자리 글자색 */
+.cs-flow > .cs-pic + .cs-text::before, .cs-flow > .cs-text:has(+ .cs-pic)::after, .cs-chips li + li::before, .eb-loop li + li::before, .st-map li + li a::before {
+  content: ""; width: 24px; height: 15px; background: currentColor; -webkit-mask: var(--cr-r) center / contain no-repeat; mask: var(--cr-r) center / contain no-repeat; }
+.st-map li + li a::before { width: 15px; height: 10px; }
+.cm-chips li + li::before { content: ""; width: 15px; height: 24px; background: currentColor; -webkit-mask: var(--cr-d) center / contain no-repeat; mask: var(--cr-d) center / contain no-repeat; }
+@media (max-width: 720px) {
+  .cs-chips li + li::before, .eb-loop li + li::before { width: 15px; height: 24px; -webkit-mask-image: var(--cr-d); mask-image: var(--cr-d); }
+}
+/* 다리 문장 앞 동그라미: 동그라미는 그대로, 그 위에 크레파스 ↓ */
+.st-bridge p { position: relative; }
+.st-bridge p::before { content: ""; }
+.st-bridge p::after { content: ""; position: absolute; left: 8px; top: 50%; width: 18px; height: 26px; margin-top: -13px; background: var(--accent);
+  -webkit-mask: var(--cr-d) center / contain no-repeat; mask: var(--cr-d) center / contain no-repeat; pointer-events: none; }
+html[data-theme="dark"] .st-bridge p::after { background: var(--mk); }

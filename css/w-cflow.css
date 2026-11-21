@@ -1,0 +1,43 @@
+/* 짚은 장면 카드 = 그림 줄(원래 → 고친 뒤) + '문제 → 원인 → 지시 → 결과' 칩 흐름.
+   사용자 11-14: 문서처럼 긴 글은 한눈에 안 읽힘, 아이젠은 문제 해결 능력을 보는 회사 — 칸마다 짧은 한 줄. */
+.cstep { --ckb: rgba(90, 63, 208, .1); }
+.crit-dark .cstep { --ckb: rgba(185, 195, 255, .16); }
+.cs-pics { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 2px 0 18px; }
+.cs-pics > figure { position: relative; flex: 1 1 0; min-width: 0; max-width: 520px; margin: 0; }
+/* 그림 이름표: 그림 위에 얹은 알약 대신 그림 바로 위에 글자만(11-21 사용자 — 그림이 칸보다 좁으면 알약이 그림 밖으로 삐져나왔음) */
+.cs-pics > figure[data-lb]::before { content: attr(data-lb); display: block; margin: 0 0 8px; text-align: center; color: var(--ct, var(--ink));
+  font-size: 14.5px; font-weight: 800; letter-spacing: -.01em; pointer-events: none; }
+.cs-pics .cs-arr { flex: none; font-size: 22px; font-style: normal; color: var(--ck); }
+.cs-pics .cs-m { flex: 1 1 0; max-width: 520px; margin: 0; }
+.cs-pics .cs-pic.tall img { height: 360px; }
+/* 빈 그림 칸(채울 것)이 숨겨지면 화살표·줄도 숨김 */
+body.hide-todo .cs-pics:has(> figure.slot:not(.has)) .cs-arr { display: none; }
+body.hide-todo .cs-pics:not(:has(> figure:not(.slot), > figure.slot.has, > .cs-m, > .tg)) { display: none; }   /* 기술 그림(.tg)만 있는 줄은 숨기지 않음 */
+
+.cs-chips { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
+.cs-chips li { position: relative; padding: 14px 16px 15px; border-radius: 16px; background: var(--cl); }
+.cs-chips li + li::before { content: "→"; position: absolute; left: -8px; top: 50%; transform: translate(-50%, -50%); color: var(--ck); font-size: 15px; }
+.cs-chips li.k { background: var(--ckb); }
+.cs-chips b { display: block; margin-bottom: 5px; color: var(--ck); font-size: 12.5px; font-weight: 800; letter-spacing: .02em; }
+.cs-chips span { display: block; color: var(--ct); font-size: 15.5px; font-weight: 600; line-height: 1.45; letter-spacing: -.01em; }
+
+/* 칩 팝업 오른쪽 글도 같은 칩(세로로 쌓고 ↓) */
+.cm-chips { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.cm-chips li { position: relative; padding: 11px 14px 12px; border-radius: 14px; background: rgba(255, 255, 255, .07); }
+.cm-chips li + li::before { content: "↓"; position: absolute; left: 50%; top: -6px; transform: translate(-50%, -50%); color: #b9c3ff; font-size: 12px; }
+.cm-chips li.k { background: rgba(159, 176, 255, .16); }
+.cm-chips b { display: block; margin-bottom: 3px; color: #b9c3ff; font-size: 12px; font-weight: 800; }
+.cm-chips span { display: block; color: #fff; font-size: 15px; font-weight: 600; line-height: 1.45; }
+
+@media (max-width: 900px) {
+  .cs-pics { gap: 8px; }
+  .cs-pics .cs-arr { font-size: 16px; }
+  .cs-pics .cs-pic.tall img { height: 300px; }
+  .cs-chips { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .cs-chips li + li::before { content: "↓"; left: 50%; top: -7px; }
+}
+
+/* 앱 카드: 칸 대신 의도 → 한 것 → 결과를 잇는 이야기 한 문단(사용자 11-15) */
+.cs-story { margin: 0 auto; max-width: 860px; font-size: 16.5px; line-height: 1.68; color: var(--ink); }
+.cs-story b { color: var(--accent); font-weight: 800; }
+@media (max-width: 900px) { .cs-story { font-size: 15.5px; } }
