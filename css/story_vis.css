@@ -104,6 +104,9 @@ html[data-theme="dark"] .st { --next: var(--accent); }
 .br3 .br-arrow { width: 20px; height: 30px; margin-top: 2px; background: var(--next); -webkit-mask: var(--cr-d) center / contain no-repeat; mask: var(--cr-d) center / contain no-repeat; }
 .br3 .br-next { display: flex; flex-direction: column; align-items: center; margin-top: 12px; }
 .br3 .br-next b { font-family: "Round", var(--sans); font-size: clamp(54px, 6vw, 84px); font-weight: 900; line-height: 1; letter-spacing: -.03em; color: var(--next); }
-.br3 .br-next small { margin-top: 6px; font-size: 18px; font-weight: 800; color: var(--ink-2, #555a6a); }
-html[data-theme="dark"] .br3 p { color: #f3f5f8; } html[data-theme="dark"] .br3 .br-next small { color: #c4cad5; }
+.br3 .br-title { display: block; max-width: 820px; margin-top: 12px; font-family: "Round", var(--sans); font-size: clamp(24px, 2.6vw, 34px); font-weight: 800; line-height: 1.4;
+  letter-spacing: -.02em; color: var(--ink, #1c1f2a); text-wrap: balance; }
+/* 번호 · 제목을 전환점으로 옮긴 단계 머리: 화면에선 감추고 읽기 프로그램에는 남김 */
+.st-title.br-moved { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+html[data-theme="dark"] .br3 p, html[data-theme="dark"] .br3 .br-title { color: #f3f5f8; }
 @media (max-width: 900px) { .st-bridge.br3 { margin-top: 72px; } .br3 .br-line { height: 36px; } }
