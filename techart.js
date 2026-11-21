@@ -17,7 +17,6 @@
       // 11-21 사용자: 되풀이 · 더듬음이 한꺼번에 뜨지 않게 장면을 나눔(① 신호어 → ② 되풀이 → ③ 더듬음 → ④ 잘라 냄), 이름표는 알약 대신 글자만 + 그 글자를 빨간 줄로 찍(css/marks.css)
       steps: ["말한 그대로의 파형", "① '다시 할게요' — 신호어로 찾기", "② 되풀이 — 호흡 같은 규칙으로", "③ 더듬음 — 같은 규칙으로", "④ 잘라 내고 당기기, NG 17곳 모두"],
       times: [1300, 2000, 2000, 2000, 2600],
-      hold: true,   // 마지막 장면(잘라 낸 파형 위로 재생선이 오감)에서 머묾 — 첫 장면으로 튀지 않게(11-22 사용자). 화면에 다시 들어오면 처음부터
       html: function () {
         var spans = { a: [9, 14], b: [24, 28], c: [37, 40] };
         var s = "<div class='tg-wave'>" + bars(48, 3).replace(/data-k='(\d+)'/g, function (m, k) {
@@ -67,7 +66,7 @@
       step.textContent = b.steps[p];
       Array.prototype.forEach.call(dots.children, function (d, j) { d.classList.toggle("on", j === p); });
     }
-    function tick() { if (!on) return; if (b.hold && p === n - 1) return; show(p + 1); timer = setTimeout(tick, b.times[p]); }
+    function tick() { if (!on) return; show(p + 1); timer = setTimeout(tick, b.times[p]); }
     // 손으로 넘기기(11-21 사용자: "하단 점에 마우스를 올리거나 좌우 버튼으로 다음 장면으로, 이런 유형 전부") — 넘긴 장면에 7초 머문 뒤 다시 저절로
     function nav(k) { show(k); clearTimeout(timer); if (on) timer = setTimeout(tick, Math.max(7000, b.times[p])); }
     Array.prototype.forEach.call(dots.children, function (d, k) {

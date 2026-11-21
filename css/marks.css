@@ -135,6 +135,7 @@
 .tg[data-tg=ng].u1 .ng.a, .tg[data-tg=ng].u2 .ng.b, .tg[data-tg=ng].u3 .ng.c { background: linear-gradient(#ffc2cc, #ff5c7a); opacity: 1; }
 .tg[data-tg=ng].p4 .ng.a, .tg[data-tg=ng].p4 .ng.b, .tg[data-tg=ng].p4 .ng.c { flex-grow: 0; opacity: 0; margin-right: -3px; }
 .tg[data-tg=ng].loop .tg-tag, .tg[data-tg=ng].loop .tg-tag::after { transition-duration: 0s; transition-delay: 0s; }
+.tg[data-tg=ng].loop .tg-wave i { transition-duration: .45s, .45s, .7s, .7s; }   /* ④ → 첫 장면: 잘라 낸 막대가 다시 차오르며 이어짐(튀지 않게, 11-22 사용자 "잘려 나갔던 걸 채우면서 1번으로 루프") */
 
 /* 카드: 원래 ✗ · 고친 뒤 ✓, 원래 그림 동그라미 */
 .cs-pics.duo > figure.a[data-lb]::before { content: "✗  " attr(data-lb); color: #e0544f; }
