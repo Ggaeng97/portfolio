@@ -91,27 +91,19 @@ html[data-theme="dark"] .wn-dots s.x { background: #e0544f; }
 }
 @media (max-width: 480px) { .way-vis { grid-template-columns: minmax(0, 1fr); } .wn { min-height: 0; } }
 
-/* 전환점 띠(.st-bridge.br2): 화면 끝까지 넓은 띠 — 왼쪽 끝난 단계(번호 · 이름 · 성과 숫자) → 화살표 → 오른쪽 다음 단계(번호 · 이름 · 다음 이야기).
-   바탕은 이 단계 색에서 다음 단계 색으로 바뀌어, 본문 · 자세히 보기와 다른 '장이 넘어가는 자리'로 읽히게(11-22 사용자). */
+/* 전환점(.st-bridge.br3): 상자 없이 세로 — 성과 숫자 → 줄 → 다음 이야기 문장 → 줄 → ↓ → 다음 단계 번호 · 이름(11-22 사용자: '결과 → 하지만' 순서가 흐름에 맞음).
+   줄 · 화살표 · 번호가 이 단계 색에서 다음 단계 색으로 바뀌어 '다음 장으로 넘어간다'로 읽힘 */
 #st1 { --next: #6b4de0; } #st2 { --next: #0f9467; } #st3 { --next: #e65f26; } #stR { --next: #e0407a; } #st4 { --next: #b26a00; } #st5 { --next: #ff4d5a; }
 html[data-theme="dark"] .st { --next: var(--accent); }
-.st-bridge.br2 { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 28px;
-  width: 100vw; margin: 110px 0 0 calc(50% - 50vw); padding: 64px max(32px, calc(50vw - 560px)); text-align: center;
-  background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 20%, #fff), color-mix(in srgb, var(--next) 20%, #fff));
-  border-block: 2px solid color-mix(in srgb, var(--accent) 22%, transparent); }
-.br2 small { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 14px; font-size: 16px; font-weight: 800; letter-spacing: -.01em; color: var(--ink, #1c1f2a); }
-.br2 small em { font-style: normal; font-family: "Round", var(--sans); font-size: 22px; font-weight: 900; }
-.br2 .br-end small em { color: var(--accent); } .br2 .br-next small em { color: var(--next); }
-.br2 .br-end small::after { content: "마침"; padding-left: 4px; color: var(--ink-2, #6b6f80); font-weight: 700; }
-.br2 .br-next small::before { content: "다음"; padding-right: 4px; color: var(--ink-2, #6b6f80); font-weight: 700; }
-.br2 .st-impact { margin: 0; }
-.br2 .st-impact .ip-num { font-size: clamp(48px, 5.6vw, 80px); }
-.br2 .br-arrow { width: 44px; height: 30px; background: var(--next); -webkit-mask: var(--cr-r) center / contain no-repeat; mask: var(--cr-r) center / contain no-repeat; }
-.br2 p { display: block; margin: 0; font-family: "Round", var(--sans); font-size: clamp(21px, 2.1vw, 28px); font-weight: 800; line-height: 1.45; letter-spacing: -.02em; color: var(--ink, #1c1f2a); text-wrap: balance; }
-.br2 p::before, .br2 p::after { content: none !important; }
-html[data-theme="dark"] .st-bridge.br2 { background: linear-gradient(90deg, #171a21, #1d2130); border-color: rgba(255, 255, 255, .08); }
-html[data-theme="dark"] .br2 small, html[data-theme="dark"] .br2 p { color: #f3f5f8; }
-@media (max-width: 900px) {
-  .st-bridge.br2 { grid-template-columns: minmax(0, 1fr); gap: 18px; margin-top: 72px; padding: 44px 20px; }
-  .br2 .br-arrow { transform: rotate(90deg); margin: 0 auto; }
-}
+.st-bridge.br3 { display: flex; flex-direction: column; align-items: center; margin: 110px auto 0; padding: 0 20px; text-align: center; }
+.br3 .st-impact { margin: 0; }
+.br3 .br-line { display: block; width: 2px; height: 48px; margin-top: 26px; border-radius: 1px; background: color-mix(in srgb, var(--accent) 45%, transparent); }
+.br3 p { display: block; margin: 22px 0 0; max-width: 760px; font-family: "Round", var(--sans); font-size: clamp(22px, 2.4vw, 30px); font-weight: 800; line-height: 1.45; letter-spacing: -.02em; color: var(--ink, #1c1f2a); text-wrap: balance; }
+.br3 p + .br-line { margin-top: 22px; background: linear-gradient(color-mix(in srgb, var(--accent) 45%, transparent), var(--next)); }
+.br3 p::before, .br3 p::after { content: none !important; }
+.br3 .br-arrow { width: 20px; height: 30px; margin-top: 2px; background: var(--next); -webkit-mask: var(--cr-d) center / contain no-repeat; mask: var(--cr-d) center / contain no-repeat; }
+.br3 .br-next { display: flex; flex-direction: column; align-items: center; margin-top: 12px; }
+.br3 .br-next b { font-family: "Round", var(--sans); font-size: clamp(54px, 6vw, 84px); font-weight: 900; line-height: 1; letter-spacing: -.03em; color: var(--next); }
+.br3 .br-next small { margin-top: 6px; font-size: 18px; font-weight: 800; color: var(--ink-2, #555a6a); }
+html[data-theme="dark"] .br3 p { color: #f3f5f8; } html[data-theme="dark"] .br3 .br-next small { color: #c4cad5; }
+@media (max-width: 900px) { .st-bridge.br3 { margin-top: 72px; } .br3 .br-line { height: 36px; } }
