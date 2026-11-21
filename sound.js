@@ -110,8 +110,9 @@
   // 글 써지기: 화면에 들어온 글을 문서 순서대로 한 줄씩(앞 줄이 다 써진 뒤 다음 줄) 앞 글자부터 — 여러 줄이 한꺼번에 써지지 않게.
   // 타자 소리는 핵심 문장(단계 제목 01~06 · 들머리 마지막 다짐 · 마무리 제목)만 — 모든 줄에서 나면 겹쳐서 시끄럽다(11-21 사용자:
   // "핵심 1~2줄만" → "전부 없애 달란 게 아니라 12345 정도는, 핵심 문장 위주로"). 다리 문장 · 들머리의 다른 줄은 조용히 써진다. 번호(.st-no)는 처음부터 보인다.
-  var KEY = ".st-title .st-h, .fh-group.last .fh-line, .next-card h2";
-  var writers = Array.prototype.slice.call(document.querySelectorAll(".fh-line, .st-map-k, .st-title .st-h, .st-bridge p, .next-card h2"));
+  // 02~06 제목은 다리(.br3)로 옮겨 보이므로(.br-title) 거기서 써지고, 숨긴 원래 자리(.st-title.br-moved)는 뺀다(11-22 사용자 "제목 드르륵 소리 · 글자 나오는 방식이 빠졌다")
+  var KEY = ".st-title:not(.br-moved) .st-h, .br-title, .fh-group.last .fh-line, .next-card h2";
+  var writers = Array.prototype.slice.call(document.querySelectorAll(".fh-line, .st-map-k, .st-title:not(.br-moved) .st-h, .st-bridge p, .br-title, .next-card h2"));
   function split(el) {
     var n = 0, w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), list = [];
     while (w.nextNode()) if (!w.currentNode.parentNode.closest(".st-no")) list.push(w.currentNode);
