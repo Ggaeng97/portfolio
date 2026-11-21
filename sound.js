@@ -71,7 +71,7 @@
   });
   window.addEventListener("scroll", function () { pop.classList.remove("open"); }, { passive: true });
   window.chalkSound = function () { A.fx("chalk", 0.12 * fxk(), 0.92 + Math.random() * 0.16); };
-  window.impactSound = function () { A.fx("impact", 0.55 * fxk()); };   // 성과 숫자(impact.js) — 소리를 꺼 두면 SiteAudio 가 안 냄
+  window.impactSound = function () { A.fx("impact", 0.22 * fxk()); };   // 성과 숫자(impact.js) — 소리를 꺼 두면 SiteAudio 가 안 냄
 
   // 배경음 흐름: 구역마다 쌓인 정도의 목표(기 · 승 · 전 = 클리커에서 가장 풍성), 마무리는 결(층이 빠지고 오르골).
   // 실제 값 E: 쌓이는 쪽(목표가 더 높음)은 스크롤하는 동안에만 움직이고(멈추면 그 자리에서 멈춤), 빠지는 쪽(위로 올라감 · 마무리)은 멈춰 있어도 진행.

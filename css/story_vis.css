@@ -90,3 +90,16 @@ html[data-theme="dark"] .wn-dots s.x { background: #e0544f; }
   .wp-arr { transform: rotate(90deg); margin: 0 auto; }
 }
 @media (max-width: 480px) { .way-vis { grid-template-columns: minmax(0, 1fr); } .wn { min-height: 0; } }
+
+/* 전환점(다리 문장): 단계가 끝나고 다음으로 넘어가는 자리를 띠 하나로 묶어 확실히 가름(11-22 사용자: "전환되는 구간이 더 티 나게 · 전환점을 확실히 구분").
+   띠 = 그 단계 색이 비치는 둥근 판 · 위에 성과 숫자 · 가운데 줄 · 아래에 큰 ↓ 동그라미와 다음 이야기 문장 */
+.wrap.st-bridge { max-width: 1040px; margin: 96px auto 0; padding: 54px 32px 58px; border-radius: 32px; text-align: center;
+  background: rgba(255, 255, 255, .82); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 18%, transparent), 0 18px 48px color-mix(in srgb, var(--accent) 16%, transparent); }
+.st-bridge .st-impact { margin-bottom: 0; }
+.st-bridge .st-impact + p { margin-top: 40px; padding-top: 40px; border-top: 2px solid color-mix(in srgb, var(--accent) 22%, transparent); }
+.st-bridge p { display: flex; flex-direction: column; align-items: center; gap: 14px; font-size: clamp(24px, 2.6vw, 34px); line-height: 1.4; }
+.st-bridge p::before { width: 48px; height: 48px; background: color-mix(in srgb, var(--accent) 16%, transparent); }
+.st-bridge p::after { left: 50%; top: 11px; width: 20px; height: 28px; margin: 0 0 0 -10px; }
+.st-bridge .st-impact + p::after { top: 51px; }
+html[data-theme="dark"] .wrap.st-bridge { background: #171a21; box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 30%, transparent); }
+@media (max-width: 900px) { .wrap.st-bridge { margin-top: 64px; padding: 40px 20px 44px; border-radius: 24px; } .st-bridge p { font-size: 22px; } }
