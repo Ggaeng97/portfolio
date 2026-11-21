@@ -142,9 +142,20 @@ function make(fig, name) {
   const key = new THREE.DirectionalLight(0xffffff, 1.4); key.position.set(-3, 4, 6); scene.add(key);
   const L = { o: 0, deg: 0, yaw: 0, inside: false, flat: D.kind !== "sky", ready: false, lay: "", vis: "", ph: Math.random() * 6 };
   const K = KINDS[D.kind](D, scene, L);
+  // 처음 그릴 때 드는 일(셰이더 만들기 · 모델과 그림을 그래픽 카드에 올리기)을 미리 해 둔다. 안 하면 이 그림이 처음 나타나는 순간
+  // 한 번 멈춘다(클리커 126 ms · 하늘섬 65 ms — 11-22 사용자 "새로고침하면 표정 → 클리커에서 딱 한 번 튄다"). 준비되면 쉬는 틈에 보이지 않는 채로 한 번.
+  function warm() {
+    L.warmed = true;
+    const idle = window.requestIdleCallback || ((f) => setTimeout(f, 200));
+    idle(() => renderer.compileAsync(scene, K.camera).catch(() => {}).then(() => {
+      if (L.T) L.T.forEach((t) => renderer.initTexture(t));
+      if (L.o <= 0.002) { K.frame(performance.now() / 1000, null, L.yaw); renderer.render(scene, K.camera); }
+    }), { timeout: 1500 });
+  }
   // dt 초 · rect 그림 자리 · sc 입자 좌표 1 의 화소 · target 모델이 된 정도(0~1, 장면이 입자가 모인 정도로 잼) · shape 지금 입자 모양(표정 · 고리 각)
   L.update = function (dt, rect, sc, target, shape) {
     const t = performance.now() / 1000;
+    if (L.ready && !L.warmed) warm();
     const inside = HOVER && M.on && M.x >= rect.left && M.x <= rect.right && M.y >= rect.top && M.y <= rect.bottom;
     const want = inside ? clamp1((M.x - rect.left - rect.width / 2) / (rect.width / 2)) * D.lim : D.auto * Math.sin(t * 0.45 + L.ph);   // 가만히 있으면 천천히 흔들림
     L.inside = inside; L.deg += (want - L.deg) * Math.min(1, dt * (inside ? 6 : 2.5)); L.yaw = L.deg * Math.PI / 180;
