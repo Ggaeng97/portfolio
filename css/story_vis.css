@@ -97,11 +97,14 @@ html[data-theme="dark"] .wn-dots s.x { background: #e0544f; }
 html[data-theme="dark"] .st { --next: var(--accent); }
 .st-bridge.br3 { display: flex; flex-direction: column; align-items: center; margin: 110px auto 0; padding: 0 20px; text-align: center; }
 .br3 .st-impact { margin: 0; }
-.br3 .br-line { display: block; width: 2px; height: 48px; margin-top: 26px; border-radius: 1px; background: color-mix(in srgb, var(--accent) 45%, transparent); }
+/* 위 = 세로 크레파스 선, 문장 아래 = 직선 없이 긴 크레파스 화살표 하나(11-22 사용자) */
+.br3 .br-line { display: block; width: 7px; height: 64px; margin-top: 26px; background: color-mix(in srgb, var(--accent) 70%, transparent);
+  -webkit-mask: url("../img/crayon/line_v.png") center / 100% 100% no-repeat; mask: url("../img/crayon/line_v.png") center / 100% 100% no-repeat; }
 .br3 p { display: block; margin: 22px 0 0; max-width: 760px; font-family: "Round", var(--sans); font-size: clamp(22px, 2.4vw, 30px); font-weight: 800; line-height: 1.45; letter-spacing: -.02em; color: var(--ink, #1c1f2a); text-wrap: balance; }
-.br3 p + .br-line { margin-top: 22px; background: linear-gradient(color-mix(in srgb, var(--accent) 45%, transparent), var(--next)); }
+.br3 p + .br-line { display: none; }
 .br3 p::before, .br3 p::after { content: none !important; }
-.br3 .br-arrow { width: 20px; height: 30px; margin-top: 2px; background: var(--next); -webkit-mask: var(--cr-d) center / contain no-repeat; mask: var(--cr-d) center / contain no-repeat; }
+.br3 .br-arrow { width: 24px; height: 96px; margin-top: 22px; background: linear-gradient(color-mix(in srgb, var(--accent) 75%, transparent), var(--next));
+  -webkit-mask: url("../img/crayon/arrow_d_long.png") center / 100% 100% no-repeat; mask: url("../img/crayon/arrow_d_long.png") center / 100% 100% no-repeat; }
 .br3 .br-next { display: flex; flex-direction: column; align-items: center; margin-top: 12px; }
 .br3 .br-next b { font-family: "Round", var(--sans); font-size: clamp(54px, 6vw, 84px); font-weight: 900; line-height: 1; letter-spacing: -.03em; color: var(--next); }
 .br3 .br-title { display: block; max-width: 820px; margin-top: 12px; font-family: "Round", var(--sans); font-size: clamp(24px, 2.6vw, 34px); font-weight: 800; line-height: 1.4;
