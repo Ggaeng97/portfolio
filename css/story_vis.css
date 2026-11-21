@@ -103,6 +103,20 @@ html[data-theme="dark"] .st-impact .ip-from, html[data-theme="dark"] .st-impact 
 .wp-pair img { width: 62px; height: 62px; object-fit: cover; border-radius: 10px; background: #fff; }
 .wp-pair i { width: 16px; height: 10px; background: var(--accent); -webkit-mask: var(--cr-r) center / contain no-repeat; mask: var(--cr-r) center / contain no-repeat; }
 
+/* 요청할 일이 줄고 빨라졌습니다: 00 과 같은 연표 선 위에 네 칸을 위 · 아래로 번갈아, 칸마다 선에 닿는 짧은 줄과 점(11-22 사용자 "연표 형식과 혼합") */
+@media (min-width: 901px) {
+  .way-vis { grid-template-rows: auto 48px auto; row-gap: 0; }
+  .way-vis::before { content: ""; grid-row: 2; grid-column: 1 / -1; align-self: center; height: 9px; background: var(--ink, #1c1f2a); opacity: .22;
+    -webkit-mask: url("../img/crayon/line_h.png") center / 100% 100% no-repeat; mask: url("../img/crayon/line_h.png") center / 100% 100% no-repeat; }
+  .way-vis .wn { position: relative; }
+  .way-vis .wn:nth-child(1) { grid-column: 1; } .way-vis .wn:nth-child(2) { grid-column: 2; } .way-vis .wn:nth-child(3) { grid-column: 3; } .way-vis .wn:nth-child(4) { grid-column: 4; }
+  .way-vis .wn:nth-child(odd) { grid-row: 1; align-self: end; } .way-vis .wn:nth-child(even) { grid-row: 3; align-self: start; }
+  .way-vis .wn::before { content: ""; position: absolute; left: 50%; width: 2px; height: 24px; margin-left: -1px; background: color-mix(in srgb, var(--accent) 45%, transparent); }
+  .way-vis .wn::after { content: ""; position: absolute; left: 50%; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; background: var(--accent);
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 18%, transparent); }
+  .way-vis .wn:nth-child(odd)::before { top: 100%; } .way-vis .wn:nth-child(odd)::after { top: calc(100% + 16px); }
+  .way-vis .wn:nth-child(even)::before { bottom: 100%; } .way-vis .wn:nth-child(even)::after { bottom: calc(100% + 16px); }
+}
 html[data-theme="pastel"] .wn, html[data-theme="pastel"] .wp { background: rgba(255, 255, 255, .7); }
 html[data-theme="dark"] .wn, html[data-theme="dark"] .wp { background: #171a21; }
 html[data-theme="dark"] .wn > span, html[data-theme="dark"] .wn-row u, html[data-theme="dark"] .wn-dots u, html[data-theme="dark"] .wn-gauge small { color: #c4cad5; }
