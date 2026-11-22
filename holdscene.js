@@ -8,18 +8,19 @@
 (function () {
   var els = document.querySelectorAll(".hs[data-hs]");
   if (!els.length) return;
-  var LEAD = 0.6, TAIL = 0.6, H = 0.32, TAU = 0.09, SLOW = 0.1;
+  var LEAD = 0.6, TAIL = 1.25, H = 0.32, TAU = 0.09, SLOW = 0.1, RISE = [0.34, 0.06];   // TAIL: 끝 문장 뒤 길이(바탕색이 차오르는 구간 포함) · RISE: 끝 문장 걸림이 끝나고 차오르기 시작 · 무대가 풀리기 0.06 칸 전에 다 참
   function clamp(x) { return Math.max(0, Math.min(1, x)); }
   function ss(t) { t = clamp(t); return t * t * (3 - 2 * t); }
   function pad(k) { return String(k).padStart(3, "0"); }
-  function expand(seq, ext) {   // [앞글자, 처음, 끝, 건너뛰기, 1초 장 수] 또는 [앞글자, [이름…], 1초 장 수] → 그림 주소 목록 · 장마다 재생 빠르기
+  // [앞글자, 처음, 끝, 건너뛰기, 1초 장 수, 확장자?] 또는 [앞글자, [이름…], 1초 장 수, 확장자?] → 그림 주소 목록 · 장마다 재생 빠르기(확장자가 없으면 장면 기본값)
+  function expand(seq, ext) {
     var out = [], fps = [];
     seq.forEach(function (s) {
-      var list = Array.isArray(s[1]), r = (list ? s[2] : s[4]) || 24;
-      function add(u) { out.push(u.replace(/\.jpg$/, ext)); fps.push(r); }
-      if (list) { s[1].forEach(function (nm) { add(s[0] + nm + ".jpg"); }); return; }
-      for (var k = s[1]; k <= s[2]; k += s[3]) add(s[0] + pad(k) + ".jpg");
-      if ((s[2] - s[1]) % s[3]) add(s[0] + pad(s[2]) + ".jpg");   // 끝 장은 늘 넣음
+      var list = Array.isArray(s[1]), r = (list ? s[2] : s[4]) || 24, e = (list ? s[3] : s[5]) || ext;
+      function add(base) { out.push(base + e); fps.push(r); }
+      if (list) { s[1].forEach(function (nm) { add(s[0] + nm); }); return; }
+      for (var k = s[1]; k <= s[2]; k += s[3]) add(s[0] + pad(k));
+      if ((s[2] - s[1]) % s[3]) add(s[0] + pad(s[2]));
     });
     return { urls: out, fps: fps };
   }
@@ -33,7 +34,7 @@
     }
     var stops = D.stops.map(function (u) { return Math.max(0, T.indexOf(u)); });
     var caps = Array.prototype.slice.call(el.querySelectorAll(".hs-cap")), n = caps.length;
-    var stage = el.querySelector(".hs-stage"), box = el.querySelector(".hs-box"), A = el.querySelector(".hs-a"), B = el.querySelector(".hs-b");
+    var stage = el.querySelector(".hs-stage"), bgL = el.querySelector(".hs-bg"), shade = el.querySelector(".hs-shade"), box = el.querySelector(".hs-box"), A = el.querySelector(".hs-a"), B = el.querySelector(".hs-b");
     var overs = el.querySelectorAll(".hs-over");
     var cache = [], L = { ok: false }, uT = 0, uS = null, run = false, lastT = 0, mixing = false, kA = { v: "" }, kB = { v: "" };
     var P = null, kT = 0, dirU = 1, prevU = null, idle = 0, ovO = [];
@@ -103,22 +104,31 @@
       A.style.transform = A.style.transformOrigin = A.style.opacity = A.style.filter = "";
       B.style.opacity = "0"; B.style.transform = ""; B.style.webkitMaskImage = B.style.maskImage = "";
     }
-    function edge() {   // 들어올 때 윗가장자리 · 나갈 때 아랫가장자리를 지워 뒤의 바탕색(bgtween 이 구역에 칠한 색)으로 녹아들게 — 11-22 사용자 "넘어갈 때 뚝 끊겨 같은 테마인지 모르겠다"
-      var r = stage.getBoundingClientRect(), vh = window.innerHeight, a = clamp(r.top / vh), b = clamp((vh - r.bottom) / vh);
-      var mk = a > 0.001 || b > 0.001 ? "linear-gradient(to bottom, transparent 0%, #000 " + (a * 55).toFixed(1) + "%, #000 " + (100 - b * 55).toFixed(1) + "%, transparent 100%)" : "";
+    // 무대 가장자리 → 돌려주는 값 = 바탕이 차오른 정도(0~1, 글을 지우는 데 씀)
+    // · 들어올 땐 윗가장자리를 지우고 흐림 12px · 투명 → 또렷하게(다른 구역 전환 bgtween.js 와 같은 값 — 단계 색이 같아 그쪽 전환이 안 걸려서 여기서)
+    // · 끝 장면이 다 재생된 뒤 더 내리면 화면 아래 가운데부터 둥근 언덕 모양으로 바탕 층만 지워 페이지 바탕색이 차오름 — 그림(모델링)은 남고 글과 그늘만 함께 사라짐
+    //   (11-22 사용자 "아래에서 원형 그라데이션으로 올라와 같은 테마였던 것처럼 · 모델링은 덮지 말고 배경만 · 애니메이션 중간이 아니라 마지막 장면에서 내릴 때")
+    // · 무대가 풀려 위로 나갈 땐 그림이 흐려지며(최대 32px) 사라짐
+    function edge(u) {
+      var r = stage.getBoundingClientRect(), vh = window.innerHeight, a = clamp(r.top / vh);
+      var mk = a > 0.001 ? "linear-gradient(to bottom, transparent 0%, #000 " + (a * 55).toFixed(1) + "%)" : "";
       if (mk !== L.mk) { L.mk = mk; stage.style.webkitMaskImage = mk; stage.style.maskImage = mk; }
-      // 다른 구역의 전환(bgtween.js)과 같은 값: 들어올 땐 흐림 12px · 투명 → 또렷하게, 나갈 땐 흐려지며(최대 32px) 사라짐 — 11-22 사용자 "다른 페이지처럼 블러로 자연스럽게"
-      // (앞뒤 카드와 단계 색이 같아 bgtween 의 전환이 걸리지 않으므로 여기서 직접)
+      var rise = ss((u - (n - 1) - RISE[0]) / (TAIL - RISE[0] - RISE[1])) * (L.gate || 0);
+      // 둥근 지움의 세로 반지름 = 차오름 × 화면 높이 × 1.65 → 다 차면 투명 62 % 가 화면 위끝에 닿음
+      var R = rise * vh * 1.65, mb = rise > 0.001 ? "radial-gradient(" + (R * 1.5).toFixed(0) + "px " + R.toFixed(0) + "px at 50% 100%, transparent 62%, #000 100%)" : "";
+      if (mb !== L.mb) { L.mb = mb; bgL.style.webkitMaskImage = mb; bgL.style.maskImage = mb; shade.style.opacity = rise > 0.001 ? (1 - rise).toFixed(3) : ""; }
       var vis = ss((vh * 0.8 - r.top) / (vh * 0.55)), out = ss((vh - r.bottom) / (vh * 0.6)), op = vis * (1 - out);
       var bl = Math.max((1 - vis) * 12, Math.min(1, out * 1.5) * 32), fx = op.toFixed(3) + "|" + bl.toFixed(1);
       if (fx !== L.fx) { L.fx = fx; stage.style.opacity = op >= 0.999 ? "" : op.toFixed(3); stage.style.filter = bl > 0.3 && op > 0.001 ? "blur(" + bl.toFixed(1) + "px)" : ""; }
+      return rise;
     }
     function render(u, dt) {
-      edge();
+      var tf = 1 - ss(edge(u) * 2);
       caps.forEach(function (c, i) {   // 한 문장씩: 멈춘 동안 또렷하고, 움직이기 시작하면 사라짐. 제목은 무대와 함께 들어오고 끝 문장은 무대와 함께 나감(걸림 구간 끝자리에서)
         var end = (i === 0 && u < -H) || (i === n - 1 && u > n - 1 + H), e = Math.abs(u - i);
         var op = end || e <= H ? 1 : 1 - ss((e - H) / (0.5 - H) * 1.15);
         c.style.transform = "translateY(" + (L.F + pos(end ? (i === 0 ? H : -H) : i - u) - c._h / 2).toFixed(1) + "px)";
+        op *= tf;
         c.style.opacity = op.toFixed(3);
         c.style.visibility = op < 0.003 ? "hidden" : "";
       });
@@ -139,8 +149,12 @@
       var dt = lastT ? Math.min(0.05, (now - lastT) / 1000) : 0.016; lastT = now;
       uS = uS === null || Math.abs(uT - uS) > 3 ? uT : uS + (uT - uS) * (1 - Math.exp(-dt / TAU));   // 휠 한 칸씩 뚝뚝 끊기지 않게
       kT = goalK(uS);
-      var moving = play(dt), fading = render(uS, dt);
-      if (Math.abs(uT - uS) > 0.0005 || moving || fading) requestAnimationFrame(tick); else { run = false; lastT = 0; }
+      var moving = play(dt);
+      // 끝 장면이 다 재생돼야 바탕이 차오를 수 있음(재생 중에 내리면 끝날 때까지 기다렸다가 0.4초에 걸쳐 따라 차오름)
+      var g = kT === n - 1 && P === stops[n - 1] ? 1 : 0, g0 = L.gate || 0;
+      L.gate = g > g0 ? Math.min(1, g0 + dt / 0.4) : Math.max(0, g0 - dt / 0.25);
+      var fading = render(uS, dt);
+      if (Math.abs(uT - uS) > 0.0005 || moving || fading || L.gate !== g) requestAnimationFrame(tick); else { run = false; lastT = 0; }
     }
     function req() {
       if (!L.ok) layout();
@@ -155,9 +169,13 @@
     function snap() {   // 무대가 화면에 붙어 있는 동안 문장 사이에서 멈췄으면 진행 방향의 다음 문장 자리로(이미 문장 자리면 그대로)
       if (!L.ok) return; target();
       var u = uT, k = Math.round(u);
-      if (u <= -LEAD || u >= n - 1 + TAIL || Math.abs(u - k) <= 0.08) return;
+      if (u <= -LEAD || u >= n - 1 + TAIL || (k <= n - 1 && Math.abs(u - k) <= 0.08)) return;
       var t = dirU > 0 ? Math.ceil(u) : Math.floor(u);
-      if (t < 0 || t > n - 1) return;   // 첫 문장 앞으로 올라가거나 끝 문장 뒤로 내려가는 중이면 그대로 나가게
+      if (t > n - 1) {   // 바탕이 차오르는 중에 멈추면 다 차오른 자리(모델링만 페이지 바탕 위에 남은 상태)까지
+        if (u < n - 1 + TAIL - RISE[1] - 0.02) window.scrollTo({ top: Math.round(el.getBoundingClientRect().top + window.scrollY + (n - 1 + TAIL - RISE[1] + LEAD) * L.step), behavior: "smooth" });
+        return;
+      }
+      if (t < 0) return;   // 첫 문장 앞으로 올라가는 중이면 그대로 나가게
       window.scrollTo({ top: Math.round(el.getBoundingClientRect().top + window.scrollY + (t + LEAD) * L.step), behavior: "smooth" });
     }
     return { el: el, load: load, req: req, scrolled: scrolled, relayout: function () { L.ok = false; uS = null; req(); } };
