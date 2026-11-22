@@ -1,38 +1,64 @@
-/* AI와 일하는 순서(_tools/company_way.py, 들머리 다음 · 지도 앞) — 들머리 한 장면처럼: 왼쪽 큰 글씨 한 문장(.fh-line — 들머리 줄과 같은 글꼴 · 한 글자씩 써짐 · 밑줄),
-   오른쪽 상자 없는 흐름 그림(크레파스 세로선 + 점, '원인 찾기 → AI에게 지시'로 되돌아가는 고리). 11-22 사용자 "서론 느낌보다 단계랑 같은 스타일이라 이상해".
-   칸은 화면에 들어오면 위에서부터 하나씩(pen.js 가 .wf 에 .in). 고리 자리 = 칸 높이 --h × 칸 번호(--a 시작, --n 칸 수 — company_way.py 가 style 로 넣음). */
+/* AI와 일하는 순서(_tools/company_way.py, 들머리 다음 · 지도 앞) — 들머리 한 장면처럼: 위에 큰 글씨 한 문장(.fh-line — 들머리 줄과 같은 글꼴 · 한 글자씩 써짐 · 밑줄),
+   그 아래 흐름(넓은 화면 = 가로 한 줄 + 아래로 도는 '어긋나면 다시 지시' 고리, 좁은 화면 = 세로 목록 + 오른쪽 고리). 상자 없음.
+   11-22 사용자: "서론 느낌보다 단계랑 같은 스타일이라 이상해" → 들머리 한 장면 / "하나는 세로 하나는 가로, '일합니다'에서 줄바꿈, 정리가 덜 된 느낌" → 위아래로 쌓고 흐름은 가로.
+   칸은 화면에 들어오면 앞에서부터 하나씩(pen.js 가 .wf 에 .in). 고리 자리 = 칸 번호(--a 시작, --n 칸 수 — company_way.py 가 style 로 넣음). */
 #way { --accent: #3d5af1; --next: #3d5af1; }
 html[data-theme="dark"] #way { --accent: #9fb0ff; --next: #9fb0ff; }
 .wayi { padding: 6vh 0 0; }
-.wayi .wrap.wayi-in { max-width: 980px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(24px, 5vw, 84px); align-items: center; min-height: 56vh; }
-@media (min-width: 901px) { #way .st-bridge.br3 { margin-top: 40px; } }   /* 화면 높이 칸 안에서 이미 여백이 생겨 다리까지 덜 벌어지게 */
-.wayi .wayi-line { margin: 0; font-size: clamp(27px, 3.2vw, 46px); line-height: 1.4; }
+.wayi .wrap.wayi-in { max-width: 980px; display: flex; flex-direction: column; align-items: center; justify-content: center; row-gap: 60px; min-height: 56vh; text-align: center; }
+.wayi .wayi-line { margin: 0; font-size: clamp(27px, 3.2vw, 46px); line-height: 1.4; text-wrap: balance; }
 /* 지도의 원래 제목은 다리로 옮겼으니 화면에서만 감춤(단계 제목 .st-title.br-moved 와 같은 방식) */
 .st-map-k.br-moved { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-.wf { --h: 54px; --pad: 10px; position: relative; width: 100%; max-width: 460px; padding: var(--pad) 0; box-sizing: border-box; justify-self: end; }
+
+.wf { --cols: 6; position: relative; width: 100%; box-sizing: border-box; }
 .wf ol { position: relative; margin: 0; padding: 0; list-style: none; }
-.wf ol::before { content: ""; position: absolute; left: 7px; top: calc(var(--h) / 2); bottom: calc(var(--h) / 2); width: 9px; background: var(--ink, #1c1f2a); opacity: .22;
-  -webkit-mask: url("../img/crayon/line_v.png") center / 100% 100% no-repeat; mask: url("../img/crayon/line_v.png") center / 100% 100% no-repeat; }
-.wf li { position: relative; display: flex; align-items: center; height: var(--h); margin: 0; padding: 0 0 0 40px; font-size: 18px; font-weight: 700; line-height: 1.3; letter-spacing: -.02em; color: var(--ink, #1c1f2a);
+.wf li { position: relative; display: flex; align-items: center; margin: 0; font-size: 18px; font-weight: 700; line-height: 1.3; letter-spacing: -.02em; color: var(--ink, #1c1f2a);
   opacity: 0; transform: translateY(8px); transition: opacity .4s ease, transform .4s ease; transition-delay: calc(var(--k) * .09s); }
-.wf li::before { content: ""; position: absolute; left: 3px; top: 50%; width: 16px; height: 16px; margin-top: -8px; border-radius: 50%;
-  background: var(--accent); box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 18%, transparent); }
-.wf li:last-child::before { left: 1px; width: 20px; height: 20px; margin-top: -10px; }
-/* 되돌아가는 고리: --a 번째 칸 가운데 → --a + --n 번째 칸 가운데 */
-.wf-back { position: absolute; top: calc(var(--pad) + var(--h) * (var(--a) + .5)); height: calc(var(--h) * var(--n)); left: 230px; right: 0; box-sizing: border-box;
-  border: 3px solid color-mix(in srgb, var(--accent) 80%, transparent); border-left: 0; border-radius: 0 18px 18px 0;
-  display: flex; align-items: center; justify-content: flex-end; padding-right: 14px;
-  opacity: 0; transition: opacity .5s ease .75s; }
-.wf-back::before { content: ""; position: absolute; left: -10px; top: -8px; border: 6.5px solid transparent; border-right: 10px solid color-mix(in srgb, var(--accent) 80%, transparent); border-left: 0; }
-.wf-back i { font-style: normal; font-size: 14.5px; font-weight: 800; line-height: 1.35; text-align: right; color: var(--accent); }
+.wf-back { position: absolute; box-sizing: border-box; border: 3px solid color-mix(in srgb, var(--accent) 80%, transparent); opacity: 0; transition: opacity .5s ease .75s; }
+.wf-back::before { content: ""; position: absolute; border: 6.5px solid transparent; }
+.wf-back i { font-style: normal; font-size: 14.5px; font-weight: 800; line-height: 1.35; color: var(--accent); }
 .wf.in li { opacity: 1; transform: none; }
 .wf.in .wf-back { opacity: 1; }
 html[data-theme="dark"] .wf li { color: #f2f3f7; }
-html[data-theme="dark"] .wf ol::before { background: #fff; opacity: .28; }
 @media (prefers-reduced-motion: reduce) { .wf li, .wf-back { opacity: 1; transform: none; transition: none; } }
+
+/* 넓은 화면: 여섯 칸을 가로 한 줄(칸마다 같은 좌우 여백 → 글 사이가 고르고 화살표는 그 가운데),
+   고리는 칸 안의 조각(.lp — company_way.py)으로 '원인 찾기' 아래에서 '지시' 아래로 돌아 올라감 */
+@media (min-width: 901px) {
+  #way .st-bridge.br3 { margin-top: 40px; }   /* 화면 높이 칸 안에서 이미 여백이 생겨 다리까지 덜 벌어지게 */
+  .wf { --row: 44px; --lp: color-mix(in srgb, var(--accent) 80%, transparent); max-width: 960px; padding-bottom: 104px; }
+  .wf ol { display: flex; justify-content: center; }
+  .wf li { height: var(--row); padding: 0 26px; font-size: 20px; white-space: nowrap; }   /* 큰 문장 아래라 글을 조금 키움 */
+  .wf li:not(:last-child)::after { content: ""; position: absolute; right: -11px; top: 50%; width: 22px; height: 14px; margin-top: -7px; background: color-mix(in srgb, var(--accent) 70%, transparent);
+    -webkit-mask: url("../img/crayon/arrow_r.png") center / 100% 100% no-repeat; mask: url("../img/crayon/arrow_r.png") center / 100% 100% no-repeat; }
+  .wf li:last-child { color: var(--accent); font-weight: 800; }
+  .wf-back { display: none; }
+  .lp { position: absolute; top: calc(100% + 14px); height: 34px; box-sizing: border-box; border: 0 solid var(--lp); opacity: 0; transition: opacity .5s ease .75s; }
+  .lp-a { left: 50%; right: 0; margin-left: -1.5px; border-width: 0 0 3px 3px; border-radius: 0 0 0 18px; }
+  .lp-a::before { content: ""; position: absolute; left: -8px; top: -10px; border: 6.5px solid transparent; border-bottom: 10px solid var(--lp); border-top: 0; }   /* 위로 향한 화살 머리 → '지시' */
+  .lp-m { left: 0; right: 0; border-bottom-width: 3px; }
+  .lp-b { left: 0; right: 50%; margin-right: -1.5px; border-width: 0 3px 3px 0; border-radius: 0 0 18px 0; }
+  .lp-t { position: absolute; left: 50%; top: calc(100% + 58px); transform: translateX(-50%); white-space: nowrap; font-style: normal; font-size: 14.5px; font-weight: 800; color: var(--accent);
+    opacity: 0; transition: opacity .5s ease .75s; }
+  .wf.in .lp, .wf.in .lp-t { opacity: 1; }
+}
+@media (min-width: 901px) and (max-width: 1100px) { .wf li { padding: 0 20px; font-size: 18px; } }   /* 900 근처 폭에서도 한 줄에 들어가게 */
+/* 좁은 화면: 문장 아래 세로 목록(크레파스 세로선 + 점), 고리는 오른쪽 */
 @media (max-width: 900px) {
-  .wayi .wrap.wayi-in { grid-template-columns: minmax(0, 1fr); row-gap: 36px; min-height: 0; }
-  .wf { justify-self: start; }
+  .lp, .lp-t { display: none; }
+  .wayi .wrap.wayi-in { align-items: flex-start; row-gap: 36px; min-height: 0; text-align: left; }
+  .wf { --h: 54px; max-width: 460px; padding: 10px 0; }
+  .wf ol::before { content: ""; position: absolute; left: 7px; top: calc(var(--h) / 2); bottom: calc(var(--h) / 2); width: 9px; background: var(--ink, #1c1f2a); opacity: .22;
+    -webkit-mask: url("../img/crayon/line_v.png") center / 100% 100% no-repeat; mask: url("../img/crayon/line_v.png") center / 100% 100% no-repeat; }
+  html[data-theme="dark"] .wf ol::before { background: #fff; opacity: .28; }
+  .wf li { height: var(--h); padding: 0 0 0 40px; }
+  .wf li::before { content: ""; position: absolute; left: 3px; top: 50%; width: 16px; height: 16px; margin-top: -8px; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 18%, transparent); }
+  .wf li:last-child::before { left: 1px; width: 20px; height: 20px; margin-top: -10px; }
+  .wf-back { top: calc(10px + var(--h) * (var(--a) + .5)); height: calc(var(--h) * var(--n)); left: 230px; right: 0; border-left: 0; border-radius: 0 18px 18px 0;
+    display: flex; align-items: center; justify-content: flex-end; padding-right: 14px; }
+  .wf-back::before { left: -10px; top: -8px; border-right: 10px solid color-mix(in srgb, var(--accent) 80%, transparent); border-left: 0; }   /* 왼쪽으로 향한 화살 머리 → '지시' */
+  .wf-back i { text-align: right; }
 }
 @media (max-width: 600px) {
   .wf { --h: 48px; max-width: 360px; }
