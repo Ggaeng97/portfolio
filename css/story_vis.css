@@ -69,6 +69,8 @@ html[data-theme="dark"] .st-map li { --c: var(--mk); }
 /* ② 성과 숫자: 다리 문장 위에 크게 — 화면에 들어오면 숫자가 차오르고 '탁' 소리(impact.js) */
 .st-impact { display: flex; flex-direction: column; align-items: center; margin: 0 auto 30px; text-align: center; }
 .st-impact .ip-from { font-size: clamp(16px, 1.6vw, 20px); font-weight: 800; color: var(--ink-2, #6b6f80); letter-spacing: -.01em; }
+/* AI가 안 된다던 말은 빨간 펜으로 그어 넘은 것을 보이게(11-22) */
+.st-impact .ip-from s { text-decoration: line-through 2.5px #ff4d5a; text-decoration-skip-ink: none; }
 .st-impact .ip-num { position: relative; display: inline-block; margin-top: 2px; font-family: "Round", var(--sans); font-size: clamp(56px, 7vw, 96px); font-weight: 900; line-height: 1.02;
   letter-spacing: -.045em; color: var(--accent); font-variant-numeric: tabular-nums; }
 .st-impact .ip-num i { font-style: normal; }

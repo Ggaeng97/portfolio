@@ -35,6 +35,7 @@
   // 2) · 3) 화면에 들어오면 떠오름
   toggleInView(".fh-line", "in", 0.5);
   toggleInView(".st-vis", "in", 0.45);
+  toggleInView(".wf", "in", 0.45);   // 일하는 순서 흐름 그림(들머리 다음 — 단계 그림 칸이 아니라 따로)
 
   // 4) 카드의 동그라미 · ✓
   document.querySelectorAll(".cs-pics figure[data-ring]").forEach(function (f) {

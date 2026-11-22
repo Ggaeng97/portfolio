@@ -15,7 +15,6 @@ html[data-theme="pastel"] #st3 { --accent: #0f9467; --accent-2: #0a7b55; }
 html[data-theme="pastel"] #stR { --accent: #e65f26; --accent-2: #cc4e17; }
 html[data-theme="pastel"] #st4 { --accent: #e0407a; --accent-2: #c63066; }
 html[data-theme="pastel"] #st5 { --accent: #b26a00; --accent-2: #965800; }
-html[data-theme="pastel"] #way { --accent: #4a8a0c; --accent-2: #3b7206; }
 html[data-theme="pastel"] .st .st-steps li { background: rgba(255, 255, 255, .7); }
 html[data-theme="pastel"] .st .st-trait { background: rgba(255, 255, 255, .74); }
 /* 지도 카드 번호도 그 단계의 색(01 하늘 · 02 보라 · 03 민트 · 04 살구 · 05 분홍 · 06 레몬) */
