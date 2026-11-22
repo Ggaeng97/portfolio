@@ -6,8 +6,8 @@
   --cr-d: url("../img/crayon/arrow_d.png");
 }
 /* 밑줄 */
-html[data-theme="pastel"] .ul { background-image: url("../img/crayon/ul_pastel.png"); }
-html[data-theme="dark"] .ul { background-image: url("../img/crayon/ul_dark.png"); }
+html[data-theme="pastel"] .ul { background-image: url("../img/crayon/ul_pastel.png?v=2"); }
+html[data-theme="dark"] .ul { background-image: url("../img/crayon/ul_dark.png?v=2"); }
 /* 동그라미 · ✓ · 그림 사이 화살표: 선은 그대로 긋고 겉에 크레파스 질감 */
 .pen-mark path, .pen-ring path, .pen-arrow path { filter: url(#crayon-i); }   /* 선 자체에 건다(그림 상자에 걸면 화살표가 통째로 사라졌음) */
 /* NG 그림의 줄 긋기: 매끈한 빛 막대 → 크레파스 */

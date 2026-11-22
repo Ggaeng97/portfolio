@@ -27,9 +27,10 @@
 @media (prefers-reduced-motion: reduce) { .fh-line { opacity: 1; transform: none; transition: none; } }
 
 /* 밑줄: 글이 다 써진 뒤 그어진다(sound.js 가 .drawn) — 줄이 나뉘어도 글자 전체를 따라. 선 그림은 색이 테마마다 달라 테마 파일에 */
-.ul { background-repeat: no-repeat; background-position: 0 100%; background-size: 0% .34em; padding-bottom: .06em; transition: background-size .55s ease-out; }
-.ul.drawn { background-size: 100% .34em; }
-@media (prefers-reduced-motion: reduce) { .ul { transition: none; background-size: 100% .34em; } }
+/* 밑줄 두께 .34em → .62em · 획도 굵게 다시 그림(crayon_png.py, 11-22 사용자 "줄 긋는 걸 굵직굵직하게") */
+.ul { background-repeat: no-repeat; background-position: 0 100%; background-size: 0% .62em; padding-bottom: .12em; transition: background-size .55s ease-out; }
+.ul.drawn { background-size: 100% .62em; }
+@media (prefers-reduced-motion: reduce) { .ul { transition: none; background-size: 100% .62em; } }
 
 /* 글 써지기: 앞 글자부터 한 글자씩 스르륵(sound.js 가 글자마다 .ch 와 순번 --i, 간격 --st 를 달고 화면에 들어오면 .go). 번호(.st-no)는 처음부터 보임.
    줄 전체가 떠오르던 들머리 줄은 글자만 움직이게 끈다. 글자를 inline-block 으로 바꾸지 않는다(한글 낱말 중간에서 줄이 끊김). */
