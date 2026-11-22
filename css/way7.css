@@ -1,0 +1,34 @@
+/* 07 AI와 일하는 순서(_tools/company_way7.py) — 오른쪽 그림 칸의 흐름 순서도.
+   칸 일곱 개를 00 · 06 연표와 같은 크레파스 세로선 + 단계색 점으로 잇고, '오류 분석 → 프롬프트 · 맥락 제공'으로 되돌아가는 고리를 오른쪽에.
+   칸은 화면에 들어오면 위에서부터 하나씩(pen.js 가 .st-vis 에 .in 을 붙임). 칸 높이 --h 로 고리 자리를 계산하니 칸 수 · 순서를 바꾸면 .wf-back 도 함께. */
+.wf-vis { display: flex; justify-content: center; }
+/* 넓은 화면의 다른 단계는 그림 칸을 글 칸 높이로 자르지만(w-story.css: 그림을 칸에 꽉 채움) 순서도는 잘리면 안 되므로 제 높이 그대로, 글 칸과 가운데 맞춤 */
+@media (min-width: 901px) { .st-sum:not(.wide) > .st-vis.wf-vis { align-self: center; min-height: 0; } .st-sum:not(.wide) > .st-vis.wf-vis > .wf { position: relative; inset: auto; } }
+.wf { --h: 54px; position: relative; width: 100%; max-width: 520px; padding: 26px 26px 26px 30px; border-radius: 22px; background: rgba(255, 255, 255, .7); box-sizing: border-box; }
+.wf ol { position: relative; margin: 0; padding: 0; list-style: none; }
+.wf ol::before { content: ""; position: absolute; left: 7px; top: calc(var(--h) / 2); bottom: calc(var(--h) / 2); width: 9px; background: var(--ink, #1c1f2a); opacity: .22;
+  -webkit-mask: url("../img/crayon/line_v.png") center / 100% 100% no-repeat; mask: url("../img/crayon/line_v.png") center / 100% 100% no-repeat; }
+.wf li { position: relative; display: flex; align-items: center; height: var(--h); margin: 0; padding: 0 0 0 40px; font-size: 17px; font-weight: 700; line-height: 1.3; letter-spacing: -.02em; color: var(--ink, #1c1f2a);
+  opacity: 0; transform: translateY(8px); transition: opacity .4s ease, transform .4s ease; transition-delay: calc(var(--k) * .09s); }
+.wf li::before { content: ""; position: absolute; left: 3px; top: 50%; width: 16px; height: 16px; margin-top: -8px; border-radius: 50%;
+  background: var(--accent); box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 18%, transparent); }
+.wf li:last-child::before { left: 1px; width: 20px; height: 20px; margin-top: -10px; }
+/* 되돌아가는 고리: 3번째 칸(프롬프트 · 맥락 제공) 가운데 → 6번째 칸(오류 분석) 가운데 */
+.wf-back { position: absolute; top: calc(26px + var(--h) * 2.5); height: calc(var(--h) * 3); left: 252px; right: 26px; box-sizing: border-box;
+  border: 3px solid color-mix(in srgb, var(--accent) 80%, transparent); border-left: 0; border-radius: 0 18px 18px 0;
+  display: flex; align-items: center; justify-content: flex-end; padding-right: 14px;
+  opacity: 0; transition: opacity .5s ease .75s; }
+.wf-back::before { content: ""; position: absolute; left: -10px; top: -8px; border: 6.5px solid transparent; border-right: 10px solid color-mix(in srgb, var(--accent) 80%, transparent); border-left: 0; }
+.wf-back i { font-style: normal; font-size: 14.5px; font-weight: 800; line-height: 1.35; text-align: right; color: var(--accent); }
+.st-vis.in .wf li { opacity: 1; transform: none; }
+.st-vis.in .wf-back { opacity: 1; }
+html[data-theme="dark"] .wf { background: rgba(255, 255, 255, .06); }
+html[data-theme="dark"] .wf li { color: #f2f3f7; }
+html[data-theme="dark"] .wf ol::before { background: #fff; opacity: .28; }
+@media (prefers-reduced-motion: reduce) { .wf li, .wf-back { opacity: 1; transform: none; transition: none; } }
+@media (max-width: 600px) {
+  .wf { --h: 48px; padding: 20px 18px 20px 22px; }
+  .wf li { font-size: 15.5px; padding-left: 36px; }
+  .wf-back { top: calc(20px + var(--h) * 2.5); left: 206px; right: 18px; padding-right: 10px; }
+  .wf-back i { font-size: 13.5px; }
+}

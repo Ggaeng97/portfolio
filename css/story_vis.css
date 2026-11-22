@@ -156,7 +156,7 @@ html[data-theme="dark"] .wn-dots s.x { background: #e0544f; }
 
 /* 전환점(.st-bridge.br3): 상자 없이 세로 — 성과 숫자 → 줄 → 다음 이야기 문장 → 줄 → ↓ → 다음 단계 번호 · 이름(11-22 사용자: '결과 → 하지만' 순서가 흐름에 맞음).
    줄 · 화살표 · 번호가 이 단계 색에서 다음 단계 색으로 바뀌어 '다음 장으로 넘어간다'로 읽힘 */
-#st1 { --next: #6b4de0; } #st2 { --next: #0f9467; } #st3 { --next: #e65f26; } #stR { --next: #e0407a; } #st4 { --next: #b26a00; } #st5 { --next: #ff4d5a; }
+#st1 { --next: #6b4de0; } #st2 { --next: #0f9467; } #st3 { --next: #e65f26; } #stR { --next: #e0407a; } #st4 { --next: #b26a00; } #st5 { --next: #4a8a0c; } #st7 { --next: #ff4d5a; }
 html[data-theme="dark"] .st { --next: var(--accent); }
 .st-bridge.br3 { display: flex; flex-direction: column; align-items: center; margin: 110px auto 0; padding: 0 20px; text-align: center; }
 .br3 .st-impact { margin: 0; }
