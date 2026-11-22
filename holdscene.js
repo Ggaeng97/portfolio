@@ -8,9 +8,10 @@
 (function () {
   var els = document.querySelectorAll(".hs[data-hs]");
   if (!els.length) return;
-  var LEAD = 0.6, TAIL = 1.25, H = 0.32, TAU = 0.09, SLOW = 0.1, RISE = [0.34, 0.06];   // TAIL: 끝 문장 뒤 길이(바탕색이 차오르는 구간 포함) · RISE: 끝 문장 걸림이 끝나고 차오르기 시작 · 무대가 풀리기 0.06 칸 전에 다 참
+  var LEAD = 0.6, TAIL = 1.25, H = 0.32, TAU = 0.09, SLOW = 0.1, RISE = [0.34, 0.06], END_RISE = false;   // TAIL: 끝 문장 뒤 길이(바탕색이 차오르는 구간 포함) · RISE: 끝 문장 걸림이 끝나고 차오르기 시작 · 무대가 풀리기 0.06 칸 전에 다 참
   function clamp(x) { return Math.max(0, Math.min(1, x)); }
   function ss(t) { t = clamp(t); return t * t * (3 - 2 * t); }
+  function backOut(t) { var c = 0.9, q = t - 1; return t <= 0 ? 0 : 1 + (c + 1) * q * q * q + c * q * q; }   // 끝에 살짝 지나쳤다 돌아옴(꽂히는 느낌)
   function pad(k) { return String(k).padStart(3, "0"); }
   // [앞글자, 처음, 끝, 건너뛰기, 1초 장 수, 확장자?] 또는 [앞글자, [이름…], 1초 장 수, 확장자?] → 그림 주소 목록 · 장마다 재생 빠르기(확장자가 없으면 장면 기본값)
   function expand(seq, ext) {
@@ -114,15 +115,19 @@
     // · 무대가 풀려 위로 나갈 땐 그림이 흐려지며(최대 32px) 사라짐(다른 구역 전환 bgtween.js 와 같은 값)
     function edge(u) {
       var r = stage.getBoundingClientRect(), vh = window.innerHeight, W = window.innerWidth;
-      var gr = light ? 1 : ss((u - H) / (1 - 2 * H));
-      var rise = ss((u - (n - 1) - RISE[0]) / (TAIL - RISE[0] - RISE[1])) * (L.gate || 0);
+      // 액자 크기는 스크롤이 아니라 날아 들어가기 재생(그림 자리 P: 첫 장 → 첫 문장의 장, 약 1.6초)에 맞춤 — 스크롤에 묶으면 스냅과 겹쳐 순식간에 커졌음(11-22 사용자 "너무 빠르게 확대돼 들어가는지도 모르겠다")
+      var gr = light ? 1 : ss(clamp((P || 0) / Math.max(1, stops[1]))); L.grv = gr;
+      // 끝: 끝 장면 재생 뒤 더 내리면 화면을 채웠던 그림이 처음의 작은 액자 자리로 살짝 튕기며 꽂힘(시간 0.9초, tick 의 L.pe) — 바탕도 페이지 색으로
+      // (11-22 사용자 "차라리 마지막에 내리면 제자리로 꽂히면서 자연스럽게 들어가게" — 바탕이 둥글게 차오르던 것은 END_RISE 로 남겨 둠)
+      var e = END_RISE ? 0 : backOut(L.pe || 0), g = light ? 1 : Math.min(gr, 1 - e);
+      var rise = END_RISE ? ss((u - (n - 1) - RISE[0]) / (TAIL - RISE[0] - RISE[1])) * (L.gate || 0) : 0;
       if (!light) {
-        var s0 = L.wide ? 0.44 : 0.84, s = s0 + (1 - s0) * gr, dx = (L.wide ? 0.22 : 0) * W * (1 - gr), key = gr.toFixed(4);
+        var s0 = L.wide ? 0.44 : 0.84, s = s0 + (1 - s0) * g, dx = (L.wide ? 0.22 : 0) * W * (1 - g), key = g.toFixed(4);
         if (key !== L.gr) {
-          L.gr = key; var full = gr >= 0.9995;
+          L.gr = key; var full = g >= 0.9995;
           box.style.transform = full ? "" : "translateX(" + dx.toFixed(1) + "px) scale(" + s.toFixed(4) + ")";
-          box.style.borderRadius = full ? "" : (18 * (1 - gr) / s).toFixed(1) + "px";
-          bgL.style.opacity = full ? "" : gr.toFixed(3);
+          box.style.borderRadius = full ? "" : (18 * (1 - g) / s).toFixed(1) + "px";
+          bgL.style.opacity = full ? "" : clamp(g).toFixed(3);
         }
       }
       // 둥근 지움의 세로 반지름 = 차오름 × 화면 높이 × 1.65 → 다 차면 투명 62 % 가 화면 위끝에 닿음
@@ -132,11 +137,11 @@
         // 끝 장면을 배경 없이 다시 렌더한 탁자(cut)가 있으면: 원래 그림(빛 바탕째)도 바탕처럼 지우고 그 위에 탁자만 또렷이 남김(차오르기 시작할 때 0.25 안에 겹쳐 바뀜)
         if (cutI) { A.style.webkitMaskImage = A.style.maskImage = mb; cutI.style.opacity = rise > 0.001 ? ss(rise * 4).toFixed(3) : ""; }
       }
-      var so = (gr * (1 - rise)).toFixed(3);
+      var so = (clamp(g) * (1 - rise)).toFixed(3);
       if (so !== L.so) { L.so = so; shade.style.opacity = so >= 0.999 ? "" : so; }
       var out = ss((vh - r.bottom) / (vh * 0.6)), op = 1 - out, bl = Math.min(1, out * 1.5) * 32, fx = op.toFixed(3) + "|" + bl.toFixed(1);
       if (fx !== L.fx) { L.fx = fx; stage.style.opacity = op >= 0.999 ? "" : op.toFixed(3); stage.style.filter = bl > 0.3 && op > 0.001 ? "blur(" + bl.toFixed(1) + "px)" : ""; }
-      return rise;
+      return END_RISE ? rise : clamp(e);
     }
     function render(u, dt) {
       var tf = 1 - ss(edge(u) * 2);
@@ -144,7 +149,7 @@
         var end = (i === 0 && u < -H) || (i === n - 1 && u > n - 1 + H), e = Math.abs(u - i);
         var op = end || e <= H ? 1 : 1 - ss((e - H) / (0.5 - H) * 1.15);
         c.style.transform = "translateY(" + (L.F + pos(end ? (i === 0 ? H : -H) : i - u) - c._h / 2).toFixed(1) + "px)";
-        op *= tf;
+        op *= tf * (light || i === 0 ? 1 : ss(L.grv));   // 흰 글 문장은 액자가 커지는 만큼 함께 나타남(민트 위에 흰 글이 먼저 뜨지 않게)
         c.style.opacity = op.toFixed(3);
         c.style.visibility = op < 0.003 ? "hidden" : "";
       });
@@ -168,9 +173,11 @@
       var moving = play(dt);
       // 끝 장면이 다 재생돼야 바탕이 차오를 수 있음(재생 중에 내리면 끝날 때까지 기다렸다가 0.4초에 걸쳐 따라 차오름)
       var g = kT === n - 1 && P === stops[n - 1] ? 1 : 0, g0 = L.gate || 0;
-      L.gate = g > g0 ? Math.min(1, g0 + dt / 0.4) : Math.max(0, g0 - dt / 0.25);
+      L.gate = g > g0 ? Math.min(g, g0 + dt / 0.4) : g < g0 ? Math.max(g, g0 - dt / 0.25) : g0;   // 같으면 그대로(1 에서 한 프레임씩 줄던 것 고침)
+      var et = uS > n - 1 + RISE[0] && L.gate > 0.99 ? 1 : 0, e0 = L.pe || 0;   // 끝 액자로 돌아가기(0 → 1, 0.9초)
+      L.pe = et > e0 ? Math.min(et, e0 + dt / 0.9) : et < e0 ? Math.max(et, e0 - dt / 0.7) : e0;
       var fading = render(uS, dt);
-      if (Math.abs(uT - uS) > 0.0005 || moving || fading || L.gate !== g) requestAnimationFrame(tick); else { run = false; lastT = 0; }
+      if (Math.abs(uT - uS) > 0.0005 || moving || fading || L.gate !== g || L.pe !== et) requestAnimationFrame(tick); else { run = false; lastT = 0; }
     }
     function req() {
       if (!L.ok) layout();
