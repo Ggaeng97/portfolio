@@ -34,8 +34,9 @@
     }
     var stops = D.stops.map(function (u) { return Math.max(0, T.indexOf(u)); });
     var caps = Array.prototype.slice.call(el.querySelectorAll(".hs-cap")), n = caps.length;
-    var stage = el.querySelector(".hs-stage"), bgL = el.querySelector(".hs-bg"), shade = el.querySelector(".hs-shade"), box = el.querySelector(".hs-box"), A = el.querySelector(".hs-a"), B = el.querySelector(".hs-b");
+    var stage = el.querySelector(".hs-stage"), bgL = el.querySelector(".hs-bg"), shade = el.querySelector(".hs-shade"), cutI = el.querySelector(".hs-cut"), box = el.querySelector(".hs-box"), A = el.querySelector(".hs-a"), B = el.querySelector(".hs-b");
     var overs = el.querySelectorAll(".hs-over");
+    var light = !!el.closest(".light");   // 마스코트: 바탕이 투명한 밝은 무대 — 액자 확대 없이 처음부터 제자리
     var cache = [], L = { ok: false }, uT = 0, uS = null, run = false, lastT = 0, mixing = false, kA = { v: "" }, kB = { v: "" };
     var P = null, kT = 0, dirU = 1, prevU = null, idle = 0, ovO = [];
     function load() {
@@ -50,6 +51,7 @@
     function layout() {
       if (!el.offsetWidth) { L.ok = false; return; }   // 접힌 '자세히 보기' 안
       var vh = window.innerHeight, wide = window.innerWidth > 900;
+      L.wide = wide; L.gr = null;
       L.step = vh * (wide ? 0.56 : 0.5); L.trav = vh * (wide ? 0.2 : 0.16);   // 문장 하나에 내리는 길이 · 멈춤 밖에서 움직이는 거리
       stage.style.height = vh + "px";
       el.style.height = (vh + (LEAD + n - 1 + TAIL) * L.step).toFixed(0) + "px";   // 첫 문장 앞 LEAD 칸, 끝 문장 뒤 TAIL 칸
@@ -105,20 +107,34 @@
       B.style.opacity = "0"; B.style.transform = ""; B.style.webkitMaskImage = B.style.maskImage = "";
     }
     // 무대 가장자리 → 돌려주는 값 = 바탕이 차오른 정도(0~1, 글을 지우는 데 씀)
-    // · 들어올 땐 윗가장자리를 지우고 흐림 12px · 투명 → 또렷하게(다른 구역 전환 bgtween.js 와 같은 값 — 단계 색이 같아 그쪽 전환이 안 걸려서 여기서)
+    // · 들어올 때(성당): 아이젠 원본처럼 그림이 작은 액자로 페이지 바탕 위 오른쪽에 떠 있다가(왼쪽엔 제목) 첫 문장으로 넘어가며 커져 화면을 채우고,
+    //   그동안 어두운 바탕 층 · 그늘이 함께 나타남(11-22 사용자 "흐린 채 들어오니 어색 — 원본처럼 작은 영상이 대기하다 확대되며 화면을 채우게")
     // · 끝 장면이 다 재생된 뒤 더 내리면 화면 아래 가운데부터 둥근 언덕 모양으로 바탕 층만 지워 페이지 바탕색이 차오름 — 그림(모델링)은 남고 글과 그늘만 함께 사라짐
-    //   (11-22 사용자 "아래에서 원형 그라데이션으로 올라와 같은 테마였던 것처럼 · 모델링은 덮지 말고 배경만 · 애니메이션 중간이 아니라 마지막 장면에서 내릴 때")
-    // · 무대가 풀려 위로 나갈 땐 그림이 흐려지며(최대 32px) 사라짐
+    //   (11-22 사용자 "아래에서 원형 그라데이션으로 · 모델링은 덮지 말고 배경만 · 마지막 장면에서 내릴 때")
+    // · 무대가 풀려 위로 나갈 땐 그림이 흐려지며(최대 32px) 사라짐(다른 구역 전환 bgtween.js 와 같은 값)
     function edge(u) {
-      var r = stage.getBoundingClientRect(), vh = window.innerHeight, a = clamp(r.top / vh);
-      var mk = a > 0.001 ? "linear-gradient(to bottom, transparent 0%, #000 " + (a * 55).toFixed(1) + "%)" : "";
-      if (mk !== L.mk) { L.mk = mk; stage.style.webkitMaskImage = mk; stage.style.maskImage = mk; }
+      var r = stage.getBoundingClientRect(), vh = window.innerHeight, W = window.innerWidth;
+      var gr = light ? 1 : ss((u - H) / (1 - 2 * H));
       var rise = ss((u - (n - 1) - RISE[0]) / (TAIL - RISE[0] - RISE[1])) * (L.gate || 0);
+      if (!light) {
+        var s0 = L.wide ? 0.44 : 0.84, s = s0 + (1 - s0) * gr, dx = (L.wide ? 0.22 : 0) * W * (1 - gr), key = gr.toFixed(4);
+        if (key !== L.gr) {
+          L.gr = key; var full = gr >= 0.9995;
+          box.style.transform = full ? "" : "translateX(" + dx.toFixed(1) + "px) scale(" + s.toFixed(4) + ")";
+          box.style.borderRadius = full ? "" : (18 * (1 - gr) / s).toFixed(1) + "px";
+          bgL.style.opacity = full ? "" : gr.toFixed(3);
+        }
+      }
       // 둥근 지움의 세로 반지름 = 차오름 × 화면 높이 × 1.65 → 다 차면 투명 62 % 가 화면 위끝에 닿음
       var R = rise * vh * 1.65, mb = rise > 0.001 ? "radial-gradient(" + (R * 1.5).toFixed(0) + "px " + R.toFixed(0) + "px at 50% 100%, transparent 62%, #000 100%)" : "";
-      if (mb !== L.mb) { L.mb = mb; bgL.style.webkitMaskImage = mb; bgL.style.maskImage = mb; shade.style.opacity = rise > 0.001 ? (1 - rise).toFixed(3) : ""; }
-      var vis = ss((vh * 0.8 - r.top) / (vh * 0.55)), out = ss((vh - r.bottom) / (vh * 0.6)), op = vis * (1 - out);
-      var bl = Math.max((1 - vis) * 12, Math.min(1, out * 1.5) * 32), fx = op.toFixed(3) + "|" + bl.toFixed(1);
+      if (mb !== L.mb) {
+        L.mb = mb; bgL.style.webkitMaskImage = mb; bgL.style.maskImage = mb;
+        // 끝 장면을 배경 없이 다시 렌더한 탁자(cut)가 있으면: 원래 그림(빛 바탕째)도 바탕처럼 지우고 그 위에 탁자만 또렷이 남김(차오르기 시작할 때 0.25 안에 겹쳐 바뀜)
+        if (cutI) { A.style.webkitMaskImage = A.style.maskImage = mb; cutI.style.opacity = rise > 0.001 ? ss(rise * 4).toFixed(3) : ""; }
+      }
+      var so = (gr * (1 - rise)).toFixed(3);
+      if (so !== L.so) { L.so = so; shade.style.opacity = so >= 0.999 ? "" : so; }
+      var out = ss((vh - r.bottom) / (vh * 0.6)), op = 1 - out, bl = Math.min(1, out * 1.5) * 32, fx = op.toFixed(3) + "|" + bl.toFixed(1);
       if (fx !== L.fx) { L.fx = fx; stage.style.opacity = op >= 0.999 ? "" : op.toFixed(3); stage.style.filter = bl > 0.3 && op > 0.001 ? "blur(" + bl.toFixed(1) + "px)" : ""; }
       return rise;
     }
