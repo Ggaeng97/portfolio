@@ -122,7 +122,8 @@
       // 끝: 끝 장면 재생 뒤 더 내리면 화면을 채웠던 그림이 처음의 작은 액자 자리로 살짝 튕기며 꽂힘(시간 0.9초, tick 의 L.pe) — 바탕도 페이지 색으로
       // (11-22 사용자 "차라리 마지막에 내리면 제자리로 꽂히면서" 로 바꿨다가 "전 느낌이 더 좋았다"로 바탕이 둥글게 차오르는 끝(END_RISE = true)으로 되돌림 — 꽂히는 끝은 false 로)
       var e = END_RISE ? 0 : backOut(L.pe || 0), g = light ? 1 : Math.min(gr, 1 - e);
-      var rise = END_RISE ? ss((u - (n - 1) - RISE[0]) / (TAIL - RISE[0] - RISE[1])) * (L.gate || 0) : 0;
+      var cutOk = !cutI || (cutI.complete && cutI.naturalWidth > 0);   // 렌더 탁자를 다 불러와야 차오름(덜 불러왔는데 지우면 탁자가 함께 지워짐)
+      var rise = END_RISE && cutOk ? ss((u - (n - 1) - RISE[0]) / (TAIL - RISE[0] - RISE[1])) * (L.gate || 0) : 0;
       if (!light) {
         var s0 = L.wide ? 0.44 : 0.84, s = s0 + (1 - s0) * g, dx = (L.wide ? 0.22 : 0) * W * (1 - g), key = g.toFixed(4);
         if (key !== L.gr) {
@@ -136,8 +137,9 @@
       var R = rise * vh * 1.65, mb = rise > 0.001 ? "radial-gradient(" + (R * 1.5).toFixed(0) + "px " + R.toFixed(0) + "px at 50% 100%, transparent 62%, #000 100%)" : "";
       if (mb !== L.mb) {
         L.mb = mb; bgL.style.webkitMaskImage = mb; bgL.style.maskImage = mb;
-        // 끝 장면을 배경 없이 다시 렌더한 탁자(cut)가 있으면: 원래 그림(빛 바탕째)도 바탕처럼 지우고 그 위에 탁자만 또렷이 남김(차오르기 시작할 때 0.25 안에 겹쳐 바뀜)
-        if (cutI) { A.style.webkitMaskImage = A.style.maskImage = mb; cutI.style.opacity = rise > 0.001 ? ss(rise * 4).toFixed(3) : ""; }
+        // 끝 장면을 배경 없이 다시 렌더한 탁자(cut)가 있으면: 원래 그림(빛 바탕째)도 바탕처럼 지우고 그 위에 탁자만 또렷이 남김.
+        // 렌더 탁자는 차오르기 시작하는 순간부터 완전히 덮음 — 서서히 나타나게 했더니 둥근 지움이 탁자까지 비쳐 보였음(11-22 사용자 "배경만 물들여야 하는데 가운데 아래 원형 파장")
+        if (cutI) { A.style.webkitMaskImage = A.style.maskImage = mb; cutI.style.opacity = rise > 0.001 ? "1" : ""; }
       }
       var so = (clamp(g) * (1 - rise)).toFixed(3);
       if (so !== L.so) { L.so = so; shade.style.opacity = so >= 0.999 ? "" : so; }
