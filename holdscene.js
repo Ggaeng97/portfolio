@@ -57,6 +57,9 @@
       stage.style.height = vh + "px";
       el.style.height = (vh + (LEAD + n - 1 + TAIL) * L.step).toFixed(0) + "px";   // 첫 문장 앞 LEAD 칸, 끝 문장 뒤 TAIL 칸
       L.F = wide ? vh * (el.closest(".light") ? 0.5 : 0.68) : (box.offsetTop + box.offsetHeight + vh) / 2;   // 문장이 걸리는 높이(휴대폰은 그림 아래 남은 칸 가운데)
+      // 제목(첫 문장)은 성당 장면에서 작은 액자 옆에 뜨므로 액자 높이 가운데(= 무대 가운데)에 맞춤 — 11-22 사용자 "글자는 이미지 높이 중앙에, 너무 하단"
+      // (들어올 때 제목은 걸림 구간 끝자리 pos(H) 에 있으므로 그만큼 빼서 들어온 순간에 정확히 가운데 — render)
+      L.F0 = wide && !light ? vh * 0.5 : L.F;
       caps.forEach(function (c) { c._h = c.offsetHeight; });
       L.bw = box.clientWidth; L.bh = box.clientHeight; L.ok = true;
     }
@@ -152,7 +155,7 @@
       caps.forEach(function (c, i) {   // 한 문장씩: 멈춘 동안 또렷하고, 움직이기 시작하면 사라짐. 제목은 무대와 함께 들어오고 끝 문장은 무대와 함께 나감(걸림 구간 끝자리에서)
         var end = (i === 0 && u < -H) || (i === n - 1 && u > n - 1 + H), e = Math.abs(u - i);
         var op = end || e <= H ? 1 : 1 - ss((e - H) / (0.5 - H) * 1.15);
-        c.style.transform = "translateY(" + (L.F + pos(end ? (i === 0 ? H : -H) : i - u) - c._h / 2).toFixed(1) + "px)";
+        c.style.transform = "translateY(" + ((i === 0 ? L.F0 - (L.F0 !== L.F ? pos(H) : 0) : L.F) + pos(end ? (i === 0 ? H : -H) : i - u) - c._h / 2).toFixed(1) + "px)";
         op *= tf * (light || i === 0 ? 1 : ss(L.grv));   // 흰 글 문장은 액자가 커지는 만큼 함께 나타남(민트 위에 흰 글이 먼저 뜨지 않게)
         c.style.opacity = op.toFixed(3);
         c.style.visibility = op < 0.003 ? "hidden" : "";
