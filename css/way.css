@@ -2,6 +2,9 @@
    칸을 00 · 06 연표와 같은 크레파스 세로선 + 단계색 점으로 잇고, '원인 찾기 → AI에게 지시'로 되돌아가는 고리를 오른쪽에.
    칸은 화면에 들어오면 위에서부터 하나씩(pen.js 가 .st-vis 에 .in 을 붙임). 고리 자리 = 칸 높이 --h × 칸 번호(--a 시작, --n 칸 수 — company_way.py 가 style 로 넣음). */
 .wf-vis { display: flex; justify-content: center; }
+/* 끝 다리(↓ 00 같은 순서로 걸어온 길): 화살표 · 번호는 00 의 색(기본 강조색)으로, 지도의 원래 제목은 다리로 옮겼으니 화면에서만 감춤(단계 제목 .st-title.br-moved 와 같은 방식) */
+#way { --next: #3d5af1; }
+.st-map-k.br-moved { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 /* 넓은 화면의 다른 단계는 그림 칸을 글 칸 높이로 자르지만(w-story.css: 그림을 칸에 꽉 채움) 순서도는 잘리면 안 되므로 제 높이 그대로, 글 칸과 가운데 맞춤 */
 @media (min-width: 901px) { .st-sum:not(.wide) > .st-vis.wf-vis { align-self: center; min-height: 0; } .st-sum:not(.wide) > .st-vis.wf-vis > .wf { position: relative; inset: auto; } }
 .wf { --h: 54px; position: relative; width: 100%; max-width: 520px; padding: 26px 26px 26px 30px; border-radius: 22px; background: rgba(255, 255, 255, .7); box-sizing: border-box; }

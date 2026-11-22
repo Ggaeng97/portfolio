@@ -112,7 +112,7 @@
   // "핵심 1~2줄만" → "전부 없애 달란 게 아니라 12345 정도는, 핵심 문장 위주로"). 다리 문장 · 들머리의 다른 줄은 조용히 써진다. 번호(.st-no)는 처음부터 보인다.
   // 02~06 제목은 다리(.br3)로 옮겨 보이므로(.br-title) 거기서 써지고, 숨긴 원래 자리(.st-title.br-moved)는 뺀다(11-22 사용자 "제목 드르륵 소리 · 글자 나오는 방식이 빠졌다")
   var KEY = ".st-title:not(.br-moved) .st-h, .br-title, .fh-group.last .fh-line, .next-card h2";
-  var writers = Array.prototype.slice.call(document.querySelectorAll(".fh-line, .st-map-k, .st-title:not(.br-moved) .st-h, .st-bridge p, .br-title, .next-card h2"));
+  var writers = Array.prototype.slice.call(document.querySelectorAll(".fh-line, .st-map-k:not(.br-moved), .st-title:not(.br-moved) .st-h, .st-bridge p, .br-title, .next-card h2"));
   function split(el) {
     var n = 0, w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), list = [];
     while (w.nextNode()) if (!w.currentNode.parentNode.closest(".st-no")) list.push(w.currentNode);
