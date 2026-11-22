@@ -107,6 +107,11 @@
       var r = stage.getBoundingClientRect(), vh = window.innerHeight, a = clamp(r.top / vh), b = clamp((vh - r.bottom) / vh);
       var mk = a > 0.001 || b > 0.001 ? "linear-gradient(to bottom, transparent 0%, #000 " + (a * 55).toFixed(1) + "%, #000 " + (100 - b * 55).toFixed(1) + "%, transparent 100%)" : "";
       if (mk !== L.mk) { L.mk = mk; stage.style.webkitMaskImage = mk; stage.style.maskImage = mk; }
+      // 다른 구역의 전환(bgtween.js)과 같은 값: 들어올 땐 흐림 12px · 투명 → 또렷하게, 나갈 땐 흐려지며(최대 32px) 사라짐 — 11-22 사용자 "다른 페이지처럼 블러로 자연스럽게"
+      // (앞뒤 카드와 단계 색이 같아 bgtween 의 전환이 걸리지 않으므로 여기서 직접)
+      var vis = ss((vh * 0.8 - r.top) / (vh * 0.55)), out = ss((vh - r.bottom) / (vh * 0.6)), op = vis * (1 - out);
+      var bl = Math.max((1 - vis) * 12, Math.min(1, out * 1.5) * 32), fx = op.toFixed(3) + "|" + bl.toFixed(1);
+      if (fx !== L.fx) { L.fx = fx; stage.style.opacity = op >= 0.999 ? "" : op.toFixed(3); stage.style.filter = bl > 0.3 && op > 0.001 ? "blur(" + bl.toFixed(1) + "px)" : ""; }
     }
     function render(u, dt) {
       edge();
