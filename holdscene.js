@@ -103,7 +103,13 @@
       A.style.transform = A.style.transformOrigin = A.style.opacity = A.style.filter = "";
       B.style.opacity = "0"; B.style.transform = ""; B.style.webkitMaskImage = B.style.maskImage = "";
     }
+    function edge() {   // 들어올 때 윗가장자리 · 나갈 때 아랫가장자리를 지워 뒤의 바탕색(bgtween 이 구역에 칠한 색)으로 녹아들게 — 11-22 사용자 "넘어갈 때 뚝 끊겨 같은 테마인지 모르겠다"
+      var r = stage.getBoundingClientRect(), vh = window.innerHeight, a = clamp(r.top / vh), b = clamp((vh - r.bottom) / vh);
+      var mk = a > 0.001 || b > 0.001 ? "linear-gradient(to bottom, transparent 0%, #000 " + (a * 55).toFixed(1) + "%, #000 " + (100 - b * 55).toFixed(1) + "%, transparent 100%)" : "";
+      if (mk !== L.mk) { L.mk = mk; stage.style.webkitMaskImage = mk; stage.style.maskImage = mk; }
+    }
     function render(u, dt) {
+      edge();
       caps.forEach(function (c, i) {   // 한 문장씩: 멈춘 동안 또렷하고, 움직이기 시작하면 사라짐. 제목은 무대와 함께 들어오고 끝 문장은 무대와 함께 나감(걸림 구간 끝자리에서)
         var end = (i === 0 && u < -H) || (i === n - 1 && u > n - 1 + H), e = Math.abs(u - i);
         var op = end || e <= H ? 1 : 1 - ss((e - H) / (0.5 - H) * 1.15);
