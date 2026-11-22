@@ -1,12 +1,13 @@
 // 걸림 장면(_tools/company_holdscene.py) — 11-22 사용자: 아이젠 판처럼 화면을 그림으로 꽉 채우되 스크롤은 막지 않고,
 // 글은 인트로처럼 한 문장씩 아래에서 올라와 가운데서 살짝 걸렸다가 위로 사라지게. 무대(.hs-stage)는 구역 안에서 화면에 붙어 있고(sticky)
 // 구역 길이만큼 내리는 동안 문장이 지나감. 휠 · 터치는 잡지 않고 위치만 읽는다.
-// u = 지금 초점 높이에 와 있는 문장 번호(소수, 0 = 제목). 문장 자리는 g(d) = d − C·w·tanh(d/w) 로 옮겨 보여 가운데서 빠르기가 1 − C 로 줄어듦.
-// 그림은 문장이 걸린 동안(|u − i| < H) 그 문장의 장에 머물고, 사이에서 다음 장으로. 성당은 끝 장 뒤에 제단 쪽으로 커지며 탁자로 겹쳐 바뀜.
+// u = 지금 초점 높이에 와 있는 문장 번호(소수, 0 = 제목). 11-22 사용자 "걸리는 느낌이 없어 읽기 어렵다 — 가운데 확실히 걸리게" →
+// 문장은 |u − i| < H 동안 초점 근처에서 원래 빠르기의 10 %로 아주 천천히 흐르고("딱 멈추지 말고 미미하게"), 그 밖에선 멀어질수록 빨라지며 올라가 사라짐.
+// 그림도 같은 멈춤 동안 그 문장의 장에 머물고, 사이에서 다음 장으로. 성당은 끝 장 뒤에 제단 쪽으로 커지며 탁자로 겹쳐 바뀜.
 (function () {
   var els = document.querySelectorAll(".hs[data-hs]");
   if (!els.length) return;
-  var C = 0.75, LEAD = 0.6, TAIL = 0.6, H = 0.2, TAU = 0.09, SHOW = 0.15, FADE = 0.32;
+  var LEAD = 0.6, TAIL = 0.6, H = 0.32, TAU = 0.09, SLOW = 0.1;
   function clamp(x) { return Math.max(0, Math.min(1, x)); }
   function ss(t) { t = clamp(t); return t * t * (3 - 2 * t); }
   function pad(k) { return String(k).padStart(3, "0"); }
@@ -43,7 +44,7 @@
     function layout() {
       if (!el.offsetWidth) { L.ok = false; return; }   // 접힌 '자세히 보기' 안
       var vh = window.innerHeight, wide = window.innerWidth > 900;
-      L.step = vh * (wide ? 0.5 : 0.46); L.w = L.step * 0.36;
+      L.step = vh * (wide ? 0.56 : 0.5); L.trav = vh * (wide ? 0.2 : 0.16);   // 문장 하나에 내리는 길이 · 멈춤 밖에서 움직이는 거리
       stage.style.height = vh + "px";
       el.style.height = (vh + (LEAD + n - 1 + TAIL) * L.step).toFixed(0) + "px";   // 첫 문장 앞 LEAD 칸, 끝 문장 뒤 TAIL 칸
       L.F = wide ? vh * (el.closest(".light") ? 0.5 : 0.68) : (box.offsetTop + box.offsetHeight + vh) / 2;   // 문장이 걸리는 높이(휴대폰은 그림 아래 남은 칸 가운데)
@@ -51,7 +52,16 @@
       L.bw = box.clientWidth; L.bh = box.clientHeight; L.ok = true;
     }
     function target() { if (L.ok) uT = -el.getBoundingClientRect().top / L.step - LEAD; }
-    function g(d) { return d - C * L.w * Math.tanh(d / L.w); }
+    function pos(s) {   // 초점에서 문장까지(문장 칸 단위, + 는 아래) → 화면 거리. 걸린 동안(|s| < H)은 원래 빠르기의 SLOW 로 아주 천천히 흐르고(멈추지 않음),
+      // 그 밖에선 멀어질수록 빨라져 TRAVEL 만큼 가서 사라짐. 경계에서 빠르기가 끊기지 않게 이어 붙임(11-22 사용자 "딱 멈추지 말고 속도를 미미하게")
+      var a = Math.abs(s), v = SLOW * L.step, y, R = 0.5 - H;
+      if (a <= H) y = a * v;
+      else {
+        var e = a - H, k = (L.trav - H * v - v * R) / (R * R);   // 바깥 구간 가속
+        y = e <= R ? H * v + v * e + k * e * e : L.trav + (e - R) * (v + 2 * k * R);
+      }
+      return s > 0 ? y : -y;
+    }
     function frameAt(u) {   // 문장 좌표 → 그림 칸(소수)
       if (u <= -H) return stops[0];
       var k = Math.floor(u + H);
@@ -82,9 +92,10 @@
       B.style.opacity = "0"; B.style.transform = ""; B.style.webkitMaskImage = B.style.maskImage = "";
     }
     function render(u) {
-      caps.forEach(function (c, i) {   // 한 문장씩: 걸린 동안만 또렷하고 앞뒤로 금방 사라짐. 제목은 무대와 함께 들어오고 끝 문장은 무대와 함께 나감
-        var e = Math.abs(u - i), op = (i === 0 && u < 0) || (i === n - 1 && u > n - 1) ? 1 : 1 - ss((e - SHOW) / FADE);
-        c.style.transform = "translateY(" + (L.F + g((i - u) * L.step) - c._h / 2).toFixed(1) + "px)";
+      caps.forEach(function (c, i) {   // 한 문장씩: 멈춘 동안 또렷하고, 움직이기 시작하면 사라짐. 제목은 무대와 함께 들어오고 끝 문장은 무대와 함께 나감(걸림 구간 끝자리에서)
+        var end = (i === 0 && u < -H) || (i === n - 1 && u > n - 1 + H), e = Math.abs(u - i);
+        var op = end || e <= H ? 1 : 1 - ss((e - H) / (0.5 - H) * 1.15);
+        c.style.transform = "translateY(" + (L.F + pos(end ? (i === 0 ? H : -H) : i - u) - c._h / 2).toFixed(1) + "px)";
         c.style.opacity = op.toFixed(3);
         c.style.visibility = op < 0.003 ? "hidden" : "";
       });
