@@ -10,7 +10,7 @@
 //  · 구역은 칠하지 않는다(모두 data-bg-clear) — 색은 body 하나로만 바뀐다. 구역을 불투명하게 칠하면 뒤에 고정된 첫 화면 그림 ·
 //    흐려지며 넘치는 앞 내용이 그 구역 윗선에서 칼로 자른 듯 끊긴다(11-21 사용자: "그림이 하단 잘리면서 블러 돼, 전 구간에서 이렇게 되면 안 돼").
 (function () {
-  var STAGE = { st1: "#d4ebff", st2: "#e4dcff", st3: "#cdf3df", stR: "#ffe0cb", st4: "#ffd9e7", st5: "#fff0ae", st7: "#e3f5c4" };   // 하늘 · 보라 · 민트 · 살구 · 우파 분홍 · 레몬 · 연두(07 일하는 순서)
+  var STAGE = { st1: "#d4ebff", st2: "#e4dcff", st3: "#cdf3df", stR: "#ffe0cb", st4: "#ffd9e7", st5: "#fff0ae", way: "#e3f5c4" };   // 하늘 · 보라 · 민트 · 살구 · 우파 분홍 · 레몬 · 연두(들머리 다음 일하는 순서)
   var HERO = "#e3f1ff", WHITE = "#ffffff", DARK = "#0b0c0f";
   var root = document.documentElement, body = document.body;
   var els = Array.prototype.slice.call(document.querySelectorAll("[data-bg]"));

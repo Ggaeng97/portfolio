@@ -76,8 +76,8 @@
   // 실제 값 E: 쌓이는 쪽(목표가 더 높음)은 스크롤하는 동안에만 움직이고(멈추면 그 자리에서 멈춤), 빠지는 쪽(위로 올라감 · 마무리)은 멈춰 있어도 진행.
   // 스크롤하는 동안 0→1 에 6초 이상(층 하나가 1초쯤에 걸쳐), 빠질 땐 10초 이상. 층이 한 번에 하나씩 들어오는 건 문턱이 층마다 따로라서.
   // (11-21 사용자: '확 몰려 갑작스럽다' → 80초로 늦춤 → '다양해지는 구간이 너무 느리다 · 가만히 두면 알아서 쌓이는 느낌' → '스크롤이 멈춰 있으면 쌓이면 안 돼')
-  var ARC = { top: 0, why: .1, story: .2, st1: .32, st2: .46, st3: .6, stR: .72, st4: .86, st5: 1, st7: 1 };
-  var ZONES = ["top", "why", "story", "st1", "st2", "st3", "stR", "st4", "st5", "st7", "next"]
+  var ARC = { top: 0, why: .1, story: .2, st1: .32, st2: .46, st3: .6, stR: .72, st4: .86, st5: 1, way: .15 };
+  var ZONES = ["top", "why", "way", "story", "st1", "st2", "st3", "stR", "st4", "st5", "next"]
     .map(function (id) { return document.getElementById(id); }).filter(Boolean);
   function target() {
     var mid = innerHeight * 0.5, k = 0, f = 0;
