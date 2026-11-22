@@ -18,9 +18,9 @@
 .hs-title > span b { color: #fff; }
 .hs-sec.light .hs-shade { display: none; }
 .hs-sec.light .hs-box { inset: auto; top: 50%; right: 8vw; width: min(80vh, 44vw); aspect-ratio: 1; transform: translateY(-50%);
-  /* 그림 바탕(연한 회청색)이 무대 바탕(단계 색)과 달라 네모가 드러남 → 아이젠 원본(w-tween.css)처럼 네 가장자리를 부드럽게 지워 녹임(11-22 사용자 "배경이 안 맞아") */
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent), linear-gradient(transparent, #000 16%, #000 84%, transparent);
-  -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent), linear-gradient(transparent, #000 16%, #000 84%, transparent);
+  /* 그림은 바탕을 뺀 투명 그림(img/char_a) — 가장자리 지움은 가까이 다가간 장면에서 칸 끝에 잘린 몸을 부드럽게 끝내는 몫만(10 %) */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent), linear-gradient(transparent, #000 10%, #000 90%, transparent);
+  -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent), linear-gradient(transparent, #000 10%, #000 90%, transparent);
   mask-composite: intersect; }
 .hs-sec.light .hs-cap { color: #15171c; text-shadow: none; }
 .hs-sec.light .hs-title > span { color: #4b5160; }

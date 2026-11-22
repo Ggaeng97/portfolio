@@ -12,11 +12,11 @@
   function clamp(x) { return Math.max(0, Math.min(1, x)); }
   function ss(t) { t = clamp(t); return t * t * (3 - 2 * t); }
   function pad(k) { return String(k).padStart(3, "0"); }
-  function expand(seq) {   // [앞글자, 처음, 끝, 건너뛰기, 1초 장 수] 또는 [앞글자, [이름…], 1초 장 수] → 그림 주소 목록 · 장마다 재생 빠르기
+  function expand(seq, ext) {   // [앞글자, 처음, 끝, 건너뛰기, 1초 장 수] 또는 [앞글자, [이름…], 1초 장 수] → 그림 주소 목록 · 장마다 재생 빠르기
     var out = [], fps = [];
     seq.forEach(function (s) {
       var list = Array.isArray(s[1]), r = (list ? s[2] : s[4]) || 24;
-      function add(u) { out.push(u); fps.push(r); }
+      function add(u) { out.push(u.replace(/\.jpg$/, ext)); fps.push(r); }
       if (list) { s[1].forEach(function (nm) { add(s[0] + nm + ".jpg"); }); return; }
       for (var k = s[1]; k <= s[2]; k += s[3]) add(s[0] + pad(k) + ".jpg");
       if ((s[2] - s[1]) % s[3]) add(s[0] + pad(s[2]) + ".jpg");   // 끝 장은 늘 넣음
@@ -24,7 +24,7 @@
     return { urls: out, fps: fps };
   }
   function Scene(el) {
-    var D = JSON.parse(el.dataset.hs), X = expand(D.seq), urls = X.urls, T = urls, R = X.fps, mixA = -1, mixB = -1;
+    var D = JSON.parse(el.dataset.hs), X = expand(D.seq, D.ext || ".jpg"), urls = X.urls, T = urls, R = X.fps, mixA = -1, mixB = -1;
     if (D.mix) {   // 성당 끝 장 뒤에 빈 칸을 끼워 탁자로 겹쳐 바뀌는 구간으로
       var at = urls.indexOf(D.mix.after) + 1;
       T = urls.slice(0, at).concat(new Array(D.mix.len).fill(null), urls.slice(at));
@@ -131,6 +131,8 @@
         cur = want > cur ? Math.min(want, cur + dt / 0.35) : Math.max(want, cur - dt / 0.35);
         ovO[i] = cur; o.style.opacity = cur.toFixed(3); if (cur !== want) busy = true;
       });
+      var top = 0; ovO.forEach(function (v) { if (v > top) top = v; });   // (빈 칸이 섞여 Math.max 는 NaN) 겹침 그림도 바탕이 투명해 아래 렌더가 비침 → 겹침이 보이는 만큼 렌더를 흐리게
+      if (!mixing) A.style.opacity = top > 0.001 ? (1 - top).toFixed(3) : "";
       return busy;
     }
     function tick(now) {
