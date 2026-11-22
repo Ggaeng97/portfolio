@@ -8,7 +8,7 @@
 (function () {
   var els = document.querySelectorAll(".hs[data-hs]");
   if (!els.length) return;
-  var LEAD = 0.6, TAIL = 1.25, H = 0.32, TAU = 0.09, SLOW = 0.1, RISE = [0.34, 0.06], END_RISE = false;   // TAIL: 끝 문장 뒤 길이(바탕색이 차오르는 구간 포함) · RISE: 끝 문장 걸림이 끝나고 차오르기 시작 · 무대가 풀리기 0.06 칸 전에 다 참
+  var LEAD = 0.6, TAIL = 1.25, H = 0.32, TAU = 0.09, SLOW = 0.1, RISE = [0.34, 0.06], END_RISE = true;   // TAIL: 끝 문장 뒤 길이(바탕색이 차오르는 구간 포함) · RISE: 끝 문장 걸림이 끝나고 차오르기 시작 · 무대가 풀리기 0.06 칸 전에 다 참
   function clamp(x) { return Math.max(0, Math.min(1, x)); }
   function ss(t) { t = clamp(t); return t * t * (3 - 2 * t); }
   function backOut(t) { var c = 0.9, q = t - 1; return t <= 0 ? 0 : 1 + (c + 1) * q * q * q + c * q * q; }   // 끝에 살짝 지나쳤다 돌아옴(꽂히는 느낌)
@@ -81,6 +81,8 @@
       var d = goal - P; if (!d) return false;
       var i = Math.max(0, Math.min(T.length - 1, d > 0 ? Math.floor(P) : Math.ceil(P) - 1)), fps = R[i] || 24;
       var mv = fps * Math.max(1, Math.abs(d) / fps / 3) * (d < 0 ? 1.5 : 1) * dt;
+      // 끝 문장을 지나 더 내리는 중인데 끝 장면이 아직이면 남은 재생을 0.4초 안팎에 끝냄 — 스크롤은 막지 않으므로 빨리 내리면 끝 장면을 못 보고 넘어가던 것(11-22 사용자 "끝나기도 전에 다음 장면으로")
+      if (kT === n - 1 && d > 0 && uS > n - 1 + H * 0.5) mv = Math.max(mv, (Math.abs(d) + 8) * dt / 0.4);
       P = Math.abs(d) <= mv ? goal : P + (d > 0 ? mv : -mv);
       return true;
     }
@@ -118,7 +120,7 @@
       // 액자 크기는 스크롤이 아니라 날아 들어가기 재생(그림 자리 P: 첫 장 → 첫 문장의 장, 약 1.6초)에 맞춤 — 스크롤에 묶으면 스냅과 겹쳐 순식간에 커졌음(11-22 사용자 "너무 빠르게 확대돼 들어가는지도 모르겠다")
       var gr = light ? 1 : ss(clamp((P || 0) / Math.max(1, stops[1]))); L.grv = gr;
       // 끝: 끝 장면 재생 뒤 더 내리면 화면을 채웠던 그림이 처음의 작은 액자 자리로 살짝 튕기며 꽂힘(시간 0.9초, tick 의 L.pe) — 바탕도 페이지 색으로
-      // (11-22 사용자 "차라리 마지막에 내리면 제자리로 꽂히면서 자연스럽게 들어가게" — 바탕이 둥글게 차오르던 것은 END_RISE 로 남겨 둠)
+      // (11-22 사용자 "차라리 마지막에 내리면 제자리로 꽂히면서" 로 바꿨다가 "전 느낌이 더 좋았다"로 바탕이 둥글게 차오르는 끝(END_RISE = true)으로 되돌림 — 꽂히는 끝은 false 로)
       var e = END_RISE ? 0 : backOut(L.pe || 0), g = light ? 1 : Math.min(gr, 1 - e);
       var rise = END_RISE ? ss((u - (n - 1) - RISE[0]) / (TAIL - RISE[0] - RISE[1])) * (L.gate || 0) : 0;
       if (!light) {
